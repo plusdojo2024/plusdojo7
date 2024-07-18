@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class GameController {
-	@GetMapping("/")
+	@GetMapping("/game")
 	public String index(Model model) {
 		model.addAttribute("message","こんにちは");
 		return "index";
