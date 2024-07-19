@@ -1,7 +1,10 @@
-//package com.tasukuru.repository;
-//
-//import org.springframework.data.jpa.repository.JpaRepository;
-//
-//public interface TaskRepository extends JpaRepository<T, ID> {
-//
-//}
+package com.tasukuru.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.tasukuru.entity.Task;
+
+public interface TaskRepository extends JpaRepository<Task, Integer> {
+	
+}
+
