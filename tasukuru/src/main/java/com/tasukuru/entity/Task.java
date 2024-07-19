@@ -1,7 +1,5 @@
 package com.tasukuru.entity;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,10 +22,10 @@ public class Task {
 	private Integer kids_id;
 	private String name;
 	private String content;
-	private LocalDateTime regtime;
+	/*private LocalDateTime regtime;*/
 	private String categories;
-	private LocalDateTime limit;
-	private LocalDateTime submitTime;
+	/*private LocalDateTime limit;
+	private LocalDateTime submitTime;*/
 	private String taskImage;
 	private String comment;
 	private Boolean review_one;
