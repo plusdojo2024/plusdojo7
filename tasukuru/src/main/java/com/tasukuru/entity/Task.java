@@ -24,7 +24,8 @@ public class Task {
 	private Integer kids_id;
 	private String name;
 	private String content;
-	private String categories;
+	private LocalDateTime regtime;
+	private String categories_name;
 	private LocalDateTime tasklimit;
 	private LocalDateTime submitTime;
 	private String taskImage;
