@@ -1,5 +1,10 @@
 package com.tasukuru.repository;
 
-public class ShopsRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.tasukuru.entity.Shop;
+
+
+public interface ShopsRepository extends JpaRepository<Shop, Integer> {
 
 }
