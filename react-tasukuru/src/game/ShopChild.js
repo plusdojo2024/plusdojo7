@@ -35,9 +35,26 @@ export default class ShopChild extends React.Component{
     render(){
          const{title} = this.state;
         return(
-        <div>
-            <h1>子ども用ショップ</h1>
+           
+        <div class="gold">
+            <h1>1000G</h1>
+            <button onClick={this.request}>商品リクエスト</button>
         </div>
+        
+
+    {/*商品リクエストモーダルの表示 */}
+        {RequestModal && (
+            <div id="overlay">
+                <div id="content">
+                    <button onClick={this.toggleModal}>閉じる</button>
+                    
+                    
+                    
+                    <button onClick={this.getDiceModal}>購入確定</button>
+                </div>
+                
+            </div>
+        )}
         );
     }
 }
