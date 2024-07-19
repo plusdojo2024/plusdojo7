@@ -7,8 +7,9 @@ import Game from './game/Game';
 import Mypage from './/game/GameMypage'; 
 import ShopChild from './/game/ShopChild';
 import ShopParent from './/game/ShopParent';
-
 import Diaries from './diaries/Diaries';
+import MoneyChild from './money/MoneyChild';
+import MoneyParent from './money/MoneyParent';
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
@@ -25,6 +26,8 @@ function App() {
             <Route path="/game/mypage" element={<Mypage></Mypage>}></Route>
             <Route path="/game/shopChild" element={<ShopChild></ShopChild>}></Route>
             <Route path="/game/shopParent" element={<ShopParent></ShopParent>}></Route>
+            <Route path="/money/child" element={<MoneyChild></MoneyChild>}></Route>
+            <Route path="/money/parent" element={<MoneyParent></MoneyParent>}></Route>
           </Routes>
         </BrowserRouter>
      
