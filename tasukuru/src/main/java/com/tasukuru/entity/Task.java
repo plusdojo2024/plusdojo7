@@ -27,8 +27,8 @@ public class Task {
 	private LocalDateTime regtime;
 	private String categories_name;
 	private LocalDateTime tasklimit;
-	private LocalDateTime submitTime;
-	private String taskImage;
+	private LocalDateTime submittime;
+	private String taskimage;
 	private String comment;
 	private Boolean review_one;
 	private Boolean review_two;
