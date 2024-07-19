@@ -6,3 +6,11 @@ INSERT INTO tasks (kids_id, name, content, regtime, categories_name, tasklimit, 
 
 INSERT INTO tasks (kids_id, name, content, regtime, categories_name, tasklimit, submittime, taskimage, comment, review_one, review_two, review_three, taskcheck, no_complete, complete, miss) VALUES 
 (103, '読書', '本を30分読む', '2024-07-19T11:00:00', '趣味', '2024-07-21T18:00:00', NULL, 'reading.png', '楽しんでね！', FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE);
+
+
+--日記情報
+INSERT INTO diaries (kids_id, title, content, reply, date, parent_check, child_check)
+VALUES 
+    (1, '学校の友達', '友達はとても優しいです。', 'そうですか。', '2024-06-01 10:00:00', true, true),
+    (2, '学校の先生', '担任の先生は怖いです。', 'そうですか。', '2024-06-01 10:00:00', true, true),
+    (1, '学校の勉強', '今日の数学は難しいです。', '頑張ってください。', '2024-06-01 10:00:00', true, true);
