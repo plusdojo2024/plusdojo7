@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Header.css';
 export default class Header extends React.Component{
     render(){
         return(
@@ -10,7 +10,7 @@ export default class Header extends React.Component{
                 <div className="header_name">ひろし</div>
                 {/* アイコン */}
                 <div className="header_icon">
-                    <img src="\Users\User\Downloads\character_yusha_01_red.png"></img>
+                    <img src="images\character_yusha_01_red.png" alt="アバター"></img>
                 </div>
             </div>
         );
