@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor													//全ての項目を引数として持つコンストラクタを自動定義する
 @NoArgsConstructor													//引数なしコンストラクタを自動定義する
 @Data																//getter、setter、toStringなどの基本的メソッドを自動定義する
-@Table(name="FamilyUser")												//マッピングされるテーブルを指定する
+@Table(name="familyUser")												//マッピングされるテーブルを指定する
 public class FamilyUser {
 	@Id																//ID列であることを示す
 	private String family_id;
