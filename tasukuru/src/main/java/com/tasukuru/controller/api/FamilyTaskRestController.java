@@ -23,4 +23,16 @@
 //		repository.save(task);
 //		return task;
 //	}
+//
+//	@PostMapping("/api/task/mod")
+//	private Task mod(@RequestBody Task task) {
+//		repository.save(task);
+//		return task;
+//	}
+//	
+//	@PostMapping("/api/task/del")
+//	private Task del(@RequestBody Task task) {
+//		repository.delete(task);
+//		return task;
+//	}
 //}
