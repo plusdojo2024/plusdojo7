@@ -6,4 +6,5 @@ import com.tasukuru.entity.Diary;
 
 public interface DiaryRepository extends JpaRepository<Diary, Integer> {
 
+	public void  deleteById(Integer id);
 }
