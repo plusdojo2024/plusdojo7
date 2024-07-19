@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import './ParentShop.css';
+import Header from '../foundation/Header.js';
+
 
 export default class ShopParent extends React.Component{
     
@@ -14,14 +16,8 @@ export default class ShopParent extends React.Component{
             name:"",
             price:"",
             condition:"",
-            showModal:false
-        }
-        this.state={
-            requests:[],
-            id:"",
-            kid_id:"",
-            name:"",
-            showModal:false
+            showModal:false,
+            keyword: ""
         }
 
 
@@ -38,14 +34,19 @@ export default class ShopParent extends React.Component{
     render(){
          const{title} = this.state;
         return(
-        <div class="shopName">
-            <h1>保護者用ショップ設定</h1>
+        
+        <div>
+            <Header />
+            <div class="shopName">
+                <h1>保護者用ショップ設定</h1>
+            </div>
         </div>
+
         );
+
+
+
+
+
         }
-
-
-
-
-
    }
