@@ -14,3 +14,7 @@ VALUES
     (1, '学校の友達', '友達はとても優しいです。', 'そうですか。', '2024-06-01 10:00:00', true, true),
     (2, '学校の先生', '担任の先生は怖いです。', 'そうですか。', '2024-06-01 10:00:00', true, true),
     (1, '学校の勉強', '今日の数学は難しいです。', '頑張ってください。', '2024-06-01 10:00:00', true, true);
+
+--お小遣い帳
+INSERT INTO allowances (id, kids_id, get_money, used_type, used_money, money_time) VALUES (1, 1, NULL, 'お菓子', 200, '2024-07-20T18:00:00');
+INSERT INTO allowances (id, kids_id, get_money, used_type, used_money, money_time) VALUES (2, 1, NULL, 'まんが',　500, '2024-07-21T18:00:00');
