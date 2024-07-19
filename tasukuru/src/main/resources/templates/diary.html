@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Diary</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Title</th>
+				<th scope="col">Content</th>
+				<th scope="col">Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="d : ${diary}">
+				<td th:text="${d.id}"></td>
+				<td th:text="${d.title}"></td>
+				<td th:text="${d.content}"></td>
+				<td th:text="${d.date}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
