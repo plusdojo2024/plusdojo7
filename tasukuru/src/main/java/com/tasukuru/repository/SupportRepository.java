@@ -1,7 +1,9 @@
-//package com.tasukuru.repository;
+package com.tasukuru.repository;
 
-//import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-//public interface SupportRepository extends JpaRepository<Suport, Integer> {
+import com.tasukuru.entity.Support;
 
-//}
+public interface SupportRepository extends JpaRepository<Support, Integer> {
+
+}
