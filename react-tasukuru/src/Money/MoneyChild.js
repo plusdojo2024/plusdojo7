@@ -1,8 +1,15 @@
 import React from "react";
 import axios from "axios";
+import MoneySupport from "./MoneySupport";
 
-export default class MoneyChild extends React.Component{
-    render(){
-        return <div>MoneyChild</div>
-    };
+
+function MoneyChild(){
+    return(
+        <div>
+            <MoneySupport/>
+        </div>
+    );
 }
+    
+    
+export default MoneyChild;
