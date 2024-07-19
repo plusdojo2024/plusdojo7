@@ -1,5 +1,7 @@
 package com.tasukuru.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,19 +11,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name="enemies")
-
-public class Enemie {
-
+@Table(name="diaries")
+public class Diary {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private Integer hp;
-	private Integer drop;
-	private String name;
-	private String image;
+	private Integer kids_id;
+	private String title;
+	private String content;
+	private String reply;
+	private Date date;
+	private boolean parentCheck;
+	private boolean childCheck;
+	
+	
 }
