@@ -1,10 +1,10 @@
 import React from 'react';
-
-export default class Header extends React.Component{
+import './LoginHeader.css';
+export default class LoginHeader extends React.Component{
     render(){
         return(
             <div className="header">
-              <img src="./images/tasukuru.png" className="tasukuruLogo" alt="logo" />
+              <img src="./images/tasukuru.png" className="App-logo" alt="logo" />
             </div>
         );
     }
