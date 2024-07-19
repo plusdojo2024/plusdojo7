@@ -15,8 +15,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 function App() {
   return (
     <div className="App">
-      
-        <Header />
+
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login></Login>}></Route>
@@ -28,7 +27,6 @@ function App() {
             <Route path="/game/shopParent" element={<ShopParent></ShopParent>}></Route>
           </Routes>
         </BrowserRouter>
-        <Footer />
      
     </div>
   );
