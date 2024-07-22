@@ -53,19 +53,20 @@ export default class ShopChild extends React.Component{
             <Header />
             <div className ="background_image_renga">
         
-            <h1>1000G</h1>
-            <Tabs>
-                <TabList>
+            <h1 class ="gold">1000G</h1>
+            
+            <Tabs id ="ShopChildTab">
+                <TabList id ="ShopChildTabList">
                     <Tab>販売中</Tab>
                     <Tab>購入済み</Tab>
                 </TabList>
 
             <TabPanel>
-                <h2>商品１</h2>
-                <h2>商品２</h2>
-                <h2>商品３</h2>
-                <h2>商品４</h2>
-                <h2>商品５</h2>
+            <h2>商品１</h2>
+            <h2>商品２</h2>
+            <h2>商品３</h2>
+            <h2>商品４</h2>
+            <h2>商品５</h2>
             </TabPanel>
             <TabPanel>
                 <h2>購入済み商品１</h2>
@@ -75,8 +76,10 @@ export default class ShopChild extends React.Component{
                 <h2>購入済み商品５</h2>
             </TabPanel>
             </Tabs>
-
-            <button onClick={() =>this.Request()}>商品リクエスト</button>
+            
+            
+            <button id ="request_button" onClick={() =>this.Request()}>商品リクエスト</button>
+            
         
         
         {RequestModal &&
@@ -93,7 +96,7 @@ export default class ShopChild extends React.Component{
 
 
 
-</div>
+            </div>
 
         <Footer />
         </div>
