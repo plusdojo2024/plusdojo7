@@ -12,6 +12,7 @@ export default class Header extends React.Component{
                 <div className="header_icon">
                     <img src="images\character_yusha_01_red.png" alt="アバター"></img>
                 </div>
+                <hr></hr>
             </div>
         );
     }
