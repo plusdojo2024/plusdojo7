@@ -1,4 +1,4 @@
-.loginMain_body {
+.loginKids_body {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,4 +23,3 @@
 .loginMain_button {
   cursor: pointer; /* ボタンにポインターを表示 */
 }
-
