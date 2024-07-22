@@ -35,3 +35,17 @@
     padding-left: 5em;
     opacity: 1;
 }
+
+.bookListBody{
+    padding: 0;
+}
+.bookrow {
+    padding: 0;
+    position: relative;
+}
+.bookrow td{
+    color: #2d8fdd;
+    background: #f1f8ff;
+    line-height: 1.5;
+    padding: 0.5em;
+}
