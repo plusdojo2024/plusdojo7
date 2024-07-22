@@ -77,9 +77,9 @@ export default class ShopChild extends React.Component{
             </TabPanel>
             </Tabs>
             
-            
-            <button id ="request_button" onClick={() =>this.Request()}>商品リクエスト</button>
-            
+            <div className="request_button">
+                <button id ="request_button" onClick={() =>this.Request()}>商品リクエスト</button>
+            </div>
         
         
         {RequestModal &&
