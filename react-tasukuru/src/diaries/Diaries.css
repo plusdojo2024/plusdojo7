@@ -2,17 +2,36 @@
     text-align: center;
 }
 
-#Diaries_body{
-    background: #E6E6E6;
+.background_image_renga_diaries{
+    background-image:url(/public/images/maptile.png);
+    background-repeat: repeat;
+    background-size:20%;
+    width:100%;
+    height:90vh;
+}
+
+.Diaries_background{
+    background-color: #FFE6CC;
     position:fixed;
-    height: 100%;
-    width: 100%;
+    height: 70%;
+    width: 96%;
+    top: 15%;
+    left: 1.8%;
     text-align: center;
     align-items: center;
     justify-content: center;
-    
-    
+}
 
+#Diaries_body{
+    background: #E6E6E6;
+    position:fixed;
+    height: 66%;
+    width: 90%;
+    top: 17%;
+    left: 4.5%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 #Diaries_overlay{
     position:fixed;
