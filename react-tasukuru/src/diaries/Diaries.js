@@ -1,5 +1,7 @@
 import React from "react";
 import './Diaries.css';
+import Header from "../foundation/Header";
+import Footer from "../foundation/Footer";
 
 export default class Diaries extends React.Component {
     constructor(props) {
@@ -20,15 +22,12 @@ export default class Diaries extends React.Component {
     }
 
     LookDiarie(index) {
-        // Add logic for LookDiarie if needed
         this.toggleModal();
     }
     LookedDiarie(index) {
-        // Add logic for LookDiarie if needed
         this.toggleModal();
     }
     GetDice(index) {
-        // Add logic for LookDiarie if needed
         this.diceToggleModal();
     }
 
@@ -52,28 +51,29 @@ export default class Diaries extends React.Component {
         const { LookDiarieModal, LookedDiarieModal, GetDiceModal } = this.state;
         return (
             <div >
+                <Header />
                 {/*日記リストの表示*/}
-                <div id="body">
+                <div id="Diaries_body">
+                    
                     <h1>日記</h1>
-                    <table id="">
+                    {/* <table >
                         <thead>
-                            <tr className="diarieBody">
+                            <tr>
                                 <th>ひづけ</th>
                                 <th>たいとる</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {/* Add rows here as needed */}
-                        </tbody>
-                    </table>
-                    <button onClick={() => this.LookDiarie()}>日記を見る</button>
-                    <button onClick={() => this.LookedDiarie()}>すでに見た日記を見る</button>
+                        
+                    </table> */}
+                    <button onClick={() => this.LookDiarie()}>未読日記です</button><br />
+                    <button onClick={() => this.LookedDiarie()}>既読日記です</button><br />
+                    <button onClick={() => this.LookedDiarie()}>既読日記です</button><br />
                 </div>
                 
                 {/*サイコロをもらう日記*/}
                 {LookDiarieModal && (
-                    <div id="overlay">
-                        <div id="content">
+                    <div id="Diaries_overlay">
+                        <div id="Diaries_content">
                             <button onClick={this.toggleModal}>閉じる</button><br />
                             ここに日付<br />
                             title<br />
@@ -86,8 +86,8 @@ export default class Diaries extends React.Component {
 
                 {/*すでに見た日記*/}
                 {LookedDiarieModal && (
-                    <div id="overlay">
-                        <div id="content">
+                    <div id="Diaries_overlay">
+                        <div id="Diaries_content">
                             <button onClick={this.toggleModal}>閉じる</button><br />
                             ここに日付<br />
                             title<br />
@@ -99,14 +99,14 @@ export default class Diaries extends React.Component {
                 )}
                 {/*サイコロ入手*/}
                 {GetDiceModal && (
-                    <div id="overlay">
-                        <div id="content">
+                    <div id="Diaries_overlay">
+                        <div id="Diaries_content">
                             サイコロを手にいれました！<br />
                             <button onClick={this.diceToggleModal}>閉じる</button><br />
                         </div>
                     </div>
                 )}
-                    
+            <Footer />
             </div>
         );
     }

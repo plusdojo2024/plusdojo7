@@ -22,7 +22,7 @@ public class Diary {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private Integer kids_id;
+	private Integer kidsId;
 	private String title;
 	private String content;
 	private String reply;

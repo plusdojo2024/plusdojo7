@@ -20,7 +20,7 @@ public class KidTaskController {
 	public String index(Model model) {
 		Iterable<Task>tasks = repository.findAll();
 		model.addAttribute("tasks", tasks);
-		return "index";
+		return "task";
 	}
 	
 	//タスク追加
@@ -38,6 +38,6 @@ public class KidTaskController {
 	public String sortTasks(Model model) {
 		Iterable<Task> tasks = repository.findAllByOrderByRegtimeAscTasklimitAsc();
 		model.addAttribute("tasks", tasks);
-		return "index";
+		return "task";
 	}
 }

@@ -1,11 +1,20 @@
-#body{
-    background: #a7a7a7;
-    min-height: 100vh;
-    min-width: 100vh;
+.Diaries_text{
     text-align: center;
+}
+
+#Diaries_body{
+    background: #E6E6E6;
+    position:fixed;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    
+    
 
 }
-#overlay{
+#Diaries_overlay{
     position:fixed;
     top:0;
     left:0;
@@ -16,12 +25,13 @@
     align-items: center;
     justify-content: center;
 }
-#content{
+#Diaries_content{
     color:#000;
     z-index:2;
     width:50%;
     padding: 1em;
-    background:#fff;
+    background: #E6E6E6;
     text-align: left;
     padding-left: 5em;
+    opacity: 1;
 }
