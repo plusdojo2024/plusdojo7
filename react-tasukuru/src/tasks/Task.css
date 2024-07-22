@@ -1,3 +1,5 @@
+
+
 main{
     position:relative;
 }
@@ -13,4 +15,9 @@ main{
     width:70%;
     background-color:#F5F5F5;
     border:10px solid #FFE6CC;
+}
+
+.TabList{
+    list-style:none;
+    font-family:"Mochiy Pop One", sans-serif;
 }
