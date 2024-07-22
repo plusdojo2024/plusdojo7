@@ -2,6 +2,8 @@ import './App.css';
 import Header from './foundation/Header';
 import Footer from './foundation/Footer';
 import Login from './login/Login';
+import LoginMain from './login/LoginMain';
+import Start from './start/Start';
 import Task from './tasks/Task';
 import Game from './game/Game';
 import Mypage from './/game/GameMypage'; 
@@ -12,6 +14,7 @@ import MoneyChild from './money/MoneyChild';
 import MoneyParent from './money/MoneyParent';
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import DiariesList from './diaries/DiariesList';
 
 function App() {
   return (
@@ -20,9 +23,12 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login></Login>}></Route>
+            <Route path="/loginmain" element={<LoginMain></LoginMain>}></Route>
+            <Route path="/start" element={<Start></Start>}></Route>
             <Route path="/task" element={<Task></Task>}></Route>
             <Route path="/game" element={<Game></Game>}></Route>
             <Route path="/diaries" element={<Diaries></Diaries>}></Route>
+            <Route path="/diariesList" element={<DiariesList></DiariesList>}></Route>
             <Route path="/game/mypage" element={<Mypage></Mypage>}></Route>
             <Route path="/game/shopChild" element={<ShopChild></ShopChild>}></Route>
             <Route path="/game/shopParent" element={<ShopParent></ShopParent>}></Route>
