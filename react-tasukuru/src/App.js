@@ -12,6 +12,7 @@ import MoneyChild from './money/MoneyChild';
 import MoneyParent from './money/MoneyParent';
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import DiariesList from './diaries/DiariesList';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/task" element={<Task></Task>}></Route>
             <Route path="/game" element={<Game></Game>}></Route>
             <Route path="/diaries" element={<Diaries></Diaries>}></Route>
+            <Route path="/diariesList" element={<DiariesList></DiariesList>}></Route>
             <Route path="/game/mypage" element={<Mypage></Mypage>}></Route>
             <Route path="/game/shopChild" element={<ShopChild></ShopChild>}></Route>
             <Route path="/game/shopParent" element={<ShopParent></ShopParent>}></Route>
