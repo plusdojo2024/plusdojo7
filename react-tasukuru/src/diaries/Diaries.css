@@ -1,11 +1,13 @@
-#body{
+#Diaries_body{
     background: #a7a7a7;
-    min-height: 100vh;
+    min-height: 0;
     min-width: 100vh;
     text-align: center;
+    
+    
 
 }
-#overlay{
+#Diaries_overlay{
     position:fixed;
     top:0;
     left:0;
@@ -16,7 +18,7 @@
     align-items: center;
     justify-content: center;
 }
-#content{
+#Diaries_content{
     color:#000;
     z-index:2;
     width:50%;
