@@ -2,83 +2,89 @@ import React from "react";
 import axios from "axios";
 
 export default class MoneyRegist extends React.Component {
+ 
     state = {
         date: "",
         item: "",
         amount: ""
     };
 
-    handleDateChange = (e) => {
-        this.setState({ date: e.target.value });
-    };
+    onInput = (e) => {
+        //コントロールの名前を取得する
+        const name= e.target.name;
 
-    handleItemChange = (e) => {
-        this.setState({ item: e.target.value });
-    };
+        //コントロールに入力した値をstateに更新する。
+        this.setState({
+            [name]: e.target.value
+        });
+    }    
 
-    handleAmountChange = (e) => {
-        this.setState({ amount: e.target.value });
-    };
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-
+    registMoney = () => {
+        //利用するstateの値を宣言
         const { date, item, amount } = this.state;
 
-        axios
-            .post("/api/money/regist", {
-                date,
-                item,
-                amount
-            })
-            .then((response) => {
-                console.log("Data saved successfully");
-                // Assuming you have props passed down for addMoney and closeModal
-                this.props.addMoney(parseInt(amount));
-                this.props.closeModal();
-            })
-            .catch((error) => {
-                console.error("Error saving data: ", error);
+        //stateの値を利用してpostデータを作成
+        const data = {
+           money_time : date,
+           used_type : item,
+           used_money : amount
+        };
+        //const data = {};
+        
+        //axiosだとpostが記述しやすい
+        axios.post("/api/money/regist", data)
+        .then(json => {
+            console.log(json);
+
+            this.setState({
+               date:"",
+               item:"",
+               amount:""
             });
-    };
+        });
+    }    
+ 
 
     render() {
         const { date, item, amount } = this.state;
 
         return (
-            <div className="modal">
-                <div className="modal-content">
+            <div className="money_overlay">
+                <div className="money-content">
                     <span className="close" onClick={this.props.closeModal}>
                         &times;
                     </span>
                     <h2>つかったお金をきろくする</h2>
-                    <form onSubmit={this.handleSubmit}>
+                    
                         <label>日にち:</label>
                         <input
                             type="text"
-                            value={date}
-                            onChange={this.handleDateChange}
-                            required
+                            name="date"
+                            value={this.state.date}
+                            onChange={this.onInput}
+
                         />
                         <br />
                         <label>買ったもの:</label>
                         <input
                             type="text"
+                            name="item"
                             value={item}
-                            onChange={this.handleItemChange}
-                            required
+                            onChange={this.onInput}
+                            
                         />
                         <br />
                         <label>金額:</label>
                         <input
                             type="number"
+                            name="amount"
                             value={amount}
-                            onChange={this.handleAmountChange}
-                            required
+                            onChange={this.onInput}
+
                         />
                         <br />
-                        <button type="submit">登録する</button>
-                    </form>
+                        <button onclick={this.registMoney}> 登録する</button>
                 </div>
             </div>
         );
