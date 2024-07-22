@@ -37,3 +37,11 @@
   }
 }
 */
+
+.background_image_renga{
+  background-image:url(/public/images/maptile.png);
+  background-repeat: repeat;
+  background-size:20%;
+  width:100%;
+  height:70vh;
+}

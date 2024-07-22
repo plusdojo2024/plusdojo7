@@ -1,0 +1,16 @@
+main{
+    position:relative;
+}
+
+
+
+.background{
+    position:absolute;
+    top:2vh;
+    left:50%;
+    transform:translateX(-50%);
+    height:60vh;
+    width:70%;
+    background-color:#F5F5F5;
+    border:10px solid #FFE6CC;
+}

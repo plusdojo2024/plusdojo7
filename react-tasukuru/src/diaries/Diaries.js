@@ -7,48 +7,59 @@ export default class Diaries extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            LookDiarieModal: false,
+            UnreadDiarieModal: false,
             LookedDiarieModal: false,
-            getDiceModal: false,
-            diceToggleModal: false
+            GetDiceModal: false,
         };
 
-        this.LookDiarie = this.LookDiarie.bind(this);
+        this.UnreadDiarie = this.UnreadDiarie.bind(this);
         this.LookedDiarie = this.LookedDiarie.bind(this);
         this.GetDice = this.GetDice.bind(this);
-        this.toggleModal = this.toggleModal.bind(this);
-        this.diceToggleModal = this.diceToggleModal.bind(this);
+        this.toggleUnreadModal = this.toggleUnreadModal.bind(this);
+        this.toggleLookedModal = this.toggleLookedModal.bind(this);
+        this.toggleDiceModal = this.toggleDiceModal.bind(this);
 
     }
 
-    LookDiarie(index) {
-        this.toggleModal();
+    //未読日記処理
+    UnreadDiarie(index) {
+        this.toggleUnreadModal();
     }
+    //既読日記処理
     LookedDiarie(index) {
-        this.toggleModal();
+        this.toggleLookedModal();
     }
+    //サイコロ入手処理
     GetDice(index) {
-        this.diceToggleModal();
+        this.toggleDiceModal();
     }
 
-    toggleModal() {
-        const { LookDiarieModal, LookedDiarieModal, } = this.state;
+    //未読モーダルウィンドウ表示切り替え
+    toggleUnreadModal() {
+        const { UnreadDiarieModal } = this.state;
         this.setState({
-            LookDiarieModal: !LookDiarieModal,
-            LookedDiarieModal: !LookedDiarieModal,
-
+            UnreadDiarieModal: !UnreadDiarieModal,
         });
     }
 
-    diceToggleModal() {
-        const { getDiceModal } = this.state;
+    //既読モーダルウィンドウ表示切り替え
+    toggleLookedModal() {
+        const { LookedDiarieModal } = this.state;
         this.setState({
-            GetDiceModal: !getDiceModal
+            LookedDiarieModal: !LookedDiarieModal,
+        });
+    }
+
+    //サイコロ入手表示切り替え
+    toggleDiceModal() {
+        const { GetDiceModal } = this.state;
+        this.setState({
+            GetDiceModal: !GetDiceModal,
         });
     }
 
     render() {
-        const { LookDiarieModal, LookedDiarieModal, GetDiceModal } = this.state;
+        const { UnreadDiarieModal, LookedDiarieModal, GetDiceModal } = this.state;
         return (
             <div >
                 <Header />
@@ -65,44 +76,44 @@ export default class Diaries extends React.Component {
                         </thead>
                         
                     </table> */}
-                    <button onClick={() => this.LookDiarie()}>未読日記です</button><br />
+                    <button onClick={() => this.UnreadDiarie()}>未読日記です</button><br />
                     <button onClick={() => this.LookedDiarie()}>既読日記です</button><br />
                     <button onClick={() => this.LookedDiarie()}>既読日記です</button><br />
                 </div>
                 
-                {/*サイコロをもらう日記*/}
-                {LookDiarieModal && (
+                {/*未読日記モーダル*/}
+                {UnreadDiarieModal && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
-                            <button onClick={this.toggleModal}>閉じる</button><br />
+                            <button onClick={this.toggleUnreadModal}>とじる</button><br />
                             ここに日付<br />
                             title<br />
                             reply<br />
-                            <button onClick={this.getDiceModal}>サイコロをもらう</button>
+                            <button onClick={this.toggleDiceModal}>サイコロをもらう</button>
                         </div>
                         
                     </div>
                 )}
 
-                {/*すでに見た日記*/}
+                {/*既読日記モーダル*/}
                 {LookedDiarieModal && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
-                            <button onClick={this.toggleModal}>閉じる</button><br />
+                            <button onClick={this.toggleLookedModal}>とじる</button><br />
                             ここに日付<br />
                             title<br />
                             reply<br />
-                            <button onClick={this.toggleModal}>サイコロをもらう</button>
                         </div>
                         
                     </div>
                 )}
-                {/*サイコロ入手*/}
+
+                {/*サイコロ入手モーダル*/}
                 {GetDiceModal && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
-                            サイコロを手にいれました！<br />
-                            <button onClick={this.diceToggleModal}>閉じる</button><br />
+                            サイコロを手にいれたよ！<br />
+                            <button onClick={() => { this.toggleDiceModal(); this.toggleUnreadModal(); }}>とじる</button><br />
                         </div>
                     </div>
                 )}
