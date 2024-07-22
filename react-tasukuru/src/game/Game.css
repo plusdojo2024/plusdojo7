@@ -1,0 +1,78 @@
+/* ---------ここからゲームヘッダ------------ */
+/*ゲームヘッダー全体*/
+.game_header{
+    position:static;
+    height:15vh;
+    background-color:#F9F7ED ;
+}
+
+/* ゲームヘッダーショップ遷移画像 */
+.game_header_shop img{
+    position:absolute;
+    height:8vh;
+    width:17vh;
+    top:4%;
+    left:5%;
+    font-size:16px;
+    border-radius: 20px;
+}
+
+/* ユーザーネーム */
+.game_header_name{
+    position:absolute;
+    top:5vh;
+    transform:translateY(-50%);
+    left:50%;
+    transform:translateX(-50%);
+    font-size:30px;
+}
+
+/*スキン画像*/
+.game_header_icon{
+    position:absolute;
+    right:5%;
+    top:2vh;
+    height:12vh;
+    width:12vh;
+    line-height: 400px;
+}
+
+/*ゲームヘッダー画像*/
+.game_header img{
+    position:absolute;
+    top:1%;
+    right:1.5%;
+    height:12vh;
+    width:12vh;
+}
+
+/* ---------ここまでゲームヘッダ------------ */
+
+/* ---------ここからゲーム戦闘画面------------ */
+/*敵キャラ画像*/
+.game_enemies_icon {
+    text-align: center;
+    margin-top: 150px;
+}
+
+/*敵キャラ画像大きさ等*/
+.game_enemies_icon img {
+    height: 140px;
+}
+/* ---------ここまでゲーム戦闘画面------------ */
+
+/* ---------ここからサイコロ関連画面------------ */
+
+/*サイコロプルダウン*/
+.game_dice_content{
+    text-align: center;
+}
+
+/*サイコロプルダウン場所等*/
+.game_dice {
+    width:120px;
+    height: 30px;
+    margin-top: 30px;
+    margin-right: 30px;
+}
+/* ---------ここまでサイコロ関連画面------------ */
