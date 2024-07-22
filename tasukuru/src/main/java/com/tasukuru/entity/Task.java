@@ -24,17 +24,17 @@ public class Task {
 	private Integer kids_id;
 	private String name;
 	private String content;
-	private LocalDateTime regtime;
+	private LocalDateTime regTime;
 	private String categories_name;
-	private LocalDateTime tasklimit;
-	private LocalDateTime submittime;
-	private String taskimage;
+	private LocalDateTime taskLimit;
+	private LocalDateTime submitTime;
+	private String taskImage;
 	private String comment;
-	private Boolean review_one;
-	private Boolean review_two;
-	private Boolean review_three;
-	private Boolean taskcheck;
-	private Boolean no_complete;
+	private Boolean reviewOne;
+	private Boolean reviewTwo;
+	private Boolean reviewThree;
+	private Boolean taskCheck;
+	private Boolean noComplete;
 	private Boolean complete;
 	private Boolean miss;
 }

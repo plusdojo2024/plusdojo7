@@ -14,26 +14,54 @@ public class KidTaskRestController {
 	@Autowired
 	private TaskRepository repository;
 	
+	//タスク表示
 	@GetMapping("/api/task/")
 	private Iterable<Task> get(){
 		return repository.findAll();
 	}
 	
+	//タスク追加
 	@PostMapping("/api/task/add/")
 	private Task addTask(@RequestBody Task task){
 		repository.save(task);
 		return task;
 	}
 	
-	@PostMapping("/api/task/mod")
-	private Task mod(@RequestBody Task task) {
+	//タスク更新
+	@PostMapping("/api/task/mod/")
+	private Task modTask(@RequestBody Task task) {
 		repository.save(task);
 		return task;
 	}
 	
-	@PostMapping("/api/task/del")
-	private Task del(@RequestBody Task task) {
+	//タスク削除
+	@PostMapping("/api/task/del/")
+	private Task delTask(@RequestBody Task task) {
 		repository.delete(task);
+		return task;
+	}
+	
+	//タスク提出
+	@PostMapping("/api/task/submit/")
+	private Task submitTask(@RequestBody Task task) {
+		return task;
+	}
+	
+	//タスク再登録
+	@PostMapping("/api/task/regist/")
+	private Task registTask(@RequestBody Task task) {
+		return task;
+	}
+	
+	//タスクソート
+	@PostMapping("/api/task/sort")
+	private Task sortTask(@RequestBody Task task) {
+		return task;
+	}
+	
+	//タスク絞り込み
+	@PostMapping("/api/task/filter")
+	private Task filterTask(@RequestBody Task task) {
 		return task;
 	}
 }
