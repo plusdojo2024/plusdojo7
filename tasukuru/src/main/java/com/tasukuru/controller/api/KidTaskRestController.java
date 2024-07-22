@@ -1,5 +1,7 @@
 package com.tasukuru.controller.api;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,22 +46,26 @@ public class KidTaskRestController {
 	//タスク提出
 	@PostMapping("/api/task/submit/")
 	private Task submitTask(@RequestBody Task task) {
+		task.setSubmitTime(LocalDateTime.now());	//提出時間を設定
+		task.setTaskCheck(true);	//タスクを提出済みにする
+		repository.save(task);
 		return task;
 	}
 	
-	//タスク再登録
+	//タスク再登録*要編集
 	@PostMapping("/api/task/regist/")
 	private Task registTask(@RequestBody Task task) {
+		
 		return task;
 	}
 	
-	//タスクソート
+	//タスクソート*要編集
 	@PostMapping("/api/task/sort")
 	private Task sortTask(@RequestBody Task task) {
 		return task;
 	}
 	
-	//タスク絞り込み
+	//タスク絞り込み*要編集
 	@PostMapping("/api/task/filter")
 	private Task filterTask(@RequestBody Task task) {
 		return task;
