@@ -21,11 +21,11 @@ public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Integer kids_id;
+	private Integer kidsId;
 	private String name;
 	private String content;
 	private LocalDateTime regTime;
-	private String categories_name;
+	private String categoriesName;
 	private LocalDateTime taskLimit;
 	private LocalDateTime submitTime;
 	private String taskImage;
