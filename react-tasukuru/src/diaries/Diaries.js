@@ -98,7 +98,7 @@ export default class Diaries extends React.Component {
                 {UnreadDiarieModal && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
-                            <button onClick={this.toggleUnreadModal}>とじる</button><br />
+                            <button className="close_button" onClick={this.toggleUnreadModal}>とじる</button><br />
                             ここに日付<br />
                             title<br />
                             reply<br />
@@ -129,7 +129,7 @@ export default class Diaries extends React.Component {
                             <button onClick={() => { this.toggleDiceModal(); this.toggleUnreadModal(); }}>とじる</button><br />
                         </div>
                     </div>
-                )} *
+                )} 
 
                 {/* 保護者用日記モーダル*/}
                 {GuardianUnreadDiarieModal && (
@@ -140,9 +140,8 @@ export default class Diaries extends React.Component {
                             title<br />
                             返信<br />
                             <input type="text" className="Diaries_input" placeholder="返信内容"></input><br /><br />
-                            <button onClick={this.toggleGuardianUnreadDiarieModal}>既読にする</button>
+                            <button className="Diaries_read_button" onClick={this.toggleGuardianUnreadDiarieModal}>既読にする</button>
                         </div>
-                        
                     </div>
                 )} 
 

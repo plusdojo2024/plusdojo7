@@ -1,11 +1,31 @@
+/*--------------------------------------
+テキスト設定                                    めも。フォントを変える
+--------------------------------------*/
 .Diaries_text{
     text-align: center;
 }
-
+/*--------------------------------------
+日記入力欄
+--------------------------------------*/
 .Diaries_input{
     line-height: 5;
 }
-
+/*--------------------------------------
+既読ボタン
+--------------------------------------*/
+.Diaries_read_button{
+    background-color: #FAD9D5;
+    border-color: #AE4132;
+}
+/*--------------------------------------
+閉じるボタン
+--------------------------------------*/
+.Diaries_close_button{
+    background-image: url(/public/images/close_button.png);
+}
+/*--------------------------------------
+レンガ背景日記用修正済み
+--------------------------------------*/
 .background_image_renga_diaries{
     background-image:url(/public/images/maptile.png);
     background-repeat: repeat;
@@ -13,7 +33,9 @@
     width:100%;
     height:90vh;
 }
-
+/*--------------------------------------
+背景
+--------------------------------------*/
 .Diaries_background{
     background-color: #FFE6CC;
     position:fixed;
@@ -26,6 +48,9 @@
     justify-content: center;
 }
 
+/*--------------------------------------
+モーダルウィンドウ関係
+--------------------------------------*/
 #Diaries_body{
     background: #E6E6E6;
     position:fixed;
