@@ -8,8 +8,4 @@
 .App-logo {
   max-width: 100%; /* 必要に応じて画像の最大幅を設定 */
   max-height: 100%; /* 必要に応じて画像の最大高さを設定 */
-  display: flex;
-  justify-content: center; /* 横方向（水平方向）の中央揃え */
-  align-items: center; /* 縦方向（垂直方向）の中央揃え */
-  height: 100px; /* 必要に応じて適切な高さを設定 */
 }

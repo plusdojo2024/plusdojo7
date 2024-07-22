@@ -18,3 +18,8 @@ VALUES
 --お小遣い帳
 INSERT INTO allowances (id, kids_id, get_money, used_type, used_money, money_time) VALUES (1, 1, NULL, 'お菓子', 200, '2024-07-20T18:00:00');
 INSERT INTO allowances (id, kids_id, get_money, used_type, used_money, money_time) VALUES (2, 1, NULL, 'まんが',　500, '2024-07-21T18:00:00');
+
+--保護者情報
+INSERT INTO family_user (family_id, mail, pass) VALUES ('YAMADA','yamada@example.com','1234');
+INSERT INTO family_user (family_id, mail, pass) VALUES ('OOTA','oota@example.com','1234');
+INSERT INTO family_user (family_id, mail, pass) VALUES ('IKEDA','ikeda@example.com','1234');
