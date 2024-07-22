@@ -48,12 +48,15 @@ export default class Diaries extends React.Component {
     render() {
         const { LookDiarieModal, LookedDiarieModal, GetDiceModal } = this.state;
         return (
-            <div className="header">
+            <div >
                 {/*日記リストの表示*/}
-                
+                <div className="header">
+                    <script src="../foundation/Header.js"></script>
+                </div>
                 <div id="Diaries_body">
+                    
                     <h1>日記</h1>
-                    <table id="">
+                    <table className="Diaries_text">
                         <thead>
                             <tr>
                                 <th>ひづけ</th>
@@ -102,7 +105,7 @@ export default class Diaries extends React.Component {
                         </div>
                     </div>
                 )}
-                    
+            <div className="footer"></div>
             </div>
         );
     }
