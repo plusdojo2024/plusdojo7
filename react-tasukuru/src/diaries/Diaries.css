@@ -1,8 +1,16 @@
+.Diaries_text{
+    text-align: center;
+}
+
 #Diaries_body{
     background: #a7a7a7;
-    min-height: 0;
-    min-width: 100vh;
+    /* background: #666666; */
+    position:fixed;
+    height: 100%;
+    width: 100%;
     text-align: center;
+    align-items: center;
+    justify-content: center;
     
     
 
@@ -23,7 +31,8 @@
     z-index:2;
     width:50%;
     padding: 1em;
-    background:#fff;
+    background: #666666;
     text-align: left;
     padding-left: 5em;
+    opacity: 1;
 }
