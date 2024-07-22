@@ -3,11 +3,12 @@ package com.tasukuru.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 @Controller
 public class FamilyTaskController {
 	@GetMapping("/family")
 	public String index(Model model) {
-		model.addAttribute("message", "こんにちは！");
+		model.addAttribute("message", "こんにちはfamily！");
 		return "index";
 	}
 }

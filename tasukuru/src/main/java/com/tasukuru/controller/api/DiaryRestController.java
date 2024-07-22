@@ -22,19 +22,19 @@ public class DiaryRestController {
 		return repository.findAll();
 	}
 	
-	@GetMapping("/api/diary/add/")
+	@GetMapping("/api/diary/diaryAdd/")
 	private Diary addDiary(@RequestBody Diary diary) {
 		repository.save(diary);
 		return diary;
 	}
 
-	@PostMapping("/api/diary/mod/")
+	@PostMapping("/api/diary/diaryMod/")
 	private Diary modDiary(@RequestBody Diary diary) {
 		repository.save(diary);
 		return diary;
 	}
 	
-	@PostMapping("/api/diary/del/")
+	@PostMapping("/api/diary/diaryDel/")
 	private void delDiary(@RequestBody Integer id) {
 		System.out.println(id.toString());
 		
