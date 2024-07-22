@@ -1,0 +1,10 @@
+POST http://localhost:8080/api/money/regist HTTP/1.1
+content-type: application/json
+
+{
+    "kids_id":"1",
+    "used_type":"お菓子",
+    "used_money":"200",
+    "money_time":"7月22日"
+
+}
