@@ -1,9 +1,9 @@
 import React from "react";
 import LoginHeader from '../foundation/LoginHeader.js';
 import LoginFooter from "../foundation/LoginFooter.js";
-import './LoginMain.css';
+import './LoginFamily.css';
 
-export default class LoginMain extends React.Component {
+export default class LoginFamily extends React.Component {
     render() {
         return (
             <div>
@@ -11,7 +11,7 @@ export default class LoginMain extends React.Component {
                     <LoginHeader />
                 </div>
                 <div className="background_image_renga">
-                    <div className="loginMain_body">
+                    <div className="loginFamily_body">
                         <input type="text" placeholder="家族ID" className="textbox" /><br />
                         <input type="text" placeholder="パスワード" className="textbox" /><br />
                         <button className="loginMain_button">ログイン</button><br />

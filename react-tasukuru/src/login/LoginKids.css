@@ -1,4 +1,4 @@
-.loginMain_body {
+.loginKids_body {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,13 +7,16 @@
 }
 
 .textbox {
+  background-color: #ffe6cc;
   margin-bottom: 10px;
   padding: 12px; /* テキストボックスとボタンの内側の余白 */
   width: 250px; /* テキストボックスとボタンの幅 */
   font-size: 16px; /* テキストサイズ */
+  text-align: center;
 }
 
 .loginMain_button {
+  background-color: #dae8fc;
   margin-bottom: 10px;
   padding: 12px; /* テキストボックスとボタンの内側の余白 */
   width: 275px; /* テキストボックスとボタンの幅 */
@@ -23,4 +26,3 @@
 .loginMain_button {
   cursor: pointer; /* ボタンにポインターを表示 */
 }
-

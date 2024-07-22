@@ -1,30 +1,30 @@
 .login_body {
-  text-align: center;
+  text-align: center; /* ä¸­å¤®æƒãˆã«è¨­å®š */
 }
 
 .loginF_button {
-  color: #000;
-  background-color: #fff100;
-  border: none;
-  border-bottom: 5px solid #ccc100;
-  margin-top: 100px;
-  width: 200px; /* •‚ğ200px‚Éİ’è */
-  height: 50px; /* ‚‚³‚ğ50px‚Éİ’è */
-  font-size: 18px; /* ƒtƒHƒ“ƒgƒTƒCƒY‚ğ18px‚Éİ’è */
-  padding: 10px 20px; /* ã‰º‚É10pxA¶‰E‚É20px‚Ì—]”’‚ğİ’è */
+  color: #000; /* ãƒ†ã‚­ã‚¹ãƒˆã®è‰²ã‚’é»’ã«è¨­å®š */
+  background-color: #fff100; /* èƒŒæ™¯è‰²ã‚’é»„è‰²ã«è¨­å®š */
+  border: none; /* ãƒœãƒ¼ãƒ€ãƒ¼ã‚’ç„¡åŠ¹åŒ– */
+  border-bottom: 5px solid #ccc100; /* ä¸‹éƒ¨ã®ãƒœãƒ¼ãƒ€ãƒ¼ã‚’è¨­å®š */
+  margin-top: 100px; /* ä¸Šéƒ¨ã®ãƒãƒ¼ã‚¸ãƒ³ã‚’è¨­å®š */
+  width: 250px; /* å¹…ã‚’250pxã«è¨­å®š */
+  height: 80px; /* é«˜ã•ã‚’80pxã«è¨­å®š */
+  font-size: 18px; /* ãƒ•ã‚©ãƒ³ãƒˆã‚µã‚¤ã‚ºã‚’18pxã«è¨­å®š */
+  padding: 10px 20px; /* ä¸Šä¸‹ã«10pxã€å·¦å³ã«20pxã®ä½™ç™½ã‚’è¨­å®š */
 }
-.loginK_button {
-  color: #000; /* ƒeƒLƒXƒg‚ÌF‚ğ•‚Éİ’è */
-  background-color: #006aff; /* ”wŒiF‚ğÂF‚Éİ’è */
-  border: none; /* ƒ{[ƒ_[‚ğ–³Œø‰» */
-  border-bottom: 5px solid #0049af; /* ‰º•”‚Ìƒ{[ƒ_[‚ğŠDF‚Éİ’è */
-  margin-top: 100px; /* ã•”‚Ìƒ}[ƒWƒ“‚ğİ’è */
 
-  /* ’Ç‰Á‚ÌƒXƒ^ƒCƒ‹ */
-  width: 200px; /* •‚ğ200px‚Éİ’è */
-  height: 50px; /* ‚‚³‚ğ50px‚Éİ’è */
-  font-size: 18px; /* ƒtƒHƒ“ƒgƒTƒCƒY‚ğ18px‚Éİ’è */
-  padding: 10px 20px; /* ã‰º‚É10pxA¶‰E‚É20px‚Ì—]”’‚ğİ’è */
+.loginK_button {
+  color: #000; /* ãƒ†ã‚­ã‚¹ãƒˆã®è‰²ã‚’é»’ã«è¨­å®š */
+  background-color: #006aff; /* èƒŒæ™¯è‰²ã‚’é’è‰²ã«è¨­å®š */
+  border: none; /* ãƒœãƒ¼ãƒ€ãƒ¼ã‚’ç„¡åŠ¹åŒ– */
+  border-bottom: 5px solid #0049af; /* ä¸‹éƒ¨ã®ãƒœãƒ¼ãƒ€ãƒ¼ã‚’è¨­å®š */
+  margin-top: 100px; /* ä¸Šéƒ¨ã®ãƒãƒ¼ã‚¸ãƒ³ã‚’è¨­å®š */
+  width: 250px; /* å¹…ã‚’250pxã«è¨­å®š */
+  height: 80px; /* é«˜ã•ã‚’80pxã«è¨­å®š */
+  font-size: 18px; /* ãƒ•ã‚©ãƒ³ãƒˆã‚µã‚¤ã‚ºã‚’18pxã«è¨­å®š */
+  padding: 10px 20px; /* ä¸Šä¸‹ã«10pxã€å·¦å³ã«20pxã®ä½™ç™½ã‚’è¨­å®š */
 }
+
 
 

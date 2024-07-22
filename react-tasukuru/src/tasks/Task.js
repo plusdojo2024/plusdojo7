@@ -22,11 +22,11 @@ export default class Task extends React.Component{
                     <div className="background">
                     <Tabs>
     <TabList className="TabList">
-      <Tab>未たっせい</Tab>
-      <Tab>かんりょう</Tab>
-      <Tab>しっぱい</Tab>
+      <Tab className="Tab_title">未たっせい</Tab>
+      <Tab className="Tab_title">かんりょう</Tab>
+      <Tab className="Tab_title">しっぱい</Tab>
     </TabList>
-
+    <div className="Tab_content">
     <TabPanel>
       <h2>Any content 1</h2>
     </TabPanel>
@@ -36,6 +36,7 @@ export default class Task extends React.Component{
     <TabPanel>
       <h2>Any content 3</h2>
     </TabPanel>
+    </div>
   </Tabs>
                     </div>
                 </div>

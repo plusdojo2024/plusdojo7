@@ -1,81 +1,92 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 
-const MoneyRegist = ({ addMoney, closeModal }) => {
-    const [date, setDate] = useState("");
-    const [item, setItem] = useState("");
-    const [amount, setAmount] = useState("");
-
-    const handleDateChange = (e) => {
-        setDate(e.target.value);
+export default class MoneyRegist extends React.Component {
+ 
+    state = {
+        date: "",
+        item: "",
+        amount: ""
     };
 
-    const handleItemChange = (e) => {
-        setItem(e.target.value);
-    };
+    onInput = (e) => {
+        //コントロールの名前を取得する
+        const name= e.target.name;
 
-    const handleAmountChange = (e) => {
-        setAmount(e.target.value);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-      
-        
-        // サーバーにデータを送信するaxiosのリクエスト
-        axios.post("/api/", {
-            date,
-            item,
-            amount
-        })
-        .then(response => {
-            console.log("Data saved successfully");
-            // 金額を親コンポーネントで管理する関数に渡して残金を更新する
-            addMoney(parseInt(amount));
-            // モーダルを閉じる
-            closeModal();
-        })
-        .catch(error => {
-            console.error("Error saving data: ", error);
+        //コントロールに入力した値をstateに更新する。
+        this.setState({
+            [name]: e.target.value
         });
-    };
+    }    
 
-    return (
-        <div className="modal">
-            <div className="modal-content">
-                <span className="close" onClick={closeModal}>&times;</span>
-                <h2>つかったお金をきろくする</h2>
-                <form onSubmit={handleSubmit}>
-                    <label>日にち:</label>
-                    <input
-                        type="text"
-                        value={date}
-                        onChange={handleDateChange}
-                        required
-                    />
-                    <br />
-                    <label>買ったもの:</label>
-                    <input
-                        type="text"
-                        value={item}
-                        onChange={handleItemChange}
-                        required
-                    />
-                    <br />
-                    <label>金額:</label>
-                    <input
-                        type="number"
-                        value={amount}
-                        onChange={handleAmountChange}
-                        required
-                    />
-                    <br />
-                    <button type="submit">登録する</button>
-                </form>
+
+    registMoney = () => {
+        //利用するstateの値を宣言
+        const { date, item, amount } = this.state;
+
+        //stateの値を利用してpostデータを作成
+        const data = {
+           money_time : date,
+           used_type : item,
+           used_money : amount
+        };
+        //const data = {};
+        
+        //axiosだとpostが記述しやすい
+        axios.post("/api/money/regist", data)
+        .then(json => {
+            console.log(json);
+
+            this.setState({
+               date:"",
+               item:"",
+               amount:""
+            });
+        });
+    }    
+ 
+
+    render() {
+        const { date, item, amount } = this.state;
+
+        return (
+            <div className="money_overlay">
+                <div className="money-content">
+                    <span className="close" onClick={this.props.closeModal}>
+                        &times;
+                    </span>
+                    <h2>つかったお金をきろくする</h2>
+                    
+                        <label>日にち:</label>
+                        <input
+                            type="text"
+                            name="date"
+                            value={this.state.date}
+                            onChange={this.onInput}
+
+                        />
+                        <br />
+                        <label>買ったもの:</label>
+                        <input
+                            type="text"
+                            name="item"
+                            value={item}
+                            onChange={this.onInput}
+                            
+                        />
+                        <br />
+                        <label>金額:</label>
+                        <input
+                            type="number"
+                            name="amount"
+                            value={amount}
+                            onChange={this.onInput}
+
+                        />
+                        <br />
+                        <button onclick={this.registMoney}> 登録する</button>
+                </div>
             </div>
-        </div>
-    );
-};
-
-export default MoneyRegist;
+        );
+    }
+}

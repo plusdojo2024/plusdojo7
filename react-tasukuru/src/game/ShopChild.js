@@ -1,6 +1,9 @@
 import React from 'react';
 import './ChildShop.css';
-
+import Header from '../foundation/Header.js';
+import Footer from "../foundation/Footer";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 export default class ShopChild extends React.Component{
 
     onChange = (e) => {
@@ -44,25 +47,60 @@ export default class ShopChild extends React.Component{
     }
 
     render(){
-         const{RequestModal} = this.state;
+        const{RequestModal} = this.state;
         return(
-         <div>  
-        <div class="gold">
-            <h1>1000G</h1>
-            <button onClick={() =>this.Request()}>商品リクエスト</button>
-        </div>
-        
-        {RequestModal &&
-            <div id="overlay">
-                <div id= "content">
-                    商品名<br />
-                    <input type="text"></input><br />
-                    <button>送信</button><br />
-                    <button onClick={() =>this.toggleModal()}>閉じる</button>
+        <div>  
+            <Header />
+            <div className="ShopChildBody">
+                <div className ="background_image_renga">
+            
+                <h1 class ="gold">1000G</h1>
+                
+                <Tabs id ="ShopChildTab">
+                    <TabList id ="ShopChildTabList">
+                        <Tab>販売中</Tab>
+                        <Tab>購入済み</Tab>
+                    </TabList>
+
+                <TabPanel>
+                <h2>商品１</h2>
+                <h2>商品２</h2>
+                <h2>商品３</h2>
+                <h2>商品４</h2>
+                <h2>商品５</h2>
+                </TabPanel>
+                <TabPanel>
+                    <h2>購入済み商品１</h2>
+                    <h2>購入済み商品２</h2>
+                    <h2>購入済み商品３</h2>
+                    <h2>購入済み商品４</h2>
+                    <h2>購入済み商品５</h2>
+                </TabPanel>
+                </Tabs>
+                
+                <div className="request_button">
+                    <button id ="request_button" onClick={() =>this.Request()}>商品リクエスト</button>
+                </div>
+            
+            
+            {RequestModal &&
+                <div id="ShopChildoverlay">
+                    <div id= "ShopChildcontent">
+                        商品名<br />
+                        <input type="text"></input><br />
+                        <button>送信</button><br />
+                        <button onClick={() =>this.toggleModal()}>閉じる</button>
+
+                    </div>
+                </div>
+            }
+
+
 
                 </div>
+
+            <Footer />
             </div>
-        }
         </div>
         );
     }

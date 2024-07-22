@@ -1,0 +1,27 @@
+#GameMypageTab{
+    color: #000000;
+    background-color: #dadada;
+    text-align: center;
+    font-size: 10px;;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    
+}
+
+#GameMypageTabList{
+   background-color: #fff;
+}
+
+#skinchange_button{
+    background-color: aqua;
+    
+}
+
+#activetab{
+    background-color: rgb(11, 11, 11);
+}
+
+.nonactivetab{
+    background-color: rgb(11, 11, 11);
+}
