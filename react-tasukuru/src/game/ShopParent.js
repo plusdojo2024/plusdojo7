@@ -56,37 +56,45 @@ export default class ShopParent extends React.Component {
                             <div className="ShopParentgold">
                                 <h1>1000G</h1>
                             </div>
-                            <Tabs>
-                            <TabList>
-                                <Tab>出品中</Tab>
-                                <Tab>リクエスト</Tab>
-                                <Tab>購入済み</Tab>
-                            </TabList>
+                            <div className="ShopParentTabs">
+                                <Tabs>
+                                <TabList id="ShopParentTabList">
+                                    <Tab>出品中</Tab>
+                                    <Tab>リクエスト</Tab>
+                                    <Tab>購入済み</Tab>
+                                </TabList>
 
-                            <TabPanel>
-                                <h2>・AAA   250G</h2>
-                                <button onClick={() => this.toggleModModal()}>編集</button>
-                                <h2>・BBB   300G</h2>
-                                <button onClick={() => this.toggleModModal()}>編集</button>
-                                <h2>・CCC   1000G</h2>
-                                <button onClick={() => this.toggleModModal()}>編集</button>
-                            </TabPanel>
-                            <TabPanel>
-                                <h2>・じゃがりこ</h2>
-                                <h2>・遊園地</h2>
-                                <h2>・ゲームソフト</h2>
-                                <h2>・映画館</h2>
-                            </TabPanel>
-                            <TabPanel>
-                                <h2>・ポッキー</h2>
-                                <h2>・サッカーボール</h2>
-                            </TabPanel>
-                            </Tabs>
+                                <TabPanel>
+                                    <h2>・AAA   250G</h2>
+                                    <button onClick={() => this.toggleModModal()}>編集</button>
+                                    <h2>・BBB   300G</h2>
+                                    <button onClick={() => this.toggleModModal()}>編集</button>
+                                    <h2>・CCC   1000G</h2>
+                                    <button onClick={() => this.toggleModModal()}>編集</button><br />
+                                  
+                       
+                                </TabPanel>
+                                <TabPanel>
+                                    <h2>・じゃがりこ</h2>
+                                    <h2>・遊園地</h2>
+                                    <h2>・ゲームソフト</h2><br/>
+                                    <h2>・映画館</h2>
+                                </TabPanel>
+                                <TabPanel>
+                                    <h2>・ポッキー</h2>
+                                    <h2>・サッカーボール</h2>
+                                    
+                                </TabPanel>
+                                </Tabs>
+                            </div>
                         </div>
+                        <div>
+                        <button id="Item_Add" onClick={() => this.ItemAdd()}>商品追加</button>
                     </div>
-                    <div className="ItemAddArea">
-                        <button onClick={() => this.ItemAdd()}>商品追加</button>
                     </div>
+
+                    
+
                             {ItemAddModal &&
                                 <div id="ShopParentoverlay">
                                     <div id="ShopParentcontent">
