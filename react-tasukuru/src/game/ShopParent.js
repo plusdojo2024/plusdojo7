@@ -53,9 +53,9 @@ export default class ShopParent extends React.Component {
                 <main>
                     <div className="ShopParentBody">
                         <div className="background_image_renga">
-                            <div className="ShopParentgold">
-                                <h1>1000G</h1>
-                            </div>
+                            
+                            <h1 className="ShopParentgold">1000G</h1>
+                            
                             <div className="ShopParentTabs">
                                 <Tabs>
                                 <TabList id="ShopParentTabList">
@@ -71,13 +71,12 @@ export default class ShopParent extends React.Component {
                                     <button onClick={() => this.toggleModModal()}>編集</button>
                                     <h2>・CCC   1000G</h2>
                                     <button onClick={() => this.toggleModModal()}>編集</button><br />
-                                  
                        
                                 </TabPanel>
                                 <TabPanel>
                                     <h2>・じゃがりこ</h2>
                                     <h2>・遊園地</h2>
-                                    <h2>・ゲームソフト</h2><br/>
+                                    <h2>・ゲームソフト</h2>
                                     <h2>・映画館</h2>
                                 </TabPanel>
                                 <TabPanel>
@@ -87,10 +86,8 @@ export default class ShopParent extends React.Component {
                                 </TabPanel>
                                 </Tabs>
                             </div>
+                            <button id="Item_AddButton" onClick={() => this.ItemAdd()}>商品追加</button>
                         </div>
-                        <div>
-                        <button id="Item_Add" onClick={() => this.ItemAdd()}>商品追加</button>
-                    </div>
                     </div>
 
                     
