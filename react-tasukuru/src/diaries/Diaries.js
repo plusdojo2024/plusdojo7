@@ -1,5 +1,7 @@
 import React from "react";
 import './Diaries.css';
+import Header from "../foundation/Header";
+import Footer from "../foundation/Footer";
 
 export default class Diaries extends React.Component {
     constructor(props) {
@@ -49,14 +51,12 @@ export default class Diaries extends React.Component {
         const { LookDiarieModal, LookedDiarieModal, GetDiceModal } = this.state;
         return (
             <div >
+                <Header />
                 {/*日記リストの表示*/}
-                <div className="header">
-                    <script src="../foundation/Header.js"></script>
-                </div>
                 <div id="Diaries_body">
                     
                     <h1>日記</h1>
-                    <table className="Diaries_text">
+                    {/* <table >
                         <thead>
                             <tr>
                                 <th>ひづけ</th>
@@ -64,9 +64,10 @@ export default class Diaries extends React.Component {
                             </tr>
                         </thead>
                         
-                    </table>
-                    <button onClick={() => this.LookDiarie()}>日記を見る</button>
-                    <button onClick={() => this.LookedDiarie()}>すでに見た日記を見る</button>
+                    </table> */}
+                    <button onClick={() => this.LookDiarie()}>未読日記です</button><br />
+                    <button onClick={() => this.LookedDiarie()}>既読日記です</button><br />
+                    <button onClick={() => this.LookedDiarie()}>既読日記です</button><br />
                 </div>
                 
                 {/*サイコロをもらう日記*/}
@@ -105,7 +106,7 @@ export default class Diaries extends React.Component {
                         </div>
                     </div>
                 )}
-            <div className="footer"></div>
+            <Footer />
             </div>
         );
     }
