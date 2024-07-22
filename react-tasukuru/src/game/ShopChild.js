@@ -42,19 +42,7 @@ export default class ShopChild extends React.Component{
         </div>
         
 
-    {/*商品リクエストモーダルの表示 */}
-        {RequestModal && (
-            <div id="overlay">
-                <div id="content">
-                    <button onClick={this.toggleModal}>閉じる</button>
-                    
-                    
-                    
-                    <button onClick={this.getDiceModal}>購入確定</button>
-                </div>
-                
-            </div>
-        )}
+    
         );
     }
 }
