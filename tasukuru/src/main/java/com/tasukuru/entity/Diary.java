@@ -1,5 +1,6 @@
 package com.tasukuru.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
@@ -30,5 +31,9 @@ public class Diary {
 	private boolean parentCheck;
 	private boolean childCheck;
 	
+	public String dateString() {
+		SimpleDateFormat dformat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		return dformat.format(this.date);
+	}
 	
 }
