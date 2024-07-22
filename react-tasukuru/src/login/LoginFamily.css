@@ -6,11 +6,24 @@
   height: 100%; /* コンテンツを中央揃え */
 }
 
+.Diaries_background{
+  background-color: #FFE6CC;
+  position:fixed;
+  height: 70%;
+  width: 96%;
+  top: 15%;
+  left: 1.8%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
 .textbox {
   margin-bottom: 10px;
   padding: 12px; /* テキストボックスとボタンの内側の余白 */
   width: 250px; /* テキストボックスとボタンの幅 */
   font-size: 16px; /* テキストサイズ */
+  text-align: center;
 }
 
 .loginMain_button {
