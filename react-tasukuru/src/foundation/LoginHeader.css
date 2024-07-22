@@ -1,11 +1,13 @@
-.header {
+.login_header {
   display: flex;
-  justify-content: center; /* ‰¡•ûŒüi…•½•ûŒüj‚Ì’†‰›‘µ‚¦ */
-  align-items: center; /* c•ûŒüi‚’¼•ûŒüj‚Ì’†‰›‘µ‚¦ */
-  height: 100px; /* •K—v‚É‰‚¶‚Ä“KØ‚È‚‚³‚ğİ’è */
+  justify-content: center; /* æ¨ªæ–¹å‘ï¼ˆæ°´å¹³æ–¹å‘ï¼‰ã®ä¸­å¤®æƒãˆ */
+  align-items: center; /* ç¸¦æ–¹å‘ï¼ˆå‚ç›´æ–¹å‘ï¼‰ã®ä¸­å¤®æƒãˆ */
+  height: 100px; /* å¿…è¦ã«å¿œã˜ã¦é©åˆ‡ãªé«˜ã•ã‚’è¨­å®š */
+  background-color:#F9F7ED ;
+  position:static;
 }
 
-.App-logo {
-  max-width: 100%; /* •K—v‚É‰‚¶‚Ä‰æ‘œ‚ÌÅ‘å•‚ğİ’è */
-  max-height: 100%; /* •K—v‚É‰‚¶‚Ä‰æ‘œ‚ÌÅ‘å‚‚³‚ğİ’è */
+.login-logo {
+  max-width: 100%; /* å¿…è¦ã«å¿œã˜ã¦ç”»åƒã®æœ€å¤§å¹…ã‚’è¨­å®š */
+  max-height: 100%; /* å¿…è¦ã«å¿œã˜ã¦ç”»åƒã®æœ€å¤§é«˜ã•ã‚’è¨­å®š */
 }

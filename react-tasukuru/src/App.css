@@ -38,6 +38,8 @@
 }
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
+
 .background_image_renga{
   background-image:url(/public/images/maptile.png);
   background-repeat: repeat;
