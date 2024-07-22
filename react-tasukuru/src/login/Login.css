@@ -12,6 +12,12 @@
   height: 80px; /* 高さを80pxに設定 */
   font-size: 18px; /* フォントサイズを18pxに設定 */
   padding: 10px 20px; /* 上下に10px、左右に20pxの余白を設定 */
+  transition: background-color 0.3s, transform 0.2s; /* 背景色と変形の変化をアニメーションさせる */
+}
+
+.loginF_button:hover {
+  background-color: #ffeb3b; /* ホバー時の背景色を変更 */
+  transform: scale(1.05); /* ホバー時に少し拡大する */
 }
 
 .loginK_button {
@@ -24,6 +30,12 @@
   height: 80px; /* 高さを80pxに設定 */
   font-size: 18px; /* フォントサイズを18pxに設定 */
   padding: 10px 20px; /* 上下に10px、左右に20pxの余白を設定 */
+  transition: background-color 0.3s, transform 0.2s; /* 背景色と変形の変化をアニメーションさせる */
+}
+
+.loginK_button:hover {
+  background-color: #0059ff; /* ホバー時の背景色を変更 */
+  transform: scale(1.05); /* ホバー時に少し拡大する */
 }
 
 
