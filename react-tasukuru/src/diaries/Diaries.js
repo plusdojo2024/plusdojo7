@@ -21,16 +21,20 @@ export default class Diaries extends React.Component {
 
     }
 
+    //未読日記処理
     UnreadDiarie(index) {
         this.toggleUnreadModal();
     }
+    //既読日記処理
     LookedDiarie(index) {
         this.toggleLookedModal();
     }
+    //サイコロ入手処理
     GetDice(index) {
         this.toggleDiceModal();
     }
 
+    //未読モーダルウィンドウ表示切り替え
     toggleUnreadModal() {
         const { UnreadDiarieModal } = this.state;
         this.setState({
@@ -38,6 +42,7 @@ export default class Diaries extends React.Component {
         });
     }
 
+    //既読モーダルウィンドウ表示切り替え
     toggleLookedModal() {
         const { LookedDiarieModal } = this.state;
         this.setState({
@@ -45,6 +50,7 @@ export default class Diaries extends React.Component {
         });
     }
 
+    //サイコロ入手表示切り替え
     toggleDiceModal() {
         const { GetDiceModal } = this.state;
         this.setState({
@@ -75,11 +81,11 @@ export default class Diaries extends React.Component {
                     <button onClick={() => this.LookedDiarie()}>既読日記です</button><br />
                 </div>
                 
-                {/*未読日記*/}
+                {/*未読日記モーダル*/}
                 {UnreadDiarieModal && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
-                            <button onClick={this.toggleUnreadModal}>閉じる</button><br />
+                            <button onClick={this.toggleUnreadModal}>とじる</button><br />
                             ここに日付<br />
                             title<br />
                             reply<br />
@@ -89,11 +95,11 @@ export default class Diaries extends React.Component {
                     </div>
                 )}
 
-                {/*すでに見た日記*/}
+                {/*既読日記モーダル*/}
                 {LookedDiarieModal && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
-                            <button onClick={this.toggleLookedModal}>閉じる</button><br />
+                            <button onClick={this.toggleLookedModal}>とじる</button><br />
                             ここに日付<br />
                             title<br />
                             reply<br />
@@ -102,12 +108,12 @@ export default class Diaries extends React.Component {
                     </div>
                 )}
 
-                {/*サイコロ入手*/}
+                {/*サイコロ入手モーダル*/}
                 {GetDiceModal && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
-                            サイコロを手にいれました！<br />
-                            <button onClick={() => { this.toggleDiceModal(); }}>閉じる</button><br />
+                            サイコロを手にいれたよ！<br />
+                            <button onClick={() => { this.toggleDiceModal(); this.toggleUnreadModal(); }}>とじる</button><br />
                         </div>
                     </div>
                 )}
