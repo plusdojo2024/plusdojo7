@@ -61,7 +61,8 @@ export default class Diaries extends React.Component {
     render() {
         const { UnreadDiarieModal, LookedDiarieModal, GetDiceModal } = this.state;
         return (
-            <div >
+            <div className="background_image_renga_diaries">
+                <div className="Diaries_background"></div>
                 <Header />
                 {/*日記リストの表示*/}
                 <div id="Diaries_body">
@@ -74,7 +75,6 @@ export default class Diaries extends React.Component {
                                 <th>たいとる</th>
                             </tr>
                         </thead>
-                        
                     </table> */}
                     <button onClick={() => this.UnreadDiarie()}>未読日記です</button><br />
                     <button onClick={() => this.LookedDiarie()}>既読日記です</button><br />
@@ -116,7 +116,39 @@ export default class Diaries extends React.Component {
                             <button onClick={() => { this.toggleDiceModal(); this.toggleUnreadModal(); }}>とじる</button><br />
                         </div>
                     </div>
+                )} *
+
+                {/*保護者用日記モーダル*/}
+                {UnreadDiarieModal && (
+                    <div id="Diaries_overlay">
+                        <div id="Diaries_content">
+                            <button onClick={this.toggleUnreadModal}>とじる</button><br />
+                            ここに日付<br />
+                            title<br />
+                            返信<br />
+                            <input type="text" className="Diaries_input" placeholder="返信内容"></input><br /><br />
+                            <button onClick={this.toggleDiceModal}>既読にする</button>
+                        </div>
+                        
+                    </div>
                 )}
+
+                {/*
+                //------------------------------------
+                //日記記入モーダル
+                //------------------------------------
+                {GetDiceModal && (
+                    <div id="Diaries_overlay">
+                        <div id="Diaries_content">
+                            <h1>日記</h1>
+                            <input type="text" placeholder="タイトル"></input><br /><br />
+                            <input type="text" className="Diaries_input" placeholder="内容"></input><br /><br />
+                            <button onClick={()=>{  }}>提出</button> 　　　　 
+                            <button onClick={() => {  }}>とじる</button><br />
+                        </div>
+                    </div>
+                )}
+                    */}
             <Footer />
             </div>
         );
