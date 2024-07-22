@@ -10,8 +10,13 @@
     width:17vh;
     top:4%;
     left:5%;
+    font-family:"Mochiy Pop One", sans-serif;
     font-size:16px;
     border-radius: 20px;
+}
+
+.header_logout:active{
+    background-color:aliceblue;
 }
 
 .header_name{
@@ -20,7 +25,9 @@
     transform:translateY(-50%);
     left:50%;
     transform:translateX(-50%);
+    font-family:"Mochiy Pop One", sans-serif;
     font-size:30px;
+    color:rgb(62, 62, 62);
 }
 
 .header_icon{
@@ -34,6 +41,11 @@
     border-radius: 50%;
     border:1px solid #000;
 }
+
+.header_icon:active{
+    background-color:aliceblue;
+}
+
 .header img{
     position:absolute;
     top:1.5%;

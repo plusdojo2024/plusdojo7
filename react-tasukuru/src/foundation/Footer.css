@@ -5,3 +5,19 @@
     width:100%;
     background-color:#F9F7ED;
 }
+
+.footer_allicons{
+position:relative;
+width:100%;
+display: flex;
+justify-content:center;
+}
+
+.footer_icon{
+    padding:5px 5px;
+    width:25%;
+}
+
+.footer_icon:active{
+    background-color:bisque;
+}
