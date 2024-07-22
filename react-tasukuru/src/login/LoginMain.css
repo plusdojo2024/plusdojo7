@@ -1,0 +1,26 @@
+.loginMain_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* コンテンツを中央揃え */
+}
+
+.textbox {
+  margin-bottom: 10px;
+  padding: 12px; /* テキストボックスとボタンの内側の余白 */
+  width: 250px; /* テキストボックスとボタンの幅 */
+  font-size: 16px; /* テキストサイズ */
+}
+
+.loginMain_button {
+  margin-bottom: 10px;
+  padding: 12px; /* テキストボックスとボタンの内側の余白 */
+  width: 275px; /* テキストボックスとボタンの幅 */
+  font-size: 16px; /* テキストサイズ */
+}
+
+.loginMain_button {
+  cursor: pointer; /* ボタンにポインターを表示 */
+}
+

@@ -2,6 +2,8 @@ import './App.css';
 import Header from './foundation/Header';
 import Footer from './foundation/Footer';
 import Login from './login/Login';
+import LoginMain from './login/LoginMain';
+import Start from './start/Start';
 import Task from './tasks/Task';
 import Game from './game/Game';
 import Mypage from './/game/GameMypage'; 
@@ -20,6 +22,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login></Login>}></Route>
+            <Route path="/loginmain" element={<LoginMain></LoginMain>}></Route>
+            <Route path="/start" element={<Start></Start>}></Route>
             <Route path="/task" element={<Task></Task>}></Route>
             <Route path="/game" element={<Game></Game>}></Route>
             <Route path="/diaries" element={<Diaries></Diaries>}></Route>
