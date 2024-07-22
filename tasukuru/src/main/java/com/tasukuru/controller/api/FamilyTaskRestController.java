@@ -7,33 +7,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tasukuru.entity.Task;
-import com.tasukuru.repository.TaskRepository;
+import com.tasukuru.repository.FamilyTaskRepository;
+
 
 @RestController
 public class FamilyTaskRestController {
 	@Autowired
-	private TaskRepository repository;
+	private FamilyTaskRepository familyTaskRepository;
 	
 	@GetMapping("/api/familyTask/")
 	private Iterable<Task> get(){
-		return repository.findAll();
+		return familyTaskRepository.findAll();
 	}
 	
 	@GetMapping("/api/familyTask/familyTaskAdd/")	
 	private Task addTask(@RequestBody Task task){
-		repository.save(task);
+		familyTaskRepository.save(task);
 		return task;
 	}
 
 	@PostMapping("/api/familyTask/familyTaskMod/")
 	private Task mod(@RequestBody Task task) {
-		repository.save(task);
+		familyTaskRepository.save(task);
 		return task;
 	}
 	
 	@PostMapping("/api/familyTask/familyTaskDel/")
 	private Task del(@RequestBody Task task) {
-		repository.delete(task);
+		familyTaskRepository.delete(task);
 		return task;
 	}
 }

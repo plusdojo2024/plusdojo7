@@ -6,6 +6,6 @@ import com.tasukuru.entity.Task;
 
 public interface TaskRepository extends JpaRepository<Task, Integer> {
 	//レコードを登録日時とタスク期限で並び替え
-	Iterable<Task> findAllByOrderByRegtimeAscTasklimitAsc();
+	//Iterable<Task> findAllByOrderByRegtimeAscTasklimitAsc();
 }
 

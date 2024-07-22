@@ -34,10 +34,10 @@ public class KidTaskController {
 	}
 	
 	//タスクソート
-	@PostMapping("/task/sort/")
+	/*@PostMapping("/task/sort/")
 	public String sortTasks(Model model) {
 		Iterable<Task> tasks = repository.findAllByOrderByRegtimeAscTasklimitAsc();
 		model.addAttribute("tasks", tasks);
 		return "task";
-	}
+	}*/
 }
