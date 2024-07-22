@@ -19,7 +19,7 @@ export default class ShopChild extends React.Component{
             name:"",
             price:"",
             condition:"",
-            showModal:false
+            RequestModal:false
         }
 
         this.state={
@@ -27,22 +27,43 @@ export default class ShopChild extends React.Component{
             id:"",
             kid_id:"",
             name:"",
-            showModal:false
+            RequestModal:false
         }
+    }
 
+    Request(index) {
+        this.toggleModal();
+    }   
+    
+    toggleModal() {
+        const { RequestModal,} = this.state;
+        this.setState({
+            RequestModal: !RequestModal,
+            
+        });
     }
 
     render(){
-         const{title} = this.state;
+         const{RequestModal} = this.state;
         return(
-           
+         <div>  
         <div class="gold">
             <h1>1000G</h1>
-            <button onClick={this.request}>商品リクエスト</button>
+            <button onClick={() =>this.Request()}>商品リクエスト</button>
         </div>
         
+        {RequestModal &&
+            <div id="overlay">
+                <div id= "content">
+                    商品名<br />
+                    <input type="text"></input><br />
+                    <button>送信</button><br />
+                    <button onClick={() =>this.toggleModal()}>閉じる</button>
 
-    
+                </div>
+            </div>
+        }
+        </div>
         );
     }
 }
