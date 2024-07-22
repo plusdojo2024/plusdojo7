@@ -16,8 +16,8 @@ public class MoneyController {
 
 	@PostMapping("/api/money/regist")
 	private Allowance add(@RequestBody Allowance allowance) {
-		System.out.println(allowance.getUsed_type());
-		//repository.save(allowance);
+		//System.out.println(allowance.getUsed_type());
+		repository.save(allowance);
 		return allowance;
 	}
 }
