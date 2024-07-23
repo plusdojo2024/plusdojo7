@@ -67,6 +67,7 @@ export default class Task extends React.Component{
           ) : null
         ))}
       </div>
+
       <div className="button_container">
         <button className="diary_button">日記</button>
         <button className="task_add_button">追加</button>
@@ -81,6 +82,11 @@ export default class Task extends React.Component{
           ) : null
         ))}
       </div>
+
+      <div className="button_container">
+        <button className="diary_button">日記</button>
+        <button className="task_add_button">再登録</button>
+      </div>
     </TabPanel>
     <TabPanel>
       <div class="box">
@@ -89,6 +95,11 @@ export default class Task extends React.Component{
           <button key={task.id} className="task_button">{task.name}</button>
           ) : null
         ))}
+      </div>
+
+      <div className="button_container">
+        <button className="diary_button">日記</button>
+        <button className="task_add_button">再登録</button>
       </div>
     </TabPanel>
   </Tabs>
