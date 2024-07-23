@@ -35,19 +35,32 @@ export default class ShopChild extends React.Component{
     }
 
     Request(index) {
-        this.toggleModal();
+        this.toggleRequestModal();
     }   
+    Buy(index) {
+        this.toggleBuyModal();
+    }  
     
-    toggleModal() {
+    //リクエストのモーダル
+    toggleRequestModal() {
         const { RequestModal,} = this.state;
         this.setState({
             RequestModal: !RequestModal,
             
         });
     }
+    //購入のモーダル
+    toggleBuyModal() {
+        const { BuyModal,} = this.state;
+        this.setState({
+            BuyModal: !BuyModal,
+        })
+    }
+
+
 
     render(){
-        const{RequestModal} = this.state;
+        const{RequestModal,BuyModal,} = this.state;
         return(
         <div>  
             <Header />
@@ -64,10 +77,15 @@ export default class ShopChild extends React.Component{
 
                 <TabPanel>
                 <h2>商品１</h2>
+                <button id ="buy_button" onClick={() =>this.Buy()}>購入する</button>
                 <h2>商品２</h2>
+                <button id ="buy_button" onClick={() =>this.Buy()}>購入する</button>
                 <h2>商品３</h2>
+                <button id ="buy_button" onClick={() =>this.Buy()}>購入する</button>
                 <h2>商品４</h2>
+                <button id ="buy_button" onClick={() =>this.Buy()}>購入する</button>
                 <h2>商品５</h2>
+                <button id ="buy_button" onClick={() =>this.Buy()}>購入する</button>
                 </TabPanel>
                 <TabPanel>
                     <h2>購入済み商品１</h2>
@@ -89,13 +107,22 @@ export default class ShopChild extends React.Component{
                         商品名<br />
                         <input type="text"></input><br />
                         <button>送信</button><br />
-                        <button onClick={() =>this.toggleModal()}>閉じる</button>
-
+                        <button onClick={() =>this.toggleRequestModal()}>閉じる</button>
                     </div>
                 </div>
             }
 
-
+            {BuyModal &&
+                <div id="ShopChildoverlay">
+                    <div id= "ShopChildcontent">
+                        <h1 class ="gold">1000G</h1>
+                        <a>商品１  250G</a><br/><br/>
+                        <button>購入確定</button><br/>
+                        <br/>
+                        <button onClick={() =>this.toggleBuyModal()}>閉じる</button>
+                    </div>
+                </div>
+            }
 
                 </div>
 
