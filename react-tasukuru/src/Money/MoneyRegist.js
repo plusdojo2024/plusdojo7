@@ -70,7 +70,7 @@ export default class MoneyRegist extends React.Component {
                         <input
                             type="text"
                             name="item"
-                            value={item}
+                            value={this.state.item}
                             onChange={this.onInput}
                             
                         />
@@ -79,12 +79,12 @@ export default class MoneyRegist extends React.Component {
                         <input
                             type="number"
                             name="amount"
-                            value={amount}
+                            value={this.state.amount}
                             onChange={this.onInput}
 
                         />
                         <br />
-                        <button onclick={this.registMoney}> 登録する</button>
+                        <button onClick={this.registMoney}> 登録する</button>
                 </div>
             </div>
         );
