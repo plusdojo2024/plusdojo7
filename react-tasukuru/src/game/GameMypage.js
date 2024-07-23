@@ -31,24 +31,26 @@ export default class GameMypage extends React.Component{
         return(
         <wrapper>
         <Header />
-            <main>
+            
             <div className ="background_image_renga">
         
             
             <Tabs id ="GameMypageTab">
-                <TabList >
+                <TabList id="GameMypageTabList">
                     <Tab>スキン</Tab>
                     <Tab>実績</Tab>
                 </TabList>
 
-            <TabPanel id ="SkinPhoto">
+            <TabPanel>
+
             <img src="../images\character_yusha_01_red.png" alt="アバター"></img><br />
             <img src="../images\character_yusha_01_red.png" alt="アバター"></img><br />
             <img src="../images\character_yusha_01_red.png" alt="アバター"></img><br />
             <img src="../images\character_yusha_01_red.png" alt="アバター"></img><br />
             <button id ="skinchange_button" >変更</button>
-            
+
             </TabPanel>
+            
             <TabPanel>
             <h2>80個タスク完了！</h2>
             <h2>60個タスク完了！</h2>
@@ -58,7 +60,7 @@ export default class GameMypage extends React.Component{
             </Tabs>
             
             </div>
-            </main>
+            
         <Footer />
         </wrapper>
         );

@@ -20,7 +20,9 @@
 }
 
 
-#SkinPhoto{
-   width: 10px;
-   height: 10px;
+.react-tabs__tab--selected {
+    background-color: lightgreen;
+    color: #000000;
 }
+
+
