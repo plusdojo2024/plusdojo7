@@ -10,7 +10,7 @@ export default class DiariesList extends React.Component {
             date :"",
             title : "",
             content:"",
-            showModal: false,
+            diaryRegitModal: false,
 
 
         }
@@ -26,7 +26,46 @@ export default class DiariesList extends React.Component {
             });
         });
     }
+    //画面で何か入力された時に、その値をstateとして保持する。
+    onInput = (e) => {
+        const name = e.target.name;
+        this.setState({
+            [name]: e.target.value
+        });
+    }
 
+    //日記登録
+    addDiary = () => {
+        // const {title,content} = this.state;
+        // const data = {title : title, content : content};
+        // axios.post("/api/diary/diaryAdd/",data)
+        // .then(json => {
+        //     console.log(json);
+        //     this.setState({
+        //         title:"",content:""
+        //     });
+            
+        // })
+        this.toggleDiaryAddModal();
+    }
+    //日記をデータベースへ保存する処理
+    saveDiary = () => {
+        const {diaries,title,content} = this.state;
+        const data = {title : title, content : content};
+        axios.post("/api/diary/diaryAdd/",data)
+        .then(json =>{
+            this.toggleDiaryAddModal();
+            this.componentDidMount();
+        })
+    }
+    //日記登録モデルボックスの表示切り替え
+    toggleDiaryAddModal = () => {
+        const{diaryRegitModal} = this.state;
+        this.setState({
+            diaryRegitModal: !diaryRegitModal
+        });
+
+    }
     modBook(index) {
         // Implement the edit functionality here
     }
@@ -36,12 +75,16 @@ export default class DiariesList extends React.Component {
     }
 
     render() {
-        const { diaries,showModal} = this.state;
+        const { diaries,title,content,diaryRegitModal} = this.state;
         return (
             <div>
+                <div>
+                    <button onClick={() => this.addDiary()}>日記登録</button>
+                </div>
                 
+
                 <div className="DiaryListBody">
-                <button>日記登録</button>
+                
                     <table>
                         <thead>
                             <tr>
@@ -61,7 +104,7 @@ export default class DiariesList extends React.Component {
                                         {/* <td className="content">{diary.content}</td>
                                         <td className="reply">{diary.reply}</td> */}
                                         <td className="action">
-                                            <button onClick={() => this.modBook(index)}>確認</button>
+                                            <button>確認</button>
                                             
                                         </td>
                                     </tr>
@@ -69,17 +112,19 @@ export default class DiariesList extends React.Component {
                             })}
                         </tbody>
                     </table>
-                    {showModal &&
-                    <div id="overlay">
-                        <div id="content">
-                            タイトル：<input type="text" name="modName" value={this.state.modName} onChange={this.onInput} /><br />
-                            内容　　：<input type="text" name="modAuthor" value={this.state.modAuthor} onChange={this.onInput} /><br />
-                            <button onClick={this.saveBook} >登録</button>
-                            <button onClick={this.toggleModal}>閉じる</button>
+                </div>  
+                {/* モーダルウィンドウ(登録) */}
+                {diaryRegitModal && (
+                    <div id="Diaries_overlay">
+                        <div id="Diaries_content">
+                            <h1>日記</h1>
+                            <input type="text" name="title" onChange={this.onInput} value={title} placeholder="タイトル"></input><br /><br />
+                            <input type="text" name="content" onChange={this.onInput} value={content} placeholder="内容"></input><br /><br />
+                            <button onClick={this.saveDiary} >登録</button>
+                            <button onClick={this.toggleDiaryAddModal} >閉じる</button><br />
                         </div>
                     </div>
-                }
-                </div>  
+                )}
             </div>
         );
     }
