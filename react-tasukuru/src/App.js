@@ -11,7 +11,6 @@ import Mypage from './/game/GameMypage';
 import ShopChild from './/game/ShopChild';
 import ShopParent from './/game/ShopParent';
 import Diaries from './diaries/Diaries';
-import GuardianDiarie from './diaries/GuardianDiarie';
 import MoneyChild from './money/MoneyChild';
 import MoneyParent from './money/MoneyParent';
 
@@ -32,7 +31,6 @@ function App() {
             <Route path="/task" element={<Task></Task>}></Route>
             <Route path="/game" element={<Game></Game>}></Route>
             <Route path="/diaries" element={<Diaries></Diaries>}></Route>
-            <Route path="/guardianDiarie" element={<GuardianDiarie></GuardianDiarie>}></Route>
             <Route path="/diariesList" element={<DiariesList></DiariesList>}></Route>
             <Route path="/game/mypage" element={<Mypage></Mypage>}></Route>
             <Route path="/game/shopChild" element={<ShopChild></ShopChild>}></Route>
