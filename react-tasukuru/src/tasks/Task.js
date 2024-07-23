@@ -68,13 +68,19 @@ export default class Task extends React.Component{
         ))}
       </div>
       <div className="button_container">
-        <button className="diary_button">日記登録</button>
+        <button className="diary_button">日記</button>
         <button className="task_add_button">追加</button>
       </div>
     </TabPanel>
 
     <TabPanel>
-      <h2>Any content 2</h2>
+      <div class="box">
+        {tasks.map(task => (
+          task.noComplete === false && task.complete === true && task.miss === false ?(
+          <button key={task.id} className="task_button">{task.name}</button>
+          ) : null
+        ))}
+      </div>
     </TabPanel>
     <TabPanel>
       <h2>Any content 3</h2>
