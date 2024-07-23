@@ -7,7 +7,7 @@
 .parent_header{
     position:static;
     height:15vh;
-    background-color:#F9F7ED ;
+    background-color:#E6E6E6 ;
 }
 
 .header_logout{
@@ -66,3 +66,20 @@
     top:14vh;
     width:100%;
 }
+
+.parent_header hr{
+    position:absolute;
+    top:14vh;
+    width:100%;
+}
+
+#toggle {
+    display: none;
+    cursor: pointer;
+    }
+  #menu {
+    display: none;
+    }
+  #toggle:checked + #menu {
+    display: block;
+    }

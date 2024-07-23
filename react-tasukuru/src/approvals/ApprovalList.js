@@ -1,6 +1,6 @@
 import React from "react";
 import Header from '../foundation/ParentHeader';
-import Footer from '../foundation/Footer';
+import Footer from '../foundation/ParentFooter';
 import './Approval.css';
 import axios from "axios";
 
@@ -12,7 +12,10 @@ export default class ApprovalList extends React.Component{
         return (
             <div>
             <Header />
+
+            <Footer />
             </div>
+
         );
     }
 }

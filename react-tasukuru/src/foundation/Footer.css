@@ -6,6 +6,14 @@
     background-color:#F9F7ED;
 }
 
+.parent_footer{
+    position:fixed;
+    bottom:0;
+    height:15vh;
+    width:100%;
+    background-color:#E6E6E6;
+}
+
 .footer_allicons{
 position:relative;
 width:100%;
@@ -19,5 +27,11 @@ justify-content:center;
 }
 
 .footer_icon:active{
-    background-color:bisque;
+    background-color:#F9F7ED;
+    opacity:0.5;
+}
+
+.parent_footer .footer_icon:active{
+    background-color:#E6E6E6;
+    opacity:0.5;
 }
