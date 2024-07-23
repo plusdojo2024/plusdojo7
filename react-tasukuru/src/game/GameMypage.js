@@ -41,10 +41,12 @@ export default class GameMypage extends React.Component{
                     <Tab>実績</Tab>
                 </TabList>
 
-            <TabPanel id="SkinPhoto">
+            <TabPanel style={{display:'grid'} }>
 
-            <img src="../images\character_yusha_01_red.png" alt="アバター"  ></img>
-           
+            <img src="../images\character_yusha_01_red.png" alt="アバター"  style={{width:'100px'}}></img>
+            <img src="../images\character_yusha_01_red.png" alt="アバター"  style={{width:'100px'}}></img>
+            <img src="../images\character_yusha_01_red.png" alt="アバター"  style={{width:'100px'}}></img>
+            <img src="../images\character_yusha_01_red.png" alt="アバター"  style={{width:'100px'}}></img>
             <button id ="skinchange_button" >変更</button>
 
             </TabPanel>
