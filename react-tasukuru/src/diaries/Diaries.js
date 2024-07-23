@@ -211,7 +211,6 @@ export default class Diaries extends React.Component {
                         </div>
                     </div>
                 )}
-                    
             <Footer />
             </div>
         );
