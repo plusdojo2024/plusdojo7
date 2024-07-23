@@ -6,7 +6,8 @@ export default class MoneyRegist extends React.Component {
     state = {
         date: "",
         item: "",
-        amount: ""
+        amount: "",
+        allowance:
     };
 
     onInput = (e) => {
