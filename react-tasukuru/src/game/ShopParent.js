@@ -44,14 +44,6 @@ export default class ShopParent extends React.Component {
             ModModal: !ModModal
         });
     }
-    //削除
-    deleteItem(id) {
-        const { shops } = this.state;
-        const updatedShops = shops.filter(shop => shop.id !== id);
-        this.setState({
-            shops: updatedShops
-        });
-    }
 
     render() {
         const { ItemAddModal, ModModal } = this.state;

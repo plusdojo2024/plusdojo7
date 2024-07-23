@@ -19,8 +19,7 @@
     
 }
 
-
-#SkinPhoto{
-   width: 10px;
-   height: 10px;
+.activetab.is-active{
+    background-color: rgb(11, 11, 11);
 }
+
