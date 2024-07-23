@@ -52,3 +52,11 @@
     margin-top:15px;
 }
 
+#ShopParentTabList {
+    background-color: #fff;
+}
+
+.react-tabs__tab--selected {
+    background-color: lightgreen;
+    color: #fff;
+}
