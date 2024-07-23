@@ -53,6 +53,7 @@ main{
   height:50px;
   margin-top: 5%;
   margin-left: 2.5%;
+  border-radius: 5px;
 }
 
 .task {
