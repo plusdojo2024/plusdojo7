@@ -99,3 +99,13 @@
     line-height: 1.5;
     padding: 0.5em;
 }
+
+.box{
+    position: absolute;
+    top: 22%;
+    left: 3.5%;
+    width: 250px;
+    height: 250px;
+    border: 1px solid #000;
+    overflow-y: scroll;
+  }
