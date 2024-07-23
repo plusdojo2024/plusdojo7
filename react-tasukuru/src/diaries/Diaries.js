@@ -7,35 +7,20 @@ export default class Diaries extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            diaries: [],
             UnreadDiarieModal: false,
             LookedDiarieModal: false,
             GetDiceModal: false,
             GuardianUnreadDiarieModal: false,
-            SubmitModal: false,
         };
 
         this.UnreadDiarie = this.UnreadDiarie.bind(this);
         this.LookedDiarie = this.LookedDiarie.bind(this);
         this.GetDice = this.GetDice.bind(this);
         this.GuardianUnreadDiarie = this.GuardianUnreadDiarie.bind(this);
-        this.SubmitDiarie = this.SubmitDiarie.bind(this);
         this.toggleUnreadModal = this.toggleUnreadModal.bind(this);
         this.toggleLookedModal = this.toggleLookedModal.bind(this);
         this.toggleDiceModal = this.toggleDiceModal.bind(this);
         this.toggleGuardianUnreadDiarieModal = this.toggleGuardianUnreadDiarieModal.bind(this);
-        this.toggleSubmitModal = this.toggleSubmitModal.bind(this);
-    }
-
-    componentDidMount() {
-        fetch("/api/diary/")
-        .then(res => res.json())
-        .then(json => {
-            console.log(json);
-            this.setState({
-                diaries: json
-            });
-        });
     }
 
     //未読日記処理
@@ -53,10 +38,6 @@ export default class Diaries extends React.Component {
     //保護者用未読日記処理
     GuardianUnreadDiarie(index) {
         this.toggleGuardianUnreadDiarieModal();
-    }
-    //保護者用未読日記処理
-    SubmitDiarie(index) {
-        this.toggleSubmitModal();
     }
 
     //未読モーダルウィンドウ表示切り替え
@@ -87,17 +68,10 @@ export default class Diaries extends React.Component {
             GuardianUnreadDiarieModal: !GuardianUnreadDiarieModal,
         });
     }
-    //保護者用日記表示切り替え
-    toggleSubmitModal() {
-        const { SubmitModal } = this.state;
-        this.setState({
-            SubmitModal: !SubmitModal,
-        });
-    }
 
 
     render() {
-        const {diaries, UnreadDiarieModal, LookedDiarieModal, GetDiceModal, GuardianUnreadDiarieModal, SubmitModal } = this.state;
+        const { UnreadDiarieModal, LookedDiarieModal, GetDiceModal, GuardianUnreadDiarieModal } = this.state;
         return (
             <div className="background_image_renga_diaries">
                 <div className="Diaries_background"></div>
@@ -106,29 +80,18 @@ export default class Diaries extends React.Component {
                 <div id="Diaries_body">
                     
                     <h1>日記</h1>
-                    <tbody>
-                            {diaries.map((diary, index) => {
-                                const dateOnly = new Date(diary.date).toISOString().split('T')[0];
-                                return (
-                                    <tr class="bookrow" key={index}>
-                                        <td className="dateOnly">{dateOnly}</td>
-                                        <td className="title">{diary.title}</td>
-                                        {/* <td className="content">{diary.content}</td>
-                                        <td className="reply">{diary.reply}</td> */}
-                                        <td className="action">
-                                            <button onClick={() => this.modBook(index)}>提出</button>
-                                            
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
+                    {/* <table >
+                        <thead>
+                            <tr>
+                                <th>ひづけ</th>
+                                <th>たいとる</th>
+                            </tr>
+                        </thead>
+                    </table> */}
                     <button onClick={() => this.UnreadDiarie()}>未読日記です</button><br />
                     <button onClick={() => this.LookedDiarie()}>既読日記です</button><br />
                     <button onClick={() => this.LookedDiarie()}>既読日記です</button><br />
                     <button onClick={() => this.GuardianUnreadDiarie()}>保護者用未読日記</button><br />
-                    <button onClick={() => this.SubmitDiarie()}>確認</button><br />
-
                 </div>
                 
                 {/*未読日記モーダル*/}
@@ -182,17 +145,22 @@ export default class Diaries extends React.Component {
                     </div>
                 )} 
 
-                {SubmitModal && (
+                {/*
+                //------------------------------------
+                //日記記入モーダル
+                //------------------------------------
+                {GetDiceModal && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
                             <h1>日記</h1>
                             <input type="text" placeholder="タイトル"></input><br /><br />
                             <input type="text" className="Diaries_input" placeholder="内容"></input><br /><br />
-                            <button onClick={this.toggleSubmitModal}>提出</button><br />
+                            <button onClick={()=>{  }}>提出</button> 　　　　 
+                            <button onClick={() => {  }}>とじる</button><br />
                         </div>
                     </div>
                 )}
-                    
+                    */}
             <Footer />
             </div>
         );
