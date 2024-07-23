@@ -13,6 +13,7 @@
   width: 250px; /* テキストボックスとボタンの幅 */
   font-size: 16px; /* テキストサイズ */
   text-align: center;
+  font-family:"Mochiy Pop One", sans-serif;
 }
 
 .loginMain_button {
@@ -21,8 +22,30 @@
   padding: 12px; /* テキストボックスとボタンの内側の余白 */
   width: 275px; /* テキストボックスとボタンの幅 */
   font-size: 16px; /* テキストサイズ */
+  font-family:"Mochiy Pop One", sans-serif;
 }
 
 .loginMain_button {
   cursor: pointer; /* ボタンにポインターを表示 */
+}
+
+.loginR_button{
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  background: #fff;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+
+.loginR_button{
+  font-size: 150%;
+  line-height: 60px;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  letter-spacing: 0;
+}
+.loginR_button{
+  line-height: 55px;
 }
