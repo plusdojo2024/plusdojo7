@@ -43,6 +43,9 @@ export default class Task extends React.Component{
     </TabList>
 
     <TabPanel>
+      <div class="box">
+        
+      </div>
       <div className="button_container">
         <button className="diary_button">日記登録</button>
         <button className="task_add_button">追加</button>
