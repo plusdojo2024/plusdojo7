@@ -10,24 +10,25 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 export default class Task extends React.Component{
   constructor(props){
     super(props);
+    //stateの設定
     this.state = {
       tasks:[],
-      // kids_id: "",
-      // name: "",
-      // content: "",
-      // regTime: "",
-      // categoriesName: "",
-      // taskLimit: "",
-      // submitTime: "",
-      // taskImage: "",
-      // comment: "",
-      // reviewOne: false,
-      // reviewTwo: false,
-      // reviewThree: false,
-      // taskCheck: false,
-      // noComplete: true,
-      // complete: false,
-      // miss: false,
+      kids_id: "",
+      name: "",
+      content: "",
+      regTime: "",
+      categoriesName: "",
+      taskLimit: "",
+      submitTime: "",
+      taskImage: "",
+      comment: "",
+      reviewOne: false,
+      reviewTwo: false,
+      reviewThree: false,
+      taskCheck: false,
+      noComplete: false,
+      complete: false,
+      miss: false,
     }
   }
 
@@ -60,7 +61,9 @@ export default class Task extends React.Component{
 
     <TabPanel>
       <div class="box">
-        <button key={tasks.id} className="task_button">{tasks.name}</button>
+        {tasks.map(task => (
+        <button key={task.id} className="task_button">{task.name}</button>
+        ))}
       </div>
       <div className="button_container">
         <button className="diary_button">日記登録</button>
