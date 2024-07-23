@@ -1,5 +1,7 @@
 package com.tasukuru.controller.api;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +24,9 @@ public class DiaryRestController {
 		return repository.findAll();
 	}
 	
-	@GetMapping("/api/diary/diaryAdd/")
+	@PostMapping("/api/diary/diaryAdd/")
 	private Diary addDiary(@RequestBody Diary diary) {
+		diary.setDate(new Date());
 		repository.save(diary);
 		return diary;
 	}
