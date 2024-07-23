@@ -67,6 +67,7 @@ export default class Task extends React.Component{
           ) : null
         ))}
       </div>
+
       <div className="button_container">
         <button className="diary_button">日記</button>
         <button className="task_add_button">追加</button>
@@ -81,9 +82,25 @@ export default class Task extends React.Component{
           ) : null
         ))}
       </div>
+
+      <div className="button_container">
+        <button className="diary_button">日記</button>
+        <button className="task_add_button">再登録</button>
+      </div>
     </TabPanel>
     <TabPanel>
-      <h2>Any content 3</h2>
+      <div class="box">
+        {tasks.map(task => (
+          task.noComplete === false && task.complete === false && task.miss === true ?(
+          <button key={task.id} className="task_button">{task.name}</button>
+          ) : null
+        ))}
+      </div>
+
+      <div className="button_container">
+        <button className="diary_button">日記</button>
+        <button className="task_add_button">再登録</button>
+      </div>
     </TabPanel>
   </Tabs>
                     </div>
