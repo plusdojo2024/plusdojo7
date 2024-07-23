@@ -38,20 +38,21 @@ main{
 }
 
 .box{
-position: absolute;
-top: 22%;
-left: 3.5%;
-width: 250px;
-height: 250px;
-border: 1px solid #000;
-overflow-y: scroll;
+  position: absolute;
+  top: 22%;
+  left: 3.5%;
+  width: 250px;
+  height: 250px;
+  border: 1px solid #000;
+  overflow-y: scroll;
 }
 
 .task_button{
-width: 95%;
-height:50px;
-margin-top: 5%;
-margin-left: 2.5%;
+  font-family:"Mochiy Pop One", sans-serif;
+  width: 95%;
+  height:50px;
+  margin-top: 5%;
+  margin-left: 2.5%;
 }
 
 .task {

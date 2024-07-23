@@ -62,7 +62,9 @@ export default class Task extends React.Component{
     <TabPanel>
       <div class="box">
         {tasks.map(task => (
-        <button key={task.id} className="task_button">{task.name}</button>
+          task.noComplete === true && task.complete === false && task.miss === false ?(
+          <button key={task.id} className="task_button">{task.name}</button>
+          ) : null
         ))}
       </div>
       <div className="button_container">
