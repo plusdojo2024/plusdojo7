@@ -24,6 +24,12 @@
     background-image: url(/public/images/close_button.png);
 }
 /*--------------------------------------
+提出ボタン
+--------------------------------------*/
+.Diaries_submit_button{
+    background-color: #2d8fdd;
+}
+/*--------------------------------------
 レンガ背景日記用修正済み
 --------------------------------------*/
 .background_image_renga_diaries{
@@ -84,6 +90,64 @@
     opacity: 1;
 }
 
+/*--------------------------------------
+日記モーダル内
+--------------------------------------*/
+.Submit_diarie_body{
+    padding: 0;
+    
+}
+.Diarie_row {
+    padding: 0;
+    right: 10%;
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+.Diarie_row td{
+    color: #2d8fdd;
+    background: #f1f8ff;
+    line-height: 1;
+    font-size: 10px;
+    padding: 0.5em;
+    
+}
+
+/*--------------------------------------
+日記のタブ設定
+--------------------------------------*/
+.Tab_diarie_list{
+    position:absolute;
+    left:50%;
+    transform:translateX(-55%);
+    list-style:none;
+    display:flex;
+    justify-content:space-around;
+    width:100%;
+}
+
+.Tab_diarie_title{
+    font-family:"Mochiy Pop One", sans-serif;
+    white-space: nowrap;
+}
+
+.Tab_diarie_content{
+    position:absolute;
+    top:7%;
+    left:50%;
+    transform:translateX(-50%);
+    height: calc(100% - 100px);
+}
+
+.Diarie_box{
+    position: absolute;
+    top: 12%;
+    left: 2.5%;
+    width: 330px;
+    height: 380px;
+    border: 1px solid #000;
+    overflow-y: scroll;
+}
 
 /* DiariesList の　CSS */
 .bookListBody{
@@ -99,3 +163,5 @@
     line-height: 1.5;
     padding: 0.5em;
 }
+
+
