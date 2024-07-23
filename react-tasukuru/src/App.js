@@ -6,6 +6,7 @@ import LoginFamily from './login/LoginFamily';
 import LoginKids from './login/LoginKids';
 import Start from './start/Start';
 import Task from './tasks/Task';
+import Approval from './approvals/ApprovalList';
 import Game from './game/Game';
 import Mypage from './/game/GameMypage'; 
 import ShopChild from './/game/ShopChild';
@@ -29,6 +30,7 @@ function App() {
             <Route path="/loginKids" element={<LoginKids></LoginKids>}></Route>
             <Route path="/start" element={<Start></Start>}></Route>
             <Route path="/task" element={<Task></Task>}></Route>
+            <Route path="/approval" element={<Approval></Approval>}></Route>
             <Route path="/game" element={<Game></Game>}></Route>
             <Route path="/diaries" element={<Diaries></Diaries>}></Route>
             <Route path="/diariesList" element={<DiariesList></DiariesList>}></Route>
