@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tasukuru.entity.Allowance;
+import com.tasukuru.entity.KidsUser;
 import com.tasukuru.repository.AllowanceRepository;
 import com.tasukuru.repository.KidesUserRepository;
 
@@ -14,14 +15,17 @@ public class MoneyRestController {
 	
 	@Autowired
 	private AllowanceRepository repository;
-	private KidesUserRepository KidsRepository;
+	private KidesUserRepository kidsRepository;
 	
 
 	//利用記録処理
 	@PostMapping("/api/money/regist")
-	private Allowance regist(@RequestBody Allowance allowance) {
+	private Allowance regist(@RequestBody Allowance allowance, @RequestBody KidsUser KidsUser) {
 		//System.out.println(allowance.getUsed_type());
 		repository.save(allowance);
+		int currentMoney = KidsUser.getCurrent_money();
+		currentMoney = currentMoney - allowance.getUsed_money();
+		kidsRepository.save(currentMoney);
 		return allowance;
 	}
 	
@@ -33,9 +37,6 @@ public class MoneyRestController {
 	}
 	
 	//お小遣い追加処理
-	@PostMapping("/api/money/add")
-	private Allowance add(@RequestBody Allowance getMoney) {
-		repository.save(getMoney);
-		return getMoney;
-	}
+
+	
 }

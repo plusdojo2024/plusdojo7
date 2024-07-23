@@ -6,4 +6,6 @@ import com.tasukuru.entity.KidsUser;
 
 public interface KidesUserRepository extends JpaRepository<KidsUser, Integer> {
 
+	void save(int currentMoney);
+
 }

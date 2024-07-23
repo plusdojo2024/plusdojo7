@@ -6,9 +6,8 @@ export default class MoneyRegist extends React.Component {
     state = {
         date: "",
         item: "",
-        amount: "",
-        allowance:""
-    };
+        amount: ""
+       };
 
     onInput = (e) => {
         //コントロールの名前を取得する
@@ -23,17 +22,16 @@ export default class MoneyRegist extends React.Component {
 
     registMoney = () => {
         //利用するstateの値を宣言
-        let { date, item, amount, allowance } = this.state;
+        let { date, item, amount } = this.state;
 
         //残金変更
-        allowance = allowance - amount;
+        //allowance = allowance - amount;
 
         //stateの値を利用してpostデータを作成
         const data = {
            money_time : date,
            used_type : item,
            used_money : amount,
-           
         };
         //const data = {};
         
