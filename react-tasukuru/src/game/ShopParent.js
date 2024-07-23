@@ -31,6 +31,7 @@ export default class ShopParent extends React.Component {
         this.toggleItemAddModal();
     }
 
+    //出品のモーダル
     toggleItemAddModal() {
         const { ItemAddModal } = this.state;
         this.setState({
@@ -38,6 +39,7 @@ export default class ShopParent extends React.Component {
         });
     }
 
+    //編集のモーダル
     toggleModModal() {
         const { ModModal } = this.state;
         this.setState({
@@ -45,10 +47,23 @@ export default class ShopParent extends React.Component {
         });
     }
 
+
+    //削除メソッド
+    deleteItem(name) {
+        const { shops } = this.state;
+        const updatedShops = shops.filter(shop => shop.name !== name);
+        this.setState({
+            shops: updatedShops
+        });
+    }
+
+
+
+
     render() {
         const { ItemAddModal, ModModal } = this.state;
         return (
-            <wrapper>
+            <div className="wrapper">
                 <Header />
                 <main>
                     <div className="ShopParentBody">
@@ -75,14 +90,19 @@ export default class ShopParent extends React.Component {
                                 </TabPanel>
                                 <TabPanel>
                                     <h2>・じゃがりこ</h2>
+                                    <button onClick={() => this.deleteItem(/* 'じゃがりこ' */)}>削除</button>
                                     <h2>・遊園地</h2>
+                                    <button onClick={() => this.deleteItem()}>削除</button>
                                     <h2>・ゲームソフト</h2>
+                                    <button onClick={() => this.deleteItem()}>削除</button>
                                     <h2>・映画館</h2>
+                                    <button onClick={() => this.deleteItem()}>削除</button>
                                 </TabPanel>
                                 <TabPanel>
                                     <h2>・ポッキー</h2>
+                                    <button onClick={() => this.deleteItem()}>削除</button>
                                     <h2>・サッカーボール</h2>
-                                    
+                                    <button onClick={() => this.deleteItem()}>削除</button>
                                 </TabPanel>
                                 </Tabs>
                             </div>
@@ -116,7 +136,7 @@ export default class ShopParent extends React.Component {
                             }
                 </main>
                 <Footer />
-            </wrapper>
+            </div>
         );
     }
 }
