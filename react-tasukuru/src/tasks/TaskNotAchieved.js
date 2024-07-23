@@ -16,13 +16,13 @@ export default class Task extends React.Component{
         fetch("/api/task/")
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             this.setState({tasks: data});
         });
     }
     
     render(){
         const {tasks} = this.state;
-        const tasksToShow = tasks.slice(0,5);  //最初の5個のタスクを表示（試作）
 
         return (
             
@@ -39,13 +39,6 @@ export default class Task extends React.Component{
     </TabList>
 
     <TabPanel>
-    {tasksToShow.map((task) => (
-      <div className="task" key={task.id}>
-        <div className="task_name">{task.name}</div>
-        <div className="task_deadline">{new Date(task.taskLimit).toLocaleString()}</div>
-      </div>
-    ))}
-
       <div className="button_container">
         <button className="diary_button">日記登録</button>
         <button className="task_add_button">追加</button>
