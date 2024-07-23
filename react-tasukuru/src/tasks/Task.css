@@ -39,6 +39,16 @@ main{
     height: calc(100% - 100px);
 }
 
+.box{
+  position: absolute;
+  top: 22%;
+  left: 3.5%;
+  width: 250px;
+  height: 250px;
+  border: 1px solid #000;
+  overflow-y: scroll;
+}
+
 .task {
     display: flex;
     justify-content: space-between;
@@ -60,15 +70,28 @@ main{
     display: flex;
     justify-content: space-between;
     position: absolute;
-    bottom: 0;
-    width: 90%;
-    padding:0 15px;
+    left: -28px;
+    bottom: -10%;
+    width: 120%;
+    padding:-10px 15px;
   }
   
   .diary_button, .task_add_button {
     font-family:"Mochiy Pop One", sans-serif;
     padding: 10px 20px;
-    font-size: 1em;
-    width: 110px;
-    height: 50px;
+    font-size: 1.2em;
+    width: 140px;
+    height: 80px;
+    text-align: center;
+    border-radius: 8px;
+  }
+
+  .diary_button{
+    margin-right: 10px;
+    background-color: gold;
+  }
+
+  .task_add_button{
+    margin-left: 20px;
+    background-color: cornflowerblue;
   }
