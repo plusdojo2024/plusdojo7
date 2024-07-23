@@ -45,6 +45,7 @@
   -webkit-transition: all .3s;
   transition: all .3s;
   letter-spacing: 0;
+  font-family:"Mochiy Pop One", sans-serif;
 }
 .loginR_button{
   line-height: 55px;

@@ -23,7 +23,7 @@ export default function LoginKids() {
                     <input type="text" placeholder="パスワード" className="textbox" /><br />
                     <button className="loginMain_button">ログイン</button><br />
                     <button className="loginMain_button">新規登録</button><br />
-                    <button className="loginR_button" onClick={ReturnClick}>戻る</button><br />
+                    <button className="loginR_button" onClick={ReturnClick}>←</button><br />
                 </div>
             </div>
             <div className="login_footer">
