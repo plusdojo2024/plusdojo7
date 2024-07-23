@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class CharacterController {
 	
-	@GetMapping("/api/mypage/skin")
+	@GetMapping("/api/mypage")
 	public String skin() {
 		
 		return "skin";
