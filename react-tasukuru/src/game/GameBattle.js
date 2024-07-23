@@ -20,16 +20,14 @@ export default class GameBattle extends React.Component{
     
     render(){
         //画面項目に連動するstateはここで宣言する。
-        // const { id, hp, drop, name, image } = this.state;
+        const { id, hp, drop, name, image } = this.state;
         return (    
                 
-            <div id="body">
-        <div className="game_enemies_icon">
-                    <img src="images\character_monster_dragon_01_red.png" alt="敵キャラクター"></img>
-                    
-                </div>
-                
-            </div>
+    <div id="game_body">
+            <div className="game_enemies_icon">
+                <img src="images\character_monster_dragon_01_red.png" alt="敵キャラクター"></img>
+            </div>     
+    </div>
             
     );
 }
