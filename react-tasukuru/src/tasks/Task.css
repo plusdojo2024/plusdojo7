@@ -1,74 +1,102 @@
-
-
 main{
-    position:relative;
+  position:relative;
 }
 
 
 .background{
-    position:absolute;
-    top:2vh;
-    left:50%;
-    transform:translateX(-50%);
-    height:60vh;
-    width:70%;
-    background-color:#F5F5F5;
-    border:10px solid #FFE6CC;
+  position:absolute;
+  top:2vh;
+  left:50%;
+  transform:translateX(-50%);
+  height:60vh;
+  width:70%;
+  background-color:#F5F5F5;
+  border:10px solid #FFE6CC;
 }
 
 .TabList{
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
-    list-style:none;
-    display:flex;
-    justify-content:space-around;
-    width:100%;
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  list-style:none;
+  display:flex;
+  justify-content:space-around;
+  width:100%;
 }
 
 .Tab_title{
-    font-family:"Mochiy Pop One", sans-serif;
-    white-space: nowrap;
+  font-family:"Mochiy Pop One", sans-serif;
+  white-space: nowrap;
 }
 
 .Tab_content{
-    position:absolute;
-    top:7%;
-    left:50%;
-    transform:translateX(-50%);
-    height: calc(100% - 100px);
+  position:absolute;
+  top:7%;
+  left:50%;
+  transform:translateX(-50%);
+  height: calc(100% - 100px);
+}
+
+.box{
+position: absolute;
+top: 22%;
+left: 3.5%;
+width: 250px;
+height: 250px;
+border: 1px solid #000;
+overflow-y: scroll;
+}
+
+.task_button{
+width: 95%;
+height:50px;
+margin-top: 5%;
+margin-left: 2.5%;
 }
 
 .task {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px 0;
-  }
-  
-  .task_name {
-    font-size: 1.2em;
-  }
-  
-  .task_deadline {
-    font-size: 1em;
-    color: #666;
-  }
-  
-  .button_container {
-    display: flex;
-    justify-content: space-between;
-    position: absolute;
-    bottom: 0;
-    width: 90%;
-    padding:0 15px;
-  }
-  
-  .diary_button, .task_add_button {
-    font-family:"Mochiy Pop One", sans-serif;
-    padding: 10px 20px;
-    font-size: 1em;
-    width: 110px;
-    height: 50px;
-  }
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.task_name {
+  font-size: 1.2em;
+}
+
+.task_deadline {
+  font-size: 1em;
+  color: #666;
+}
+
+.button_container {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  left: -28px;
+  bottom: -10%;
+  width: 120%;
+  padding:-10px 15px;
+}
+
+.diary_button, .task_add_button {
+  font-family:"Mochiy Pop One", sans-serif;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  width: 140px;
+  height: 80px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.diary_button{
+  margin-right: 10px;
+  background-color: gold;
+}
+
+.task_add_button{
+  margin-left: 20px;
+  background-color: cornflowerblue;
+}

@@ -2,27 +2,47 @@ import React from "react";
 import Header from '../foundation/Header';
 import Footer from '../foundation/Footer';
 import './Task.css';
+import axios from "axios";
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, json } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 export default class Task extends React.Component{
-    state = {
-        tasks:[]
-    };
+  constructor(props){
+    super(props);
+    this.state = {
+      tasks:[],
+      // kids_id: "",
+      // name: "",
+      // content: "",
+      // regTime: "",
+      // categoriesName: "",
+      // taskLimit: "",
+      // submitTime: "",
+      // taskImage: "",
+      // comment: "",
+      // reviewOne: false,
+      // reviewTwo: false,
+      // reviewThree: false,
+      // taskCheck: false,
+      // noComplete: true,
+      // complete: false,
+      // miss: false,
+    }
+  }
 
     componentDidMount(){
         //タスクデータの取得
         fetch("/api/task/")
-        .then(response => response.json())
-        .then(data => {
-            this.setState({tasks: data});
+        .then(res => res.json())
+        .then(json => {
+            console.log(json);
+            this.setState({tasks: json});
         });
     }
     
     render(){
-        const {tasks} = this.state;
-        const tasksToShow = tasks.slice(0,5);  //最初の5個のタスクを表示（試作）
+        const { tasks } = this.state;
 
         return (
             
@@ -39,13 +59,9 @@ export default class Task extends React.Component{
     </TabList>
 
     <TabPanel>
-    {tasksToShow.map((task) => (
-      <div className="task" key={task.id}>
-        <div className="task_name">{task.name}</div>
-        <div className="task_deadline">{new Date(task.taskLimit).toLocaleString()}</div>
+      <div class="box">
+        <button key={tasks.id} className="task_button">{tasks.name}</button>
       </div>
-    ))}
-
       <div className="button_container">
         <button className="diary_button">日記登録</button>
         <button className="task_add_button">追加</button>
