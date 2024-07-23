@@ -1,3 +1,6 @@
+//-------------------------------------------------
+//保護者用の日記の画面
+//-------------------------------------------------
 import React from "react";
 import './Diaries.css';
 import Header from "../foundation/Header";
@@ -8,7 +11,6 @@ export default class Diaries extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            diaries: [],
             UnreadDiarieModal: false,
             LookedDiarieModal: false,
             GetDiceModal: false,
@@ -98,7 +100,7 @@ export default class Diaries extends React.Component {
 
 
     render() {
-        const {diaries, UnreadDiarieModal, LookedDiarieModal, GetDiceModal, GuardianUnreadDiarieModal, SubmitModal } = this.state;
+        const { UnreadDiarieModal, LookedDiarieModal, GetDiceModal, GuardianUnreadDiarieModal, SubmitModal } = this.state;
         return (
             <div className="background_image_renga_diaries">
                 <div className="Diaries_background"></div>
@@ -107,28 +109,13 @@ export default class Diaries extends React.Component {
                 <div id="Diaries_body">
                     
                     <h1>日記</h1>
-                    <tbody>
-                            {diaries.map((diary, index) => {
-                                const dateOnly = new Date(diary.date).toISOString().split('T')[0];
-                                return (
-                                    <tr class="bookrow" key={index}>
-                                        <td className="dateOnly">{dateOnly}</td>
-                                        <td className="title">{diary.title}</td>
-                                        {/* <td className="content">{diary.content}</td>
-                                        <td className="reply">{diary.reply}</td> */}
-                                        <td className="action">
-                                            <button onClick={() => this.modBook(index)}>提出</button>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
+                    
                     <button onClick={() => this.UnreadDiarie()}>未読日記です</button><br />
                     <button onClick={() => this.LookedDiarie()}>既読日記です</button><br />
                     <button onClick={() => this.LookedDiarie()}>既読日記です</button><br />
                     <button onClick={() => this.GuardianUnreadDiarie()}>保護者用未読日記</button><br />
                     <button onClick={() => this.SubmitDiarie()}>確認</button><br />
-                    
+                    <DiariesList />
                 </div>
                 
                 {/*未読日記モーダル*/}
