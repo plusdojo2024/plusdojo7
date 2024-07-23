@@ -3,6 +3,13 @@
     height:15vh;
     background-color:#F9F7ED ;
 }
+
+.parent_header{
+    position:static;
+    height:15vh;
+    background-color:#F9F7ED ;
+}
+
 .header_logout{
     background-color:white;
     position:absolute;
