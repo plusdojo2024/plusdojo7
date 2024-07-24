@@ -1,6 +1,6 @@
 --お小遣い帳
-INSERT INTO allowances (id, kids_id, get_money, used_type, used_money, money_time) VALUES (1000, 1, NULL, 'お菓子', 200, '7月20日');
-INSERT INTO allowances (id, kids_id, get_money, used_type, used_money, money_time) VALUES (1001, 1, NULL, 'まんが', 500, '７月21日');
+INSERT INTO allowances (id, kids_id, get_money, used_type, used_money, money_time) VALUES (1000, 1, NULL, 'お菓子', 200, '2024-07-20');
+INSERT INTO allowances (id, kids_id, get_money, used_type, used_money, money_time) VALUES (1001, 1, NULL, 'まんが', 500, '2024-07-21');
 INSERT INTO kids_users (id, current_money) VALUES (1000, '1000');
 
 --保護者情報

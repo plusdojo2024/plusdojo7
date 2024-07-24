@@ -1,5 +1,7 @@
 package com.tasukuru.entity;
 
+import java.sql.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,6 @@ public class Allowance {
 	private Integer get_money;
 	private String used_type;
 	private Integer used_money;
-	private String money_time;
+	private Date money_time;
 	
 }
