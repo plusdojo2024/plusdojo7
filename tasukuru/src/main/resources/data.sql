@@ -45,16 +45,16 @@ INSERT INTO requests (id, kid_id, name) VALUES (2, 1, 'お菓子');
 INSERT INTO requests (id, kid_id, name) VALUES (3, 1, 'まんが');
 
 --敵情報
-INSERT INTO enemies (id, hp, drop, name, image) VALUES (1, 30, 200, 'スライム', 'character_monster_slime_purple.png');
-INSERT INTO enemies (id, hp, drop, name, image) VALUES (2, 100, 450, 'マミー', 'character_monster_mummy_red.png');
-INSERT INTO enemies (id, hp, drop, name, image) VALUES (3, 180, 750, '死神', 'character_monster_shinigami.png');
-INSERT INTO enemies (id, hp, drop, name, image) VALUES (4, 250, 1250, 'ドラゴン', 'character_monster_dragon_01_red.png');
-INSERT INTO enemies (id, hp, drop, name, image) VALUES (5, 500, 2500, '魔王', 'character_monster_mao_01.png');
+INSERT INTO enemies (id, hp, drop, name, image) VALUES (1, 30, 200, 'スライム', '../images/character_monster_slime_purple.png');
+INSERT INTO enemies (id, hp, drop, name, image) VALUES (2, 100, 450, 'マミー', '../images/character_monster_mummy_red.png');
+INSERT INTO enemies (id, hp, drop, name, image) VALUES (3, 180, 750, '死神', '../images/character_monster_shinigami.png');
+INSERT INTO enemies (id, hp, drop, name, image) VALUES (4, 250, 1250, 'ドラゴン', '../images/character_monster_dragon_01_red.png');
+INSERT INTO enemies (id, hp, drop, name, image) VALUES (5, 500, 2500, '魔王', '../images/character_monster_mao_01.png');
 
 --キャラクター情報
-INSERT INTO characters (id, character_image, effect_image) VALUES (1, 'character_yusha_01_red.png', 'kogeki_cut_02.png');
-INSERT INTO characters (id, character_image, effect_image) VALUES (2, 'character_kishi_man_02_red_brown.png', 'kogeki_cut_02.png');
-INSERT INTO characters (id, character_image, effect_image) VALUES (3, 'character_oji_red_brown.png', 'hi_blue_01.png');
-INSERT INTO characters (id, character_image, effect_image) VALUES (4, 'character_tozoku_green.png', 'kogeki_cut_02.png');
+INSERT INTO characters (id, character_image, effect_image) VALUES (1, '../images/character_yusha_01_red.png', 'kogeki_cut_02.png');
+INSERT INTO characters (id, character_image, effect_image) VALUES (2, '../images/character_kishi_man_02_red_brown.png', 'kogeki_cut_02.png');
+INSERT INTO characters (id, character_image, effect_image) VALUES (3, '../images/character_oji_red_brown.png', 'hi_blue_01.png');
+INSERT INTO characters (id, character_image, effect_image) VALUES (4, '../images/character_tozoku_green.png', 'kogeki_cut_02.png');
 
     
