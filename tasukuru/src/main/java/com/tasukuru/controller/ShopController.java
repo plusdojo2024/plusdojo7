@@ -15,11 +15,14 @@ public class ShopController {
     private ShopsRepository shopRepository;
 
     @GetMapping("/shops")
-    public String shops(Model model) {
+    public String getShops(Model model) {
         model.addAttribute("shops", shopRepository.findAll());
         return "shops";
     }
 
-    
+    @GetMapping("/shop/add")
+    public String addShopForm(Model model) {
+        return "addShop";
+    }
 
 }

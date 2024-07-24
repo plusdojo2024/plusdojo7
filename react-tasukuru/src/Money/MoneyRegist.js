@@ -22,7 +22,7 @@ export default class MoneyRegist extends React.Component {
 
     registMoney = () => {
         //利用するstateの値を宣言
-        const { date, item, amount } = this.state;
+        let { date, item, amount } = this.state;
 
         //残金変更
         //allowance = allowance - amount;
@@ -31,7 +31,7 @@ export default class MoneyRegist extends React.Component {
         const data = {
            money_time : date,
            used_type : item,
-           used_money : amount
+           used_money : amount,
         };
         //const data = {};
         

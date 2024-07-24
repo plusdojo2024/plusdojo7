@@ -20,22 +20,12 @@ public class MoneyRestController {
 
 	//利用記録処理
 	@PostMapping("/api/money/regist")
-	private Allowance regist(@RequestBody Allowance allowance) {
+	private Allowance regist(@RequestBody Allowance allowance, @RequestBody KidsUser KidsUser) {
 		//System.out.println(allowance.getUsed_type());
-		
-		//リポジトリ.save(エンティティ);
 		repository.save(allowance);
-		
-//		int currentMoney = KidsUser.getCurrent_money();
-//		currentMoney = currentMoney - allowance.getUsed_money();
-		
-		//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
-		KidsUser kidsUser = new KidsUser();
-		//所持金の計算を行う。
-		
-		//リポジトリ.save(int);
-		//kidsRepository.save(currentMoney);
-		kidsRepository.save(kidsUser);
+		int currentMoney = KidsUser.getCurrent_money();
+		currentMoney = currentMoney - allowance.getUsed_money();
+		kidsRepository.save(currentMoney);
 		return allowance;
 	}
 	

@@ -41,14 +41,15 @@ export default class GameMypage extends React.Component{
                     <Tab>実績</Tab>
                 </TabList>
 
-                <TabPanel style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', justifyItems: 'center' }}> 
-                            <img src="../images/character_yusha_01_red.png" alt="アバター" style={{ width: '100px' }}></img>
-                            <img src="../images/character_yusha_01_red.png" alt="アバター" style={{ width: '100px' }}></img>
-                            <img src="../images/character_yusha_01_red.png" alt="アバター" style={{ width: '100px' }}></img>
-                            <img src="../images/character_yusha_01_red.png" alt="アバター" style={{ width: '100px' }}></img><br />
+            <TabPanel style={{display:'grid'} }>
 
-                            <button id="skinchange_button" style={{ gridColumn: 'span 2', alignSelf: 'center' }}>変更</button>
-                        </TabPanel>
+            <img src="../images\character_yusha_01_red.png" alt="アバター"  style={{width:'100px'}}></img>
+            <img src="../images\character_yusha_01_red.png" alt="アバター"  style={{width:'100px'}}></img>
+            <img src="../images\character_yusha_01_red.png" alt="アバター"  style={{width:'100px'}}></img>
+            <img src="../images\character_yusha_01_red.png" alt="アバター"  style={{width:'100px'}}></img>
+            <button id ="skinchange_button" >変更</button>
+
+            </TabPanel>
             
             <TabPanel>
             <h2>80個タスク完了！</h2>

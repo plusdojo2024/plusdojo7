@@ -41,22 +41,6 @@ export default class Task extends React.Component{
             this.setState({tasks: json});
         });
     }
-
-    //タスクのカテゴリーごとにボタンの背景色を変更する処理
-    getButtonColor(category){
-      switch(category){
-        case '勉強':
-          return '#F8CECC';
-        case '家事':
-          return '#FFF2CC';
-        case '趣味':
-          return '#DAE8FC';
-        case '運動':
-          return '#D5E8D4';
-        default:
-          return 'gray';
-      }
-    }
     
     render(){
         const { tasks } = this.state;
@@ -79,7 +63,7 @@ export default class Task extends React.Component{
       <div class="box">
         {tasks.map(task => (
           task.noComplete === true && task.complete === false && task.miss === false ?(
-          <button key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }}>{task.name}</button>
+          <button key={task.id} className="task_button">{task.name}</button>
           ) : null
         ))}
       </div>
@@ -94,7 +78,7 @@ export default class Task extends React.Component{
       <div class="box">
         {tasks.map(task => (
           task.noComplete === false && task.complete === true && task.miss === false ?(
-          <button key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }}>{task.name}</button>
+          <button key={task.id} className="task_button">{task.name}</button>
           ) : null
         ))}
       </div>
@@ -108,7 +92,7 @@ export default class Task extends React.Component{
       <div class="box">
         {tasks.map(task => (
           task.noComplete === false && task.complete === false && task.miss === true ?(
-          <button key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }}>{task.name}</button>
+          <button key={task.id} className="task_button">{task.name}</button>
           ) : null
         ))}
       </div>

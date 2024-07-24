@@ -5,13 +5,26 @@ import LoginFooter from "../foundation/LoginFooter.js";
 import './LoginFamily.css';
 
 export default function LoginKids() {
+
+
+        this.state = {
+            family_id :"",
+            pass : "",
+        }
+
+
     const navigate = useNavigate(); // useNavigate フックを使ってナビゲーションオブジェクトを取得する
     
     const ReturnClick = () => {
         // ボタンがクリックされたら /login に遷移する
         navigate('/login');
     };
-
+/*    loginDate = () => {
+        const {diaries,title,content} = this.state;
+        const data = {title : title, content : content};
+        axios.post("/api/login/loginDate/",data)
+    }
+*/
     return (
         <div>
             <div className="login_header">
