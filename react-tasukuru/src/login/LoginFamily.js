@@ -23,6 +23,9 @@ export default function LoginKids() {
                 // リクエスト成功時の処理
                 console.log(response.data); // レスポンスをログに出力するなど
                 // 成功時に何らかの処理を行う場合はここに記述する
+                if (response.data === "ログイン成功") {
+                    navigate('/task');
+                }
             })
             .catch(error => {
                 // リクエスト失敗時の処理
