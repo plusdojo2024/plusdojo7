@@ -103,18 +103,51 @@ export default class GuardianDiares extends React.Component {
                     <button onClick={() => this.addDiary()}>日記登録</button>
                 </div> */}
                 <main>
-                    <div className="background_image_renga">
-                        <div className="background">
+                    <div className="background_image_renga_diaries">
+                        <div className="Diaries_background">
+                            <div id="Diaries_body">
                             <Tabs>
                                 <TabList>
+                                    <Tab>日記一覧</Tab>
                                     <Tab>未読日記</Tab>
                                     <Tab>既読日記</Tab>
                                 </TabList>
+
                                 <TabPanel>
-                                    <div className="DiaryListBody">
+                                <div className="DiaryListBody" class="box">
                                     <table>
                                         <thead>
-                                            <tr class="bookrow">
+                                            <tr class="diaryRow">
+                                                <td>日時</td>
+                                                <td>タイトル</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {diaries.map((diary, index) => {
+                                                
+                                                const dateOnly = new Date(diary.date).toISOString().split('T')[0];
+                                                return (
+                                                        <tr className="diaryRow" key={index}>
+                                                            <td className="dateOnly">{dateOnly}</td>
+                                                            <td className="title">{diary.title}</td>
+                                                            {/* <td className="content">{diary.content}</td>
+                                                            <td className="reply">{diary.reply}</td> */}
+                                                            <td className="action">
+                                                                <button onClick={() => { this.showDiary(index) }}>確認</button>
+                                                            </td>
+                                                        </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </TabPanel>
+
+                                <TabPanel>
+                                    <div className="DiaryListBody" class="box">
+                                    <table >
+                                        <thead>
+                                            <tr class="diaryRow">
                                                 <td>日時</td>
                                                 <td>タイトル</td>
                                             </tr>
@@ -123,17 +156,17 @@ export default class GuardianDiares extends React.Component {
                                             {diaries.map((diary, index) => {
                                                 const dateOnly = new Date(diary.date).toISOString().split('T')[0];
                                                 return (
-                                                    <tr class="bookrow" key={index}>
-                                                        <td className="dateOnly">{dateOnly}</td>
-                                                        <td className="title">{diary.title}</td>
-                                                        {/* <td className="content">{diary.content}</td>
-                                                        <td className="reply">{diary.reply}</td> */}
-                                                        <td className="action">
-                                                            <button onClick={() => {this.ackDiary(index)}}>評価</button>
-                                                            
-                                                            
-                                                        </td>
-                                                    </tr>
+                                                    !diary.parentCheck ? (
+                                                        <tr className="diaryRow" key={index}>
+                                                            <td className="dateOnly">{dateOnly}</td>
+                                                            <td className="title">{diary.title}</td>
+                                                            {/* <td className="content">{diary.content}</td>
+                                                            <td className="reply">{diary.reply}</td> */}
+                                                            <td className="action">
+                                                                <button onClick={() => {this.ackDiary(index)}}>評価</button>
+                                                            </td>
+                                                        </tr>
+                                                    ) : null
                                                 );
                                             })}
                                         </tbody>
@@ -141,11 +174,12 @@ export default class GuardianDiares extends React.Component {
                                 </div>
 
                             </TabPanel>
+
                             <TabPanel>
-                                <div className="DiaryListBody">
+                                <div className="DiaryListBody" class="box">
                                     <table>
                                         <thead>
-                                            <tr class="bookrow">
+                                            <tr class="diaryRow">
                                                 <td>日時</td>
                                                 <td>タイトル</td>
                                             </tr>
@@ -157,7 +191,7 @@ export default class GuardianDiares extends React.Component {
                                                 return (
                                                   
                                                     diary.parentCheck ? (
-                                                        <tr className="bookrow" key={index}>
+                                                        <tr className="diaryRow" key={index}>
                                                             <td className="dateOnly">{dateOnly}</td>
                                                             <td className="title">{diary.title}</td>
                                                             {/* <td className="content">{diary.content}</td>
@@ -174,13 +208,11 @@ export default class GuardianDiares extends React.Component {
                                         </tbody>
                                     </table>
                                 </div>
-                                
-
                             </TabPanel>
 
                             </Tabs>
                               
-                            
+                            </div>    
                         </div>
                     </div>
                 </main>

@@ -163,19 +163,31 @@
     overflow-y: scroll;
 }
 
-/* DiariesList の　CSS */
-.bookListBody{
+/* GuardianceDiaries の　CSS */
+.diaryListBody{
     padding: 0;
+    width: 350px;
 }
-.bookrow {
+.diaryRow {
     padding: 0;
     position: relative;
 }
-.bookrow td{
-    color: #2d8fdd;
-    background: #f1f8ff;
+.diaryRow td{
+    color: #020c14;
+    background: #E6E6E6;
     line-height: 1.5;
     padding: 0.5em;
+    padding-left: 20px;
+    padding-right: 18px;
 }
+.box {
+    position: absolute;
+    top: 13%;
+    left: 3.5%;
+    width: 330px;
+    height: 350px;
+    border: 1px solid #000;
+    overflow-y: scroll;
+  }
 
 
