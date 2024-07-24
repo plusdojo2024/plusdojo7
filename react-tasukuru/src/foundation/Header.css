@@ -73,13 +73,18 @@
     width:100%;
 }
 
-#toggle {
-    display: none;
-    cursor: pointer;
-    }
-  #menu {
-    display: none;
-    }
-  #toggle:checked + #menu {
-    display: block;
-    }
+.parent_header_childName{
+    position:absolute;
+    top:5vh;
+    left:35%;
+    font-family:"Mochiy Pop One", sans-serif;
+    font-size:30px;
+    color:rgb(62, 62, 62);
+    max-width:25vh;
+    border:none;
+    background-color:#E6E6E6
+}
+
+.parent_header_otherName{
+    font-size:15px;
+}
