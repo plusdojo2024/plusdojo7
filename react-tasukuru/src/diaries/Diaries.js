@@ -47,11 +47,15 @@ export default class Diaries extends React.Component {
 
     //未読日記処理
     UnreadDiarie(index) {
-        this.toggleUnreadModal();
+        const { diaries } = this.state;
+        const selectedDiary = diaries[index];
+        this.toggleUnreadModal({ selectedDiary }, this.toggleUnreadModal);
     }
     //既読日記処理
     LookedDiarie(index) {
-        this.toggleLookedModal();
+        const { diaries } = this.state;
+        const selectedDiary = diaries[index];
+        this.toggleLookedModal({ selectedDiary }, this.toggleLookedModal);
     }
     //サイコロ入手処理
     GetDice(index) {
@@ -118,6 +122,7 @@ export default class Diaries extends React.Component {
                             <Tab>いちらん</Tab>
                             <Tab>みどく</Tab>
                             <Tab>きどく</Tab>
+                            <Tab>保護者用</Tab>{/*テスト用のタブ。保護者のみ表示にするかも。*/}
                         </TabList>
 
                         {/* 日記一覧リスト・・・提出するためのタブ */}
@@ -142,11 +147,42 @@ export default class Diaries extends React.Component {
                         {/* 未読日記リスト・・・サイコロをもらうためのタブ */}
                         <TabPanel>
                             <div className="Diarie_box">
-                                
+                            {diaries.map((diary, index) => {
+                                const dateOnly = new Date(diary.date).toISOString().split('T')[0];
+                                return (
+                                    <tr className="" key={index}>
+                                        <td className="dateOnly">{dateOnly}</td>
+                                        <td className="title">{diary.title}</td>
+                                        <td className="content">{diary.content}</td>
+                                        <td className="action">
+                                        <button className="Diaries_submit_button" onClick={() => this.UnreadDiarie(index)}>かくにん</button>
+                                        </td>
+                                    </tr>
+                                );
+                            })} 
                             </div>
                         </TabPanel>
 
                         {/* 既読日記リスト・・・サイコロをもらった後のタブ */}
+                        <TabPanel>
+                            <div className="Diarie_box">
+                            {diaries.map((diary, index) => {
+                                const dateOnly = new Date(diary.date).toISOString().split('T')[0];
+                                return (
+                                    <tr className="" key={index}>
+                                        <td className="dateOnly">{dateOnly}</td>
+                                        <td className="title">{diary.title}</td>
+                                        <td className="content">{diary.content}</td>
+                                        <td className="action">
+                                        <button className="Diaries_submit_button" onClick={() => this.LookedDiarie(index)}>かくにん</button>
+                                        </td>
+                                    </tr>
+                                );
+                            })} 
+                            </div>
+                        </TabPanel>
+
+                        {/* 保護者用既読日記リスト。テストタブであり、提出されたものがここに来る*/}
                         <TabPanel>
                             <div className="Diarie_box">
                                 
@@ -156,13 +192,14 @@ export default class Diaries extends React.Component {
                 </div>
 
                 {/*未読日記モーダル*/}
-                {UnreadDiarieModal && (
+                {UnreadDiarieModal && selectedDiary && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
-                            <button className="close_button" onClick={this.toggleUnreadModal}>とじる</button><br />
-                            ここに日付<br />
-                            title<br />
-                            reply<br />
+                            <h1>日記</h1>
+                            <p>ひづけ<br /> {new Date(selectedDiary.date).toISOString().split('T')[0]}</p>
+                            <p>タイトル<br /> {selectedDiary.title}</p>
+                            <p>ないよう<br /> {selectedDiary.content}</p>
+                            <p>へんしん<br /> {selectedDiary.reply}</p>
                             <button onClick={this.toggleDiceModal}>サイコロをもらう</button>
                         </div>
                         
@@ -170,15 +207,16 @@ export default class Diaries extends React.Component {
                 )}
 
                 {/*既読日記モーダル*/}
-                {LookedDiarieModal && (
+                {LookedDiarieModal && selectedDiary && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
+                            <h1>日記</h1>
+                            <p>日付<br /> {new Date(selectedDiary.date).toISOString().split('T')[0]}</p>
+                            <p>タイトル<br /> {selectedDiary.title}</p>
+                            <p>内容<br /> {selectedDiary.content}</p>
+                            <p>へんしん<br /> {selectedDiary.reply}</p>
                             <button onClick={this.toggleLookedModal}>とじる</button><br />
-                            ここに日付<br />
-                            title<br />
-                            reply<br />
                         </div>
-                        
                     </div>
                 )}
 
@@ -210,11 +248,11 @@ export default class Diaries extends React.Component {
                 {SubmitModal && selectedDiary && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
-                            <h1>日記</h1>
-                            <p>日付: {new Date(selectedDiary.date).toISOString().split('T')[0]}</p>
-                            <p>タイトル: {selectedDiary.title}</p>
-                            <p>内容: {selectedDiary.content}</p>
-                            <button onClick={this.toggleSubmitModal}>提出</button>
+                            <h1>にっき</h1>
+                            <p>ひづけ<br /> {new Date(selectedDiary.date).toISOString().split('T')[0]}</p>
+                            <p>タイトル<br /> {selectedDiary.title}</p>
+                            <p>ないよう<br /> {selectedDiary.content}</p>
+                            <button onClick={this.toggleSubmitModal}>ていしゅつ</button>
                         </div>
                     </div>
                 )}

@@ -30,3 +30,31 @@ VALUES
     (1, '学校の友達', '友達はとても優しいです。', 'そうですか。', '2024-06-01 10:00:00', true, true),
     (2, '学校の先生', '担任の先生は怖いです。', 'そうですか。', '2024-06-02 10:00:00', true, true),
     (1, '学校の勉強', '今日の数学は難しいです。', '頑張ってください。', '2024-06-03 10:00:00', true, true);
+    
+    
+
+--ゲーム
+--ショップ
+INSERT INTO shops (id, kid_id, name, price, condition) VALUES (1, 1, 'ゲーム', 1000, FALSE);
+INSERT INTO shops (id, kid_id, name, price, condition) VALUES (2, 1, 'お菓子', 250, FALSE);
+INSERT INTO shops (id, kid_id, name, price, condition) VALUES (3, 1, 'まんが', 300, FALSE);
+
+--リクエスト
+INSERT INTO requests (id, kid_id, name) VALUES (1, 1, 'ゲーム');
+INSERT INTO requests (id, kid_id, name) VALUES (2, 1, 'お菓子');
+INSERT INTO requests (id, kid_id, name) VALUES (3, 1, 'まんが');
+
+--敵情報
+INSERT INTO enemies (id, hp, drop, name, image) VALUES (1, 30, 200, 'スライム', 'character_monster_slime_purple.png');
+INSERT INTO enemies (id, hp, drop, name, image) VALUES (2, 100, 450, 'マミー', 'character_monster_mummy_red.png');
+INSERT INTO enemies (id, hp, drop, name, image) VALUES (3, 180, 750, '死神', 'character_monster_shinigami.png');
+INSERT INTO enemies (id, hp, drop, name, image) VALUES (4, 250, 1250, 'ドラゴン', 'character_monster_dragon_01_red.png');
+INSERT INTO enemies (id, hp, drop, name, image) VALUES (5, 500, 2500, '魔王', 'character_monster_mao_01.png');
+
+--キャラクター情報
+INSERT INTO characters (id, character_image, effect_image) VALUES (1, 'character_yusha_01_red', 'kogeki_cut_02.png');
+INSERT INTO characters (id, character_image, effect_image) VALUES (2, 'character_kishi_man_02_red_brown.png', 'kogeki_cut_02.png');
+INSERT INTO characters (id, character_image, effect_image) VALUES (3, 'character_oji_red_brown', 'hi_blue_01.png');
+INSERT INTO characters (id, character_image, effect_image) VALUES (4, 'character_tozoku_green', 'kogeki_cut_02.png');
+
+    
