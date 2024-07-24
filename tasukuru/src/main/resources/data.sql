@@ -54,7 +54,7 @@ INSERT INTO enemies (id, hp, drop, name, image) VALUES (5, 500, 2500, '魔王', 
 --キャラクター情報
 INSERT INTO characters (id, character_image, effect_image) VALUES (1, '../images/character_yusha_01_red.png', 'kogeki_cut_02.png');
 INSERT INTO characters (id, character_image, effect_image) VALUES (2, '../images/character_kishi_man_02_red_brown.png', 'kogeki_cut_02.png');
-INSERT INTO characters (id, character_image, effect_image) VALUES (3, '../images/character_oji_red_brown.png', 'hi_blue_01.png');
+INSERT INTO characters (id, character_image, effect_image) VALUES (3, '../images/character_oji_01_red_brown.png', 'hi_blue_01.png');
 INSERT INTO characters (id, character_image, effect_image) VALUES (4, '../images/character_tozoku_green.png', 'kogeki_cut_02.png');
 
     
