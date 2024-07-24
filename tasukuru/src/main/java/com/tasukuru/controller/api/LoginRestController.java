@@ -6,21 +6,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tasukuru.repository.FamilyUserRepository; // FamilyUserRepositoryを利用すると仮定します
+import com.tasukuru.entity.FamilyUser;
+import com.tasukuru.repository.FamilyUserRepository;
 
 @RestController
 public class LoginRestController {
 
     @Autowired
-    private FamilyUserRepository userRepository; // FamilyUserRepositoryを注入する
+    private FamilyUserRepository userRepository;
 
     @PostMapping("/api/login/loginDate/")
-	public ResponseEntity<String> login(
-	        @RequestParam("family_id") String familyID,
-	        @RequestParam("pass") String password) {
+    public ResponseEntity<String> login(
+            @RequestParam("family_id") String familyID,
+            @RequestParam("pass") String password) {
 
         // ログイン処理を行う
-        User foundUser = userRepository.findByFamilyIDAndPassword(familyID, password);
+        FamilyUser foundUser = userRepository.findByFamilyIdAndPass(familyID, password);
+
 
         if (foundUser != null) {
             // ログイン成功の場合、セッションスコープにloginUserインスタンスを格納

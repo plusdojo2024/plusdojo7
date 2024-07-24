@@ -13,8 +13,9 @@ import lombok.NoArgsConstructor;
 @Data																//getter、setter、toStringなどの基本的メソッドを自動定義する
 @Table(name="familyUser")												//マッピングされるテーブルを指定する
 public class FamilyUser {
-	@Id																//ID列であることを示す
-	private String family_id;
+	@Id
+	//ID列であることを示す
+	private String familyId;
 	private String mail;
 	private String pass;
 
