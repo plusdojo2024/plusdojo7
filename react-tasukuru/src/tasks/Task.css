@@ -162,6 +162,7 @@ main {
 
 .modal_content h2 {
   font-family: "Mochiy Pop One", sans-serif;
+  color: cornflowerblue;
   margin-bottom: 20px;
 }
 
@@ -184,4 +185,8 @@ main {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.add_button{
+  width:50%;
 }

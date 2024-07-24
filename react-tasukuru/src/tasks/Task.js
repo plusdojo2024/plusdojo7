@@ -6,6 +6,7 @@ import axios from "axios";
 
 import { BrowserRouter, Routes, Route, json } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import NavigationButton from "./NavigationButton";
 
 export default class Task extends React.Component {
   constructor(props) {
@@ -99,7 +100,7 @@ export default class Task extends React.Component {
                   </div>
 
                   <div className="button_container">
-                    <button className="diary_button">日記</button>
+                    <NavigationButton path="/diaries" label="日記" className="diary_button" />
                     <button className="task_add_button" onClick={this.toggleModal}>追加</button>
                   </div>
                 </TabPanel>
@@ -114,7 +115,7 @@ export default class Task extends React.Component {
                   </div>
 
                   <div className="button_container">
-                    <button className="diary_button">日記</button>
+                    <NavigationButton path="/diaries" label="日記" className="diary_button" />
                     <button className="task_add_button">再登録</button>
                   </div>
                 </TabPanel>
@@ -128,7 +129,7 @@ export default class Task extends React.Component {
                   </div>
 
                   <div className="button_container">
-                    <button className="diary_button">日記</button>
+                    <NavigationButton path="/diaries" label="日記" className="diary_button" />
                     <button className="task_add_button">再登録</button>
                   </div>
                 </TabPanel>
@@ -165,7 +166,7 @@ export default class Task extends React.Component {
                     くわしく:
                     <textarea placeholder="タスクの詳細を記入してください"></textarea>
                   </label>
-                  <button type="submit">追加</button>
+                  <button type="submit" className="add_button">追加</button>
                 </form>
               </div>
             </div>
