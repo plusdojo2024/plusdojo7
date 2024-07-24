@@ -30,6 +30,7 @@ public class Diary {
 	private Date date;
 	private boolean parentCheck;
 	private boolean childCheck;
+	private boolean doSubmit;
 	
 	public String dateString() {
 		SimpleDateFormat dformat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
