@@ -3,10 +3,9 @@ package com.tasukuru.controller.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tasukuru.entity.FamilyUser;
 import com.tasukuru.repository.FamilyUserRepository; // FamilyUserRepositoryを利用すると仮定します
 
 @RestController
@@ -15,10 +14,10 @@ public class LoginRestController {
     @Autowired
     private FamilyUserRepository userRepository; // FamilyUserRepositoryを注入する
 
-    @PostMapping("/api/login/family")
-    public ResponseEntity<String> login(@RequestBody FamilyUser loginUser) {
-        String familyID = loginUser.getFamilyID();
-        String password = loginUser.getPassword();
+    @PostMapping("/api/login/loginDate/")
+	public ResponseEntity<String> login(
+	        @RequestParam("family_id") String familyID,
+	        @RequestParam("pass") String password) {
 
         // ログイン処理を行う
         User foundUser = userRepository.findByFamilyIDAndPassword(familyID, password);
