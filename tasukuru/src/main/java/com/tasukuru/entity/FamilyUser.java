@@ -1,5 +1,6 @@
 package com.tasukuru.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -13,8 +14,9 @@ import lombok.NoArgsConstructor;
 @Data																//getter、setter、toStringなどの基本的メソッドを自動定義する
 @Table(name="familyUser")												//マッピングされるテーブルを指定する
 public class FamilyUser {
-	@Id
 	//ID列であることを示す
+	@Id
+	@Column(name="family_id")
 	private String familyId;
 	private String mail;
 	private String pass;
