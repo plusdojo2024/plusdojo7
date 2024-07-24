@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import Header from '../foundation/Header';
 import Footer from '../foundation/Footer';
 import './Task.css';
@@ -139,37 +139,40 @@ export default class Task extends React.Component {
           {showModal && (
             <div className="modal">
               <div className="modal_content">
+                <button className="close_button" onClick={this.toggleModal}>×</button>
                 <h2>タスク追加</h2>
-                <label>
-                  タスク:
-                  <input type="text" />
-                </label>
-                <label>
-                  カテゴリー:
-                  <select>
-                    <option value="勉強">勉強</option>
-                    <option value="家事">家事</option>
-                    <option value="趣味">趣味</option>
-                    <option value="運動">運動</option>
-                    <option value="その他">その他</option>
-                  </select>
-                </label>
-                <label>
-                  きげん:
-                  <input type="date" />
-                </label>
-                <label>
-                  くわしく:
-                  <textarea />
-                </label>
-                <button onClick={this.toggleModal}>追加</button>
+                <form onSubmit={this.handleSubmit}>
+                  <label>
+                    タスク:
+                    <input type="text" placeholder="タスク名" required />
+                  </label>
+                  <label>
+                    カテゴリー:
+                    <select defaultValue="" required>
+                      <option value="" disabled>選択してください</option>
+                      <option value="勉強">勉強</option>
+                      <option value="家事">家事</option>
+                      <option value="趣味">趣味</option>
+                      <option value="運動">運動</option>
+                      <option value="その他">その他</option>
+                    </select>
+                  </label>
+                  <label>
+                    きげん:
+                    <input type="date" required />
+                  </label>
+                  <label>
+                    くわしく:
+                    <textarea placeholder="タスクの詳細を記入してください"></textarea>
+                  </label>
+                  <button type="submit">追加</button>
+                </form>
               </div>
             </div>
           )}
         </main>
         <Footer />
       </wrapper>
-
     );
   };
 }
