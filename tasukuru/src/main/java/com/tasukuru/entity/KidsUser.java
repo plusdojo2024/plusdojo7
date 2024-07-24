@@ -1,6 +1,7 @@
 package com.tasukuru.entity;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,7 +22,8 @@ public class KidsUser {
 	@Id //キー設定
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //auto increment
 	private Integer id;
-	private String family_id;
+	@Column(name="family_id")
+	private String familyId;
 	private Integer character_id;
 	private Integer enemie_id;
 	private Integer enemie_hp;

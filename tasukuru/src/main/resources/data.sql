@@ -8,6 +8,9 @@ INSERT INTO family_user (family_id, mail, pass) VALUES ('YAMADA','yamada@example
 INSERT INTO family_user (family_id, mail, pass) VALUES ('OOTA','oota@example.com','1234');
 INSERT INTO family_user (family_id, mail, pass) VALUES ('IKEDA','ikeda@example.com','1234');
 
+--子供情報
+INSERT INTO kids_users (id, family_id, character_id, enemie_id, enemie_hp, support_id, name, dice_count, money, current_money) VALUES (1,'YAMADA',1,1,1,1,'ひろし','1','1','1');
+
 --タクス情報
 INSERT INTO tasks (kids_id, name, content, reg_time, categories_name, task_limit, submit_time, task_image, comment, review_one, review_two, review_three, task_check, no_complete, complete, miss) 
 VALUES 

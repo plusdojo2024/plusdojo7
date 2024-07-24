@@ -18,7 +18,7 @@ export default function LoginKids() {
 
     const loginDate = () => {
         const data = { family_id: family_id, pass: pass }; // 現在のstateからデータを取得する
-        axios.post("/api/login/loginDate/", data)
+        axios.post("/api/FamilyLogin/loginDate/", data)
             .then(response => {
                 // リクエスト成功時の処理
                 console.log(response.data); // レスポンスをログに出力するなど

@@ -1,16 +1,39 @@
-import React from "react";
-import { useNavigate } from "react-router-dom"; // useNavigate をインポートする
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios'; // axiosをインポートする
 import LoginHeader from '../foundation/LoginHeader.js';
 import LoginFooter from "../foundation/LoginFooter.js";
 import './LoginKids.css';
 
+
 export default function LoginKids() {
-    const navigate = useNavigate(); // useNavigate フックを使ってナビゲーションオブジェクトを取得する
-    
+    const [family_id, setFamilyId] = useState(""); // useStateフックを使ってfamily_idを状態として管理する
+    const [kidsname, setKidsName] = useState(""); // useStateフックを使ってpassを状態として管理する    
+
+    const navigate = useNavigate();
+
     const ReturnClick = () => {
-        // ボタンがクリックされたら /login に遷移する
         navigate('/login');
     };
+
+    const loginDate = () => {
+        const data = { family_id: family_id, kidsname: kidsname }; // 現在のstateからデータを取得する
+        axios.post("/api/KidsLogin/loginDate/", data)
+            .then(response => {
+                // リクエスト成功時の処理
+                console.log(response.data); // レスポンスをログに出力するなど
+                // 成功時に何らかの処理を行う場合はここに記述する
+                if (response.data === "ログイン成功") {
+                    navigate('/task');
+                }
+            })
+            .catch(error => {
+                // リクエスト失敗時の処理
+                console.error('エラー:', error);
+                console.log(data);
+                // エラー時の処理を行う場合はここに記述する
+            });
+    }
 
     return (
         <div>
@@ -19,9 +42,9 @@ export default function LoginKids() {
             </div>
             <div className="background_image_renga">
                 <div className="loginKids_body">
-                    <input type="text" placeholder="家族ID" className="textbox" /><br />
-                    <input type="text" placeholder="なまえ" className="textbox" /><br />
-                    <button className="loginMain_button">ろぐいん</button><br />
+                <input type="text" placeholder="家族ID" className="textbox" value={family_id} onChange={(e) => setFamilyId(e.target.value)}/><br />
+                <input type="text" placeholder="なまえ" className="textbox" value={kidsname} onChange={(e) => setKidsName(e.target.value)}/><br />
+                    <button className="loginMain_button" onClick={loginDate}>ログイン</button><br />
                     <button className="loginR_button" onClick={ReturnClick}>←</button><br />
                 </div>
             </div>
