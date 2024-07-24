@@ -30,11 +30,13 @@ export default class Task extends React.Component {
       noComplete: false,
       complete: false,
       miss: false,
-      showModal: false,
+      showAddModal: false,
+      showTaskModal: false,
     }
 
     //モーダル表示・非表示を切り替えるメソッドをバインド
-    this.toggleModal = this.toggleModal.bind(this);
+    this.toggleAddModal = this.toggleAddModal.bind(this);
+    this.toggleTaskModal = this.toggleTaskModal.bind(this);
 
   }
 
@@ -49,9 +51,15 @@ export default class Task extends React.Component {
   }
 
   // モーダル表示・非表示を切り替えるメソッド
-  toggleModal() {
+  toggleAddModal() {
     this.setState(prevState => ({
-      showModal: !prevState.showModal
+      showAddModal: !prevState.showAddModal
+    }));
+  }
+
+  toggleTaskModal(){
+    this.setState(prevState =>({
+      showTaskModal: !prevState.showTaskModal
     }));
   }
 
@@ -74,7 +82,7 @@ export default class Task extends React.Component {
 
 
   render() {
-    const { tasks, showModal } = this.state;
+    const { tasks, showAddModal, showTaskModal } = this.state;
 
     return (
 
@@ -94,14 +102,14 @@ export default class Task extends React.Component {
                   <div class="box">
                     {tasks.map(task => (
                       task.noComplete === true && task.complete === false && task.miss === false ? (
-                        <button key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }}>{task.name}</button>
+                        <button key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }} onClick={this.toggleTaskModal}>{task.name}</button>
                       ) : null
                     ))}
                   </div>
 
                   <div className="button_container">
                     <NavigationButton path="/diaries" label="日記" className="diary_button" />
-                    <button className="task_add_button" onClick={this.toggleModal}>追加</button>
+                    <button className="task_add_button" onClick={this.toggleAddModal}>追加</button>
                   </div>
                 </TabPanel>
 
@@ -136,11 +144,47 @@ export default class Task extends React.Component {
               </Tabs>
             </div>
           </div>
-          {/* タスク追加モーダル */}
-          {showModal && (
+          {/* タスク提出モーダル */}
+          {showTaskModal && (
             <div className="modal">
               <div className="modal_content">
-                <button className="close_button" onClick={this.toggleModal}>×</button>
+                <button className="close_button" onClick={this.toggleTaskModal}>×</button>
+                <h2>タスク提出</h2>
+                <form onSubmit={this.handleSubmit}>
+                  <label>
+                    タスク:
+                    <input type="text" placeholder="タスク名" required />
+                  </label>
+                  <label>
+                    カテゴリー:
+                    <select defaultValue="" required>
+                      <option value="" disabled>選択してください</option>
+                      <option value="勉強">勉強</option>
+                      <option value="家事">家事</option>
+                      <option value="趣味">趣味</option>
+                      <option value="運動">運動</option>
+                      <option value="その他">その他</option>
+                    </select>
+                  </label>
+                  <label>
+                    きげん:
+                    <input type="date" required />
+                  </label>
+                  <label>
+                    くわしく:
+                    <textarea placeholder="タスクの詳細を記入してください"></textarea>
+                  </label>
+                  <button type="submit" className="add_button">提出</button>
+                </form>
+              </div>
+            </div>
+          )}
+
+          {/* タスク追加モーダル */}
+          {showAddModal && (
+            <div className="modal">
+              <div className="modal_content">
+                <button className="close_button" onClick={this.toggleAddModal}>×</button>
                 <h2>タスク追加</h2>
                 <form onSubmit={this.handleSubmit}>
                   <label>
