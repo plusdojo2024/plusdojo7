@@ -13,28 +13,28 @@ import com.tasukuru.repository.FamilyTaskRepository;
 @RestController
 public class FamilyTaskRestController {
 	@Autowired
-	private FamilyTaskRepository familyTaskRepository;
+	private FamilyTaskRepository repository;
 	
 	@GetMapping("/api/familyTask/")
 	private Iterable<Task> get(){
-		return familyTaskRepository.findAll();
+		return repository.findAll();
 	}
 	
-	@GetMapping("/api/familyTask/familyTaskAdd/")	
+	@PostMapping("/api/familyTask/add/")	
 	private Task addTask(@RequestBody Task task){
-		familyTaskRepository.save(task);
+		repository.save(task);
 		return task;
 	}
 
-	@PostMapping("/api/familyTask/familyTaskMod/")
+	@PostMapping("/api/familyTask/mod/")
 	private Task mod(@RequestBody Task task) {
-		familyTaskRepository.save(task);
+		repository.save(task);
 		return task;
 	}
 	
-	@PostMapping("/api/familyTask/familyTaskDel/")
+	@PostMapping("/api/familyTask/del/")
 	private Task del(@RequestBody Task task) {
-		familyTaskRepository.delete(task);
+		repository.delete(task);
 		return task;
 	}
 }

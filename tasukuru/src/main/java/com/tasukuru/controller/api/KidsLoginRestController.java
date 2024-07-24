@@ -8,30 +8,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tasukuru.entity.FamilyUser;
-import com.tasukuru.repository.FamilyUserRepository;
+import com.tasukuru.entity.KidsUser;
+import com.tasukuru.repository.KidesUserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
-public class LoginRestController {
+public class KidsLoginRestController {
 
     @Autowired
-    private FamilyUserRepository userRepository;
+    private KidesUserRepository userRepository;
 
-    @PostMapping("/api/login/loginDate/")
+    @PostMapping("/api/KidsLogin/loginDate/")
     public ResponseEntity<String> login(@RequestBody Map<String, String> loginRequest,HttpServletRequest request) {
         String familyID = loginRequest.get("family_id");
-        String password = loginRequest.get("pass");
+        String kidsName = loginRequest.get("kidsname");
 
         // ログイン処理を行う
-        FamilyUser foundUser = userRepository.findByFamilyIdAndPass(familyID, password);
+        KidsUser foundUser = userRepository.findByFamilyIdAndName(familyID, kidsName);
 
         if (foundUser != null) {
             // ログイン成功の場合、セッションスコープにfoundUserを格納する
             HttpSession session = request.getSession();
-            session.setAttribute("FamilyUser", foundUser); 
+            session.setAttribute("KidsUser", foundUser); 
 
             return ResponseEntity.ok("ログイン成功");
         } else {
