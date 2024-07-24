@@ -129,6 +129,7 @@ main {
 }
 
 .modal {
+  font-family: "Mochiy Pop One", sans-serif;
   position: fixed;
   top: 0;
   left: 0;
@@ -149,7 +150,19 @@ main {
   text-align: center;
 }
 
+.close_button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 .modal_content h2 {
+  font-family: "Mochiy Pop One", sans-serif;
+  color: cornflowerblue;
   margin-bottom: 20px;
 }
 
@@ -159,15 +172,21 @@ main {
 }
 
 .modal_content input, .modal_content select, .modal_content textarea {
+  font-family: "Mochiy Pop One", sans-serif;
   width: 100%;
   padding: 5px;
   margin-bottom: 10px;
 }
 
 .modal_content button {
-  background: #FFB366;
+  font-family: "Mochiy Pop One", sans-serif;
+  background: cornflowerblue;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.add_button{
+  width:50%;
 }
