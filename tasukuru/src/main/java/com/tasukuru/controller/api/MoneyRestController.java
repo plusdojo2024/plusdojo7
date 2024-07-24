@@ -27,11 +27,10 @@ public class MoneyRestController {
 		
 		//リポジトリ.save(エンティティ);
 		repository.save(allowance);
-
-
 		
 		//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
 		KidsUser kidsUser = kidsRepository.findById(1000);
+		
 		//所持金の計算を行う。
 		//kidsUser.setCurrent_money(kidsUser.getCurrent_money() - allowance.getUsed_money());
 		
@@ -49,10 +48,35 @@ public class MoneyRestController {
 	@PostMapping("/api/money/del")
 	private Allowance del(@RequestBody Allowance allowance) {
 		repository.delete(allowance);
+		
+		//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
+		KidsUser kidsUser = kidsRepository.findById(1000);
+		
+		//所持金の計算を行う。
+		kidsUser.setCurrent_money(kidsUser.getCurrent_money() + allowance.getUsed_money());
+						
+		kidsRepository.save(kidsUser);
+		
 		return allowance;
 	}
 	
 	//お小遣い追加処理
+	@PostMapping("/api/money/add")
+	private Allowance add(@RequestBody Allowance allowance) {
+		//System.out.println(allowance.getGet_money());
+		
+		//リポジトリ.save(エンティティ);
+		repository.save(allowance);
+		
+		//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
+		KidsUser kidsUser = kidsRepository.findById(1000);
+		
+		//所持金の計算を行う。
+		kidsUser.setCurrent_money(kidsUser.getCurrent_money() + allowance.getGet_money());
+		
+		kidsRepository.save(kidsUser);
 
+		return allowance;
+	}
 	
 }
