@@ -1,6 +1,7 @@
 package com.tasukuru.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,5 +79,13 @@ public class MoneyRestController {
 
 		return allowance;
 	}
-	
+	//所持金データ取得
+	@GetMapping("/api/money/current")
+	private Integer get(){
+		
+		//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
+		KidsUser kidsUser = kidsRepository.findById(1000);
+		
+	    return kidsUser.getCurrent_money();
+	}
 }
