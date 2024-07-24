@@ -7,13 +7,13 @@ export default class ParentHeader extends React.Component{
                 {/* ログアウトボタン */}
                 <button className="header_logout" onClick={this.logout} >ログアウト</button>
                 {/* 個人名 */}
-                <label for="toggle" onclick=""  for="menuToggle">ひろし</label>  
-                <input type="checkbox" id="toggle" autocomplete="off"></input>
-                <ul id="menu">  
-                <li>LIST1</li>
-                <li>LIST2</li>
-                <li>LIST3</li>
-                </ul>
+                
+        <select className = "parent_header_childName"> 
+            <option className="parent_header_otherName" >ひろし</option>
+                <option value="1" className="parent_header_otherName">りょうたろう</option>
+                <option value="2" className="parent_header_otherName">あつし</option>
+                
+        </select> 
                 <hr></hr>
             </div>
             

@@ -1,42 +1,86 @@
 import React from "react";
+import axios from "axios";
+import './Money.css';
 
-class MoneyAdd extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            inputMoney: ""  // 入力された金額
-        };
+export default class MoneyAdd extends React.Component{
+    state = {
+       getMoney: "",
+        showModal: false
+       };
+
+
+        // 関数を使って、モーダルを開くまたは閉じる
+    toggleModal = () => {
+        const{showModal} = this.state;
+        this.setState({
+            showModal: !showModal
+        });
     }
 
-    // モーダル内で金額を入力するための関数
-    handleInputChange = (event) => {
-        this.setState({
-            inputMoney: event.target.value
-        });
-    };
 
-    // モーダル内で金額を登録する関数
-    handleAddModal = () => {
-        const { inputMoney } = this.state;
-        const moneyToAdd = parseInt(inputMoney, 10);
-        if (!isNaN(moneyToAdd)) {
-            this.props.addMoney(moneyToAdd);  // MoneyParentコンポーネントの関数を呼び出し、残金を増やす
-            this.props.closeModal();  // モーダルを閉じる
-        }
-    };
+
+       onInput = (e) => {
+        //コントロールの名前を取得する
+        const name= e.target.name;
+        //コントロールに入力した値をstateに更新する。
+        this.setState({
+            [name]: e.target.value
+        });
+    }
+
+    addMoney = () => {
+        //利用するstateの値を宣言
+        const { getMoney } = this.state;
+
+        //stateの値を利用してpostデータを作成
+        const data = {
+           get_money : getMoney
+        };
+
+        //const data = {};
+        //axiosだとpostが記述しやすい
+        axios.post("/api/money/add", data)
+        .then(json => {
+            console.log(json);
+            this.setState({
+              getMoney:""
+            });
+        });
+        this.toggleModal();
+    }
+
 
     render() {
+        const {getMoney,showModal } = this.state;
         return (
-            <div className="modal">
-                <div className="modal-content">
-                    <span className="close" onClick={this.props.closeModal}>&times;</span>
-                    <p>金額を入力してください:</p>
-                    <input type="number" value={this.state.inputMoney} onChange={this.handleInputChange} />
-                    <button onClick={this.handleAddModal}>登録</button>
+            <div className="money_overlay">
+                <div className="money-content">
+                    
+                    <button onClick={this.toggleModal}>
+                        追加
+                    </button>
+
+                    {/* モーダルウィンドウ */}
+                    {showModal &&
+                    <div>
+                    <button className="close" onClick={this.toggleModal}>
+                        &times;
+                    </button>
+                
+                        <label>お小遣い金額:</label>
+                        <input
+                            type="number"
+                            name="getMoney"
+                            value={getMoney}
+                            onChange={this.onInput}
+                        />
+                        <br />
+                        <button onClick={this.addMoney}> 登録</button>
+                    </div>
+                    }
                 </div>
             </div>
         );
     }
-}
 
-export default MoneyAdd;
+}
