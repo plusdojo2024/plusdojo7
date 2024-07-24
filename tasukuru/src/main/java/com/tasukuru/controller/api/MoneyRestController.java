@@ -15,6 +15,8 @@ public class MoneyRestController {
 	
 	@Autowired
 	private AllowanceRepository repository;
+	
+	@Autowired
 	private KidesUserRepository kidsRepository;
 	
 
@@ -25,17 +27,21 @@ public class MoneyRestController {
 		
 		//リポジトリ.save(エンティティ);
 		repository.save(allowance);
-		
-//		int currentMoney = KidsUser.getCurrent_money();
-//		currentMoney = currentMoney - allowance.getUsed_money();
+
+
 		
 		//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
-		KidsUser kidsUser = new KidsUser();
+		KidsUser kidsUser = kidsRepository.findById(1000);
 		//所持金の計算を行う。
+		//kidsUser.setCurrent_money(kidsUser.getCurrent_money() - allowance.getUsed_money());
+		
+		int money = kidsUser.getCurrent_money() - allowance.getUsed_money();
+		kidsUser.setCurrent_money(money);
 		
 		//リポジトリ.save(int);
-		//kidsRepository.save(currentMoney);
+		
 		kidsRepository.save(kidsUser);
+
 		return allowance;
 	}
 	

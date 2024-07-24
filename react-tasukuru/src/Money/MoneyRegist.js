@@ -87,7 +87,7 @@ export default class MoneyRegist extends React.Component {
 
                         />
                         <br />
-                        <button onclick={this.registMoney}> 登録する</button>
+                        <button onClick={this.registMoney}> 登録する</button>
                 </div>
             </div>
         );
