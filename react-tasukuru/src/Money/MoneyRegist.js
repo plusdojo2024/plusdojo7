@@ -14,8 +14,18 @@ export default class MoneyRegist extends React.Component {
     state = {
         date:new Date(), // 初期値として今日の日付を設定
         item: "",
-        amount: ""
+        amount: "",
+        showModal: false
        };
+
+    // 関数を使って、モーダルを開くまたは閉じる
+    toggleModal = () => {
+        const{showModal} = this.state;
+        this.setState({
+            showModal: !showModal
+        });
+    }
+
 
     // 日付が選択されたときのハンドラー
     handleDateChange = date => {
@@ -53,25 +63,35 @@ export default class MoneyRegist extends React.Component {
                amount:""
             });
         });
+        this.toggleModal();
     }
 
     render() {
-        const { date, item, amount } = this.state;
+        const { date, item, amount,showModal } = this.state;
         return (
             <div className="money_overlay">
                 <div className="money-content">
-                    <span className="close" onClick={this.props.closeModal}>
+                    
+                    <button onClick={this.toggleModal}>
+                        つかったお金をきろくする
+                    </button>
+
+                    {/* モーダルウィンドウ */}
+                    {showModal &&
+                    <div>
+                    <button className="close" onClick={this.toggleModal}>
                         &times;
-                    </span>
-                    <h2>つかったお金をきろくする</h2>
-                        <label>日にち:</label>
+                    </button>
+                
+                        <label>日にち</label>
                         <DatePicker
                         selected={date}
                         onChange={this.handleDateChange}
                         dateFormat="yyyy/MM/dd" // 日付のフォーマット指定
                     />
                         <br />
-                        <label>買ったもの:</label>
+
+                        <label>買ったもの</label>
                         <input
                             type="text"
                             name="item"
@@ -89,6 +109,8 @@ export default class MoneyRegist extends React.Component {
                         />
                         <br />
                         <button onClick={this.registMoney}> 登録する</button>
+                    </div>
+                    }
                 </div>
             </div>
         );
