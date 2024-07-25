@@ -61,7 +61,19 @@ export default class Diaries extends React.Component {
     }
     //サイコロ入手処理
     GetDice(index) {
-        this.toggleDiceModal();
+        const { diaries } = this.state;
+        const selectedDiary = diaries[index];
+        selectedDiary.childCheeck = true;
+        axios.post("/api/diary/diaryMod/",selectedDiary)
+            .then(response => {
+                console.log("既読にしました",response.data);
+                this.toggleDiceModal();
+                this.componentDidMount();
+            })
+            .catch(error => {
+                console.error("既読のエラーが発生しました:", error);
+            });
+        
     }
     //保護者用未読日記処理
     GuardianUnreadDiarie(index) {
@@ -127,6 +139,10 @@ export default class Diaries extends React.Component {
         const { GetDiceModal } = this.state;
         this.setState({
             GetDiceModal: !GetDiceModal,
+        }, () => {
+            if (!GetDiceModal){
+                this.setState({ LookedDiarieModal: false, UnreadDiarieModal: false});
+            }
         });
     }
     //保護者用日記表示切り替え
@@ -191,7 +207,7 @@ export default class Diaries extends React.Component {
                         {/* 未読日記リスト・・・サイコロをもらうためのタブ */}
                         <TabPanel>
                             <div className="Diarie_box">
-                            {diaries.map((diary, index) => {
+                            {diaries.filter(diary => diary.doSubmit && !diary.parentCheck).map((diary, index) => {
                                 const dateOnly = new Date(diary.date).toISOString().split('T')[0];
                                 return (
                                     <tr className="" key={index}>
@@ -284,7 +300,7 @@ export default class Diaries extends React.Component {
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
                             サイコロを手にいれたよ！<br />
-                            <button onClick={() => { this.toggleDiceModal(); this.toggleUnreadModal(); }}>とじる</button><br />
+                            <button onClick={() => { this.toggleDiceModal(); }}>とじる</button><br />
                         </div>
                     </div>
                 )} 
@@ -343,6 +359,13 @@ export default class Diaries extends React.Component {
 //memo
 //-------------------------------------------------------
 /*
+7/25
+子が提出→親未読→返信→子供未読→サイコロもらう→子供既読
+子が提出→親未読＆子未読→返信→子供未読→サイコロもらう→子供既読
+流れがおかしくなっている
+日記のデータがずれている
+
+
 参考になりそうなページ
 スプレッド構文
 https://qiita.com/tokky_se/items/9c359c3e94ca280deda8
