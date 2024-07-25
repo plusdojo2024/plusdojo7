@@ -74,8 +74,17 @@ export default class Diaries extends React.Component {
         const { diaries } = this.state;
         const selectedDiary = diaries[index];
         let updatedDiaries = [...diaries];
-        updatedDiaries[index].status = "guardian"; // ステータスを'guardian'に変更
-        this.setState({ selectedDiary }, this.toggleSubmitModal);
+        updatedDiaries[index].doSubmit = true; // doSubmit を true に設定
+        this.setState({ diaries: updatedDiaries, selectedDiary }, this.toggleSubmitModal);
+        console.log("Submitting diary:", updatedDiaries[index]); // デバッグ用のログ出力
+        axios.post("/api/diary/diaryMod/", updatedDiaries[index])
+            .then(response => {
+                console.log("日記提出", response.data);
+                this.componentDidMount(); // サーバから最新のデータを再取得
+            })
+            .catch(error => {
+                console.error("日記提出中にエラーが発生しました:", error);
+            });
     }
     //画面で何か入力された時に、その値をstateとして保持する。
     onInput = (e) => {

@@ -1,6 +1,7 @@
 package com.tasukuru.controller.api;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,9 +34,22 @@ public class DiaryRestController {
 
 	@PostMapping("/api/diary/diaryMod/")
 	private Diary modDiary(@RequestBody Diary diary) {
-		repository.save(diary);
-		return diary;
-	}
+		System.out.println("Received data: " + diary); // デバッグ用のログ出力
+        Optional<Diary> existingDiaryOpt = repository.findById(diary.getId());
+        if (existingDiaryOpt.isPresent()) {
+            Diary existingDiary = existingDiaryOpt.get();
+            existingDiary.setTitle(diary.getTitle());
+            existingDiary.setContent(diary.getContent());
+            existingDiary.setReply(diary.getReply());
+            existingDiary.setDate(diary.getDate());
+            existingDiary.setParentCheck(diary.isParentCheck());
+            existingDiary.setDoSubmit(diary.isDoSubmit());
+            repository.save(existingDiary);
+            return existingDiary;
+        } else {
+            return null;
+        }
+    }
 	
 	@PostMapping("/api/diary/diaryDel/")
 	private void delDiary(@RequestBody Integer id) {

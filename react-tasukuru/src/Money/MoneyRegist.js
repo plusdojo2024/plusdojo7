@@ -47,9 +47,9 @@ export default class MoneyRegist extends React.Component {
 
         //stateの値を利用してpostデータを作成
         const data = {
-           money_time : date,
-           used_type : item,
-           used_money : amount
+           moneyTime : date,
+           usedType : item,
+           usedMoney : amount
         };
 
         //const data = {};

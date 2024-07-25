@@ -1,6 +1,9 @@
 package com.tasukuru.entity;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,5 +30,11 @@ public class Allowance {
 	private String usedType;
 	private Integer usedMoney;
 	private Date moneyTime;
+	
+	@JsonProperty("moneyDate")
+	public String dateString() {
+		SimpleDateFormat dformat = new SimpleDateFormat("MM/dd");
+		return dformat.format(this.moneyTime);
+	}
 	
 }
