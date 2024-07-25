@@ -1,139 +1,157 @@
 import React from "react";
 import axios from "axios";
 import './ParentShop.css';
-import Header from '../foundation/Header.js';
-import Footer from '../foundation/Footer';
+import Header from '../foundation/ParentHeader.js';
+import Footer from '../foundation/ParentFooter';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
 export default class ShopParent extends React.Component {
     constructor(props) {
         super(props);
-        // stateの設定
         this.state = {
             shops: [],
-            kid_id: 0,
+            kidId: 0,
             name: "",
             price: "",
             condition: "",
+            newItemName: "",
+            newItemPrice: "",
             ItemAddModal: false,
-            ItemModModal: false
+            ItemModModal: false,
+            itemToMod: null,
         };
     }
-
-    onChange = (e) => {
-        this.setState({
-            keyword: e.target.value
-        });
+    
+    componentDidMount() {
+        this.fetchShops();
     }
 
-    ItemAdd(index) {
-        this.toggleItemAddModal();
+    fetchShops() {
+        axios.get("/api/shop")
+            .then(res => {
+                this.setState({ shops: res.data });
+            });
     }
 
-    //出品のモーダル
-    toggleItemAddModal() {
-        const { ItemAddModal } = this.state;
-        this.setState({
-            ItemAddModal: !ItemAddModal,
-        });
+    onInput = (e) => {
+        const name = e.target.name;
+        this.setState({ [name]: e.target.value });
     }
 
-    //編集のモーダル
-    toggleModModal() {
-        const { ModModal } = this.state;
-        this.setState({
-            ModModal: !ModModal
-        });
+    addItem = () => {
+        const { newItemName, newItemPrice } = this.state;
+        const data = { name: newItemName, price: newItemPrice };
+        axios.post("/api/shop/add", data)
+            .then(() => {
+                this.setState({ newItemName: "", newItemPrice: "" });
+                this.fetchShops();
+                this.toggleItemAddModal();
+            });
+            
     }
 
-
-    //削除メソッド
-    deleteItem(name) {
-        const { shops } = this.state;
-        const updatedShops = shops.filter(shop => shop.name !== name);
-        this.setState({
-            shops: updatedShops
-        });
+    modItem = () => {
+        const { itemToMod, newItemName, newItemPrice } = this.state;
+        const data = { name: newItemName, price: newItemPrice };
+        axios.put(`/api/shop/${itemToMod.id}`, data)
+            .then(() => {
+                this.fetchShops();
+                this.toggleModModal();
+            });
     }
 
+    deleteItem = (id) => {
+        axios.delete(`/api/shop/${id}`)
+            .then(() => {
+                this.fetchShops();
+            });
+    }
 
+    toggleItemAddModal = () => {
+        this.setState(prevState => ({
+            ItemAddModal: !prevState.ItemAddModal,
+        }));
+    }
 
+    toggleModModal = (item = null) => {
+        this.setState(prevState => ({
+            ItemModModal: !prevState.ItemModModal,
+            itemToMod: item
+        }));
+    }
 
     render() {
-        const { ItemAddModal, ModModal } = this.state;
+        const { shops, newItemName, newItemPrice, ItemAddModal, ItemModModal, itemToMod } = this.state;
         return (
             <div className="wrapper">
                 <Header />
                 <main>
                     <div className="ShopParentBody">
                         <div className="background_image_renga">
-                            
                             <h1 className="ShopParentgold">1000G</h1>
-                            
                             <div className="ShopParentTabs">
                                 <Tabs>
-                                <TabList id="ShopParentTabList">
-                                    <Tab>出品中</Tab>
-                                    <Tab>リクエスト</Tab>
-                                    <Tab>購入済み</Tab>
-                                </TabList>
+                                    <TabList id="ShopParentTabList">
+                                        <Tab>出品中</Tab>
+                                        <Tab>リクエスト</Tab>
+                                        <Tab>購入済み</Tab>
+                                    </TabList>
 
-                                <TabPanel>
-                                    <h2>・AAA   250G</h2>
-                                    <button onClick={() => this.toggleModModal()}>編集</button>
-                                    <h2>・BBB   300G</h2>
-                                    <button onClick={() => this.toggleModModal()}>編集</button>
-                                    <h2>・CCC   1000G</h2>
-                                    <button onClick={() => this.toggleModModal()}>編集</button><br />
-                       
-                                </TabPanel>
-                                <TabPanel>
-                                    <h2>・じゃがりこ</h2>
-                                    <button onClick={() => this.deleteItem(/* 'じゃがりこ' */)}>削除</button>
-                                    <h2>・遊園地</h2>
-                                    <button onClick={() => this.deleteItem()}>削除</button>
-                                    <h2>・ゲームソフト</h2>
-                                    <button onClick={() => this.deleteItem()}>削除</button>
-                                    <h2>・映画館</h2>
-                                    <button onClick={() => this.deleteItem()}>削除</button>
-                                </TabPanel>
-                                <TabPanel>
-                                    <h2>・ポッキー</h2>
-                                    <button onClick={() => this.deleteItem()}>削除</button>
-                                    <h2>・サッカーボール</h2>
-                                    <button onClick={() => this.deleteItem()}>削除</button>
-                                </TabPanel>
+                                    <TabPanel>
+                                        {shops.map(shop => (
+                                            <div key={shop.id}>
+                                                <h2>・{shop.name} {shop.price}G</h2>
+                                                <button onClick={() => this.toggleModModal(shop)}>編集</button><br/>
+                                                <button onClick={() => this.deleteItem(shop.id)}>削除</button>
+                                            </div>
+                                        ))}
+                                    </TabPanel>
+                                    <TabPanel>
+                                        <h2>・じゃがりこ</h2>
+                                        <button onClick={() => this.deleteItem(/* 'じゃがりこ' */)}>削除</button>
+                                        <h2>・遊園地</h2>
+                                        <button onClick={() => this.deleteItem()}>削除</button>
+                                        <h2>・ゲームソフト</h2>
+                                        <button onClick={() => this.deleteItem()}>削除</button>
+                                        <h2>・映画館</h2>
+                                        <button onClick={() => this.deleteItem()}>削除</button>
+                                    </TabPanel>
+                                    <TabPanel>
+                                        <h2>・ポッキー</h2>
+                                        <button onClick={() => this.deleteItem()}>削除</button>
+                                        <h2>・サッカーボール</h2>
+                                        <button onClick={() => this.deleteItem()}>削除</button>
+                                    </TabPanel>
                                 </Tabs>
                             </div>
-                            <button id="Item_AddButton" onClick={() => this.ItemAdd()}>商品追加</button>
+                            <button id="Item_AddButton" onClick={() => this.toggleItemAddModal()}>商品追加</button>
                         </div>
                     </div>
 
-                    
+                    {ItemAddModal &&
+                        <div id="ShopParentoverlay">
+                            <div id="ShopParentcontent">
+                                出品内容<br />
+                                <input type="text" placeholder="商品名" name="newItemName" value={newItemName} onChange={this.onInput}></input><br />
+                                <input type="text" placeholder="価格" name="newItemPrice" value={newItemPrice} onChange={this.onInput}></input><br />
+                                <button onClick={() => this.addItem()}>出品</button>
+                                <button onClick={() => this.toggleItemAddModal()}>閉じる</button>
+                            </div>
+                        </div>
+                    }
 
-                            {ItemAddModal &&
-                                <div id="ShopParentoverlay">
-                                    <div id="ShopParentcontent">
-                                        商品名<br />
-                                        <input type="text"></input><br />
-                                        <button>送信</button><br />
-                                        <button onClick={() => this.toggleItemAddModal()}>閉じる</button>
-                                    </div>
-                                </div>
-                            }
-
-                            {ModModal &&
-                                <div id="ShopParentoverlay">
-                                    <div id="ShopParentcontent">
-                                        編集内容<br />
-                                        <input type="text" placeholder="商品名"></input><br />
-                                        <input type="text" placeholder="価格"></input><br />
-                                        <button>保存</button><br />
-                                        <button onClick={() => this.toggleModModal()}>閉じる</button>
-                                    </div>
-                                </div>
-                            }
+                    {ItemModModal &&
+                        <div id="ShopParentoverlay">
+                            <div id="ShopParentcontent">
+                                編集内容<br />
+                                <input type="text" placeholder="商品名" name="newItemName" value={newItemName} onChange={this.onInput}></input><br />
+                                <input type="text" placeholder="価格" name="newItemPrice" value={newItemPrice} onChange={this.onInput}></input><br />
+                                <button onClick={() => this.modItem()}>保存</button>
+                                <button onClick={() => this.toggleModModal()}>閉じる</button>
+                            </div>
+                        </div>
+                    }
                 </main>
                 <Footer />
             </div>
