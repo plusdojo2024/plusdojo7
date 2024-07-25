@@ -17,16 +17,19 @@ export default function NewAccount() {
     };
 
     const accountDate = () => {
-        const data = { familyId: family_id, mail: mail, pass: pass };
+        const data = { familyId: family_id, mail: mail, pass: pass }; // family_idに修正
         axios.post("/api/NewAccount/accountAdd/", data)
             .then(response => {
                 console.log(response.data);
-                if (response.data === "ログイン成功") {
+                // レスポンスに応じた処理を記述する
+                if (response.data.success) { // 例えば、APIが成功を返した場合の条件
                     navigate('/login');
                 }
             })
             .catch(error => {
                 console.error('エラー:', error);
+                // エラー処理を記述する
+                // ユーザーにエラーを通知する方法を考慮する
             });
     }
 
