@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
 import './ParentShop.css';
-import Header from '../foundation/Header.js';
-import Footer from '../foundation/Footer';
+import Header from '../foundation/ParentHeader.js';
+import Footer from '../foundation/ParentFooter';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
@@ -11,7 +11,7 @@ export default class ShopParent extends React.Component {
         super(props);
         this.state = {
             shops: [],
-            kid_id: 0,
+            kidId: 0,
             name: "",
             price: "",
             condition: "",
