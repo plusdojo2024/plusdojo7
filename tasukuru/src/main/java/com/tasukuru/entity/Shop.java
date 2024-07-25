@@ -19,7 +19,7 @@ public class Shop {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private Integer kid_id;
+	private Integer kidId;
 	private String name;
 	private Integer price;
 	private Boolean condition;
