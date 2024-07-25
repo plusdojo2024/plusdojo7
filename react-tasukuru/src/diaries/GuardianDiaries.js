@@ -161,7 +161,7 @@ export default class GuardianDiares extends React.Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {diaries.map((diary, index) => {
+                                            {filteredDiaries.map((diary, index) => {
                                                 const dateOnly = new Date(diary.date).toISOString().split('T')[0];
                                                 return (
                                                     !diary.parentCheck  ? (
@@ -193,7 +193,7 @@ export default class GuardianDiares extends React.Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {diaries.map((diary, index) => {
+                                            {filteredDiaries.map((diary, index) => {
                                                 
                                                 const dateOnly = new Date(diary.date).toISOString().split('T')[0];
                                                 return (
