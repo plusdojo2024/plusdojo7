@@ -12,6 +12,7 @@ import com.tasukuru.entity.Allowance;
 import com.tasukuru.entity.KidsUser;
 import com.tasukuru.repository.AllowanceRepository;
 import com.tasukuru.repository.KidesUserRepository;
+import com.tasukuru.repository.SupportRepository;
 
 @RestController
 public class MoneyRestController {
@@ -22,6 +23,8 @@ public class MoneyRestController {
 	@Autowired
 	private KidesUserRepository kidsRepository;
 	
+	@Autowired
+	private SupportRepository characterRepository;
 
 	//利用記録処理
 	@PostMapping("/api/money/regist")
@@ -97,4 +100,25 @@ public class MoneyRestController {
 			return repository.findByKidsId(1);
 		}
 		
+	//更新処理
+	@PostMapping("/api/money/mod")
+	private Allowance mod(@RequestBody Allowance allowance) {
+		
+	    //kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
+		KidsUser kidsUser = kidsRepository.findById(1000);
+		
+		//所持金の計算を行う。
+		kidsUser.setCurrentMoney(kidsUser.getCurrentMoney() + allowance.getGetMoney());
+		// 更新を保存する		
+		kidsRepository.save(kidsUser);
+        // 更新されたAllowanceオブジェクトを返す
+		return allowance;
+	}
+	
+	//サポートキャラの表示処理
+	@GetMapping("/api/money/support")
+	
+		
+	
+	
 }

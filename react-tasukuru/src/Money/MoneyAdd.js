@@ -34,7 +34,7 @@ export default class MoneyAdd extends React.Component{
 
         //stateの値を利用してpostデータを作成
         const data = {
-           get_money : getMoney
+           getMoney : getMoney
         };
 
         //const data = {};
