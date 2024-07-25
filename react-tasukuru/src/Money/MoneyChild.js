@@ -3,6 +3,7 @@ import Header from "../foundation/Header";
 import Footer from "../foundation/Footer";
 import MoneyRegist from "./MoneyRegist";  // Import MoneyRegist component
 import MoneyCurrentMoney from "./MoneyCurrentMoney"; 
+import MoneyUseListChild from "./MoneyUseListChild"; 
 
 export default class MoneyChild extends React.Component {
     
