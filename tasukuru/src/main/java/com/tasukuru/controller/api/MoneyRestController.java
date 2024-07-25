@@ -116,7 +116,7 @@ public class MoneyRestController {
 	}
 	
 	//サポートキャラの表示処理
-	@GetMapping("/api/money/support")
+	//@GetMapping("/api/money/support")
 	
 		
 	
