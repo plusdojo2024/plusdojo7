@@ -71,3 +71,13 @@
     max-height: 60vh;
     overflow-y: auto;
 }
+
+.request-list {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.sold-list {
+    max-height: 60vh;
+    overflow-y: auto;
+}
