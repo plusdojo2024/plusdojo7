@@ -9,7 +9,11 @@ INSERT INTO family_user (family_id, mail, pass) VALUES ('OOTA','oota@example.com
 INSERT INTO family_user (family_id, mail, pass) VALUES ('IKEDA','ikeda@example.com','1234');
 
 --子供情報
-INSERT INTO kids_users (id, family_id, character_id, enemie_id, enemie_hp, support_id, name, dice_count, money, current_money) VALUES (1,'YAMADA',1,1,1,1,'ひろし','1','1','1');
+INSERT INTO kids_users (id, family_id, character_id, enemie_id, enemie_hp, support_id, name, dice_count, money, current_money) VALUES 
+(1, 'YAMADA', 1, 1, 150, 1, 'ひろし', 20, 100, 1000),
+(2, 'YAMADA', 2, 2, 200, 2, '太郎', 30, 150, 1200),
+(3, 'OOTA', 3, 3, 250,3, '次郎', 10, 200, 1500),
+(4, 'IKEDA', 4, 4, 300, 4, '一郎', 40, 250, 200);
 
 --タクス情報
 INSERT INTO tasks (kids_id, name, content, reg_time, categories_name, task_limit, submit_time, task_image, comment, review_one, review_two, review_three, task_check, no_complete, complete, miss) 
@@ -39,14 +43,14 @@ VALUES
 
 --ゲーム
 --ショップ
-INSERT INTO shops (id, kid_id, name, price, condition) VALUES (1, 1, 'ゲーム', 1000, FALSE);
-INSERT INTO shops (id, kid_id, name, price, condition) VALUES (2, 1, 'お菓子', 250, FALSE);
-INSERT INTO shops (id, kid_id, name, price, condition) VALUES (3, 1, 'まんが', 300, FALSE);
+INSERT INTO shops (kid_id, name, price, condition) VALUES (1, 'ゲーム', 1000, FALSE);
+INSERT INTO shops (kid_id, name, price, condition) VALUES (1, 'お菓子', 250, FALSE);
+INSERT INTO shops (kid_id, name, price, condition) VALUES (1, 'まんが', 300, FALSE);
 
 --リクエスト
-INSERT INTO requests (id, kid_id, name) VALUES (1, 1, 'ゲーム');
-INSERT INTO requests (id, kid_id, name) VALUES (2, 1, 'お菓子');
-INSERT INTO requests (id, kid_id, name) VALUES (3, 1, 'まんが');
+INSERT INTO requests (kid_id, name) VALUES (1, 'ゲーム');
+INSERT INTO requests (kid_id, name) VALUES (1, 'お菓子');
+INSERT INTO requests (kid_id, name) VALUES (1, 'まんが');
 
 --敵情報
 INSERT INTO enemies (id, hp, drop, name, image) VALUES (1, 30, 200, 'スライム', '../images/character_monster_slime_purple.png');
