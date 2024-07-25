@@ -121,8 +121,8 @@ export default class ShopParent extends React.Component {
             <div className="wrapper">
                 <Header />
                 <main>
-                    <div className="ShopParentBody">
-                        <div className="background_image_renga">
+                    <div className="background_image_renga">
+                        <div className="ShopParentBody">
                             <h1 className="ShopParentgold">1000G</h1>
                             <div className="ShopParentTabs">
                                 <Tabs>
