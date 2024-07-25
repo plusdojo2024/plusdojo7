@@ -161,10 +161,12 @@ export default class ShopParent extends React.Component {
 
                                     
                                     <TabPanel>
-                                        <h2>・ポッキー</h2>
-                                        <button onClick={() => this.deleteItem()}>削除</button>
-                                        <h2>・サッカーボール</h2>
-                                        <button onClick={() => this.deleteItem()}>削除</button>
+                                        <div className="sold-list">
+                                            <h2>・ポッキー</h2>
+                                            <button onClick={() => this.deleteItem()}>削除</button>
+                                            <h2>・サッカーボール</h2>
+                                            <button onClick={() => this.deleteItem()}>削除</button>
+                                        </div>
                                     </TabPanel>
                                 </Tabs>
                             </div>
