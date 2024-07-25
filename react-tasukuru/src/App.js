@@ -5,6 +5,7 @@ import NewAccount from './account/NewAccount';
 import Login from './login/Login';
 import LoginFamily from './login/LoginFamily';
 import LoginKids from './login/LoginKids';
+import FamilyMyPage from './MyPage/familymypage';
 import Start from './start/Start';
 import Task from './tasks/Task';
 import Approval from './approvals/ApprovalList';
@@ -27,11 +28,12 @@ function App() {
 
         <BrowserRouter>
           <Routes>
+            <Route path="/start" element={<Start></Start>}></Route>
             <Route path="/newaccount" element={<NewAccount></NewAccount>}></Route>
             <Route path="/login" element={<Login></Login>}></Route>
             <Route path="/loginFamily" element={<LoginFamily></LoginFamily>}></Route>
             <Route path="/loginKids" element={<LoginKids></LoginKids>}></Route>
-            <Route path="/start" element={<Start></Start>}></Route>
+            <Route path="/familymypage" element={<FamilyMyPage></FamilyMyPage>}></Route>
             <Route path="/task" element={<Task></Task>}></Route>
             <Route path="/approval" element={<Approval></Approval>}></Route>
             <Route path="/game" element={<Game></Game>}></Route>
