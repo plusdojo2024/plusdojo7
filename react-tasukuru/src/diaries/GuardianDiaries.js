@@ -66,9 +66,9 @@ export default class GuardianDiares extends React.Component {
             showDate : diaries[index].date,
             showParentCheck : diaries[index].parentCheck,
             replyIndex : index,
-            selectedDiary,
+            selectedDiary: selectedDiary,
             ackDiaryModal: true,
-        });
+        })
         this.toggleAckDiaryModal();
     }
     //日記の一覧
@@ -88,7 +88,13 @@ export default class GuardianDiares extends React.Component {
     //日記の返信を保存する処理
     replyDiary = () => {
         const {diaries,replyIndex,showTitle,showContent,showReply,showDate,showParentCheck} = this.state;
-        const data = {id:diaries[replyIndex].id,title:showTitle, content:showContent,reply: showReply,date:showDate,parentCheck:true};
+        const data = {
+            id:diaries[replyIndex].id,
+            title:showTitle, content:showContent,
+            reply: showReply,
+            date:showDate,
+            parentCheck:true
+        }
         axios.post("/api/diary/diaryMod/",data)
         .then(json => {
             this.toggleAckDiaryModal();
@@ -101,6 +107,7 @@ export default class GuardianDiares extends React.Component {
         const { diaries,title,content,reply,ackDiaryModal,showCompleteDiaryModal,doSubmit,selectedDiary} = this.state;
         const filteredDiaries = diaries.filter(diary => diary.doSubmit === true);
         const guardianDiaries = diaries.filter(diary => diary.doSubmit === true);
+        const readGuardianDiaries = diaries.filter(diary => diary.doSubmit === true && diary.parentCheck);
         return (
             <div>
                 <Header />
@@ -190,7 +197,7 @@ export default class GuardianDiares extends React.Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {diaries.map((diary, index) => {
+                                            {readGuardianDiaries.map((diary, index) => {
                                                 const dateOnly = new Date(diary.date).toISOString().split('T')[0];
                                                 return (
                                                     diary.parentCheck ? (
@@ -243,8 +250,6 @@ export default class GuardianDiares extends React.Component {
                 )}
                 <Footer />
             </div>
-            
-            
         );
     }
 }

@@ -49,6 +49,8 @@ export default class ApprovalList extends React.Component{
         });
     }
 
+
+
       //タスクのカテゴリーごとにボタンの背景色を変更する処理
   getButtonColor(category) {
     switch (category) {
@@ -66,21 +68,54 @@ export default class ApprovalList extends React.Component{
   }
 
     // モーダル表示・非表示を切り替えるメソッド
-    toggleAddModal() {
+    toggleAddModal = () => {
       this.setState(prevState => ({
         showAddModal: !prevState.showAddModal
       }));
     }
   
-    toggleTaskModal(){
+    toggleTaskModal = () =>{
       this.setState(prevState =>({
         showTaskModal: !prevState.showTaskModal
       }));
     }
 
+    onInput = (e) => {
+      const {categoriesName} = this.state;
+      const name= e.target.name;
+      this.setState({
+        [name]: e.target.value
+      });
+      console.log(categoriesName);
+    }
+
+    addTask = () => {
+      const {name, content, categoriesName, taskLimit} = this.state;
+      
+        const data = {name:name, content:content, categoriesName:categoriesName, taskLimit:taskLimit, taskCheck:false, noComplete:true, complete:false, miss:false
+          ,review_one:false, review_two:false, review_three:false
+        };
+        console.log("dataは" + data);
+        axios.post("api/familyTask/add/",data)
+        .then(json => {
+          console.log(json);
+        this.setState({
+        name:""
+        ,content:""
+        ,categoriesName:""
+        ,taskLimit:""
+      });
+       //追加したら再読み込みする。
+        this.componentDidMount();
+        })
+        .catch(error => {
+          console.error("エラーが発生しました", error);
+        
+    });
+    }
 
     render(){
-      const { tasks, showAddModal, showTaskModal } = this.state;
+      const { tasks, showAddModal, showTaskModal, name, content, categoriesName, taskLimit } = this.state;
         return (
             <wrapper>
         <Header />
@@ -157,11 +192,11 @@ export default class ApprovalList extends React.Component{
                 <form onSubmit={this.handleSubmit}>
                   <label>
                     タスク:
-                    <input type="text" placeholder="タスク名" required />
+                    <input type="text" name="name" placeholder="タスク名" required onChange={this.onInput} value={name} />
                   </label>
                   <label>
                     カテゴリー:
-                    <select defaultValue="" required>
+                    <select defaultValue="" name="categoriesName" required onChange={this.onInput} value={categoriesName}>
                       <option value="" disabled>選択してください</option>
                       <option value="勉強">勉強</option>
                       <option value="家事">家事</option>
@@ -172,13 +207,13 @@ export default class ApprovalList extends React.Component{
                   </label>
                   <label>
                     きげん:
-                    <input type="date" required />
+                    <input type="date" name="taskLimit" required onChange={this.onInput} value={taskLimit} />
                   </label>
                   <label>
                     くわしく:
-                    <textarea placeholder="タスクの詳細を記入してください"></textarea>
+                    <textarea name="content" placeholder="タスクの詳細を記入してください" onChange={this.onInput} value={content}></textarea>
                   </label>
-                  <button type="submit" className="add_button">追加</button>
+                  <button type="submit"  onClick={this.addTask} className="add_button" >追加</button>
                 </form>
               </div>
             </div>

@@ -27,7 +27,7 @@ export default function LoginKids() {
                 console.log(response.data); // レスポンスをログに出力するなど
                 // 成功時に何らかの処理を行う場合はここに記述する
                 if (response.data === "ログイン成功") {
-                    navigate('/task');
+                    navigate('/familymypage');
                 }
             })
             .catch(error => {

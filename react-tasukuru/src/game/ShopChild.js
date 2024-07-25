@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import './ChildShop.css';
 import Header from '../foundation/Header.js';
 import Footer from "../foundation/Footer";
@@ -6,39 +7,74 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 export default class ShopChild extends React.Component{
 
-    onChange = (e) => {
-        this.setState({
-            keyword: e.target.value
-        });
-    }
-
     constructor(props) {
         super(props);
         //stateの設定。
         this.state = {
             shops:[],
             id:"",
-            kid_id:"",
+            kidId:"",
             name:"",
             price:"",
             condition:"",
-            RequestModal:false
-        }
-
-        this.state={
-            requests:[],
-            id:"",
-            kid_id:"",
-            name:"",
-            RequestModal:false
+            RequestModal:false,
+            BuyModal:false,
+            selectedItem: null, 
+            requestName: ""
         }
     }
+
+
+    componentDidMount() {
+        this.fetchShops();
+    }
+
+    fetchShops() {
+        axios.get('/api/shop')
+            .then(res => {
+                this.setState({ shops: res.data });
+            });
+    }
+
+    onChange = (e) => {
+        this.setState({
+            keyword: e.target.value
+        });
+    }
+
+    //リクエスト入力フィールドのonChange
+    handleRequestChange = (e) => {
+        this.setState({
+            requestName: e.target.value
+        });
+    }
+    
+    //リクエスト送信
+    submitRequest = () => {
+        const { requestName } = this.state;
+        if (requestName) {
+            axios.post('/api/requests/add', { name: requestName })
+                .then(res => {
+                    // リクエスト成功時の処理（例：モーダルを閉じる、メッセージを表示）
+                    this.setState({ RequestModal: false, requestName: "" });
+                    alert('商品リクエストが送信されました');
+                })
+                .catch(err => {
+                    // リクエスト失敗時の処理
+                    console.error(err);
+                    alert('リクエスト送信に失敗しました');
+                });
+        } else {
+            alert('商品名を入力してください!');
+        }
+    }
+    
 
     Request(index) {
         this.toggleRequestModal();
     }   
-    Buy(index) {
-        this.toggleBuyModal();
+    Buy(item) {
+        this.toggleBuyModal(item);
     }  
     
     //リクエストのモーダル
@@ -50,17 +86,18 @@ export default class ShopChild extends React.Component{
         });
     }
     //購入のモーダル
-    toggleBuyModal() {
+    toggleBuyModal(item = null) {
         const { BuyModal,} = this.state;
         this.setState({
             BuyModal: !BuyModal,
-        })
+            selectedItem: item,
+        });
     }
 
 
 
     render(){
-        const{RequestModal,BuyModal,} = this.state;
+        const{RequestModal, BuyModal, shops, selectedItem, requestName} = this.state;
         return(
         <div>  
             <Header />
@@ -75,18 +112,19 @@ export default class ShopChild extends React.Component{
                         <Tab>購入済み</Tab>
                     </TabList>
 
-                <TabPanel>
-                <h2>商品１</h2>
-                <button id ="buy_button" onClick={() =>this.Buy()}>購入する</button>
-                <h2>商品２</h2>
-                <button id ="buy_button" onClick={() =>this.Buy()}>購入する</button>
-                <h2>商品３</h2>
-                <button id ="buy_button" onClick={() =>this.Buy()}>購入する</button>
-                <h2>商品４</h2>
-                <button id ="buy_button" onClick={() =>this.Buy()}>購入する</button>
-                <h2>商品５</h2>
-                <button id ="buy_button" onClick={() =>this.Buy()}>購入する</button>
-                </TabPanel>
+                    <TabPanel>
+                        {shops.length > 0 ? (
+                            shops.map(shop => (
+                                <div key={shop.id}> 
+                                    <h2>{shop.name}   {shop.price}G</h2>
+                                    <button id="buy_button" onClick={() => this.Buy(shop)}>購入する</button>
+                                </div>
+                            ))
+                        ) : (
+                            <h2>販売中の商品はありません。</h2>
+                        )}
+                    </TabPanel>
+
                 <TabPanel>
                     <h2>購入済み商品１</h2>
                     <h2>購入済み商品２</h2>
@@ -101,31 +139,30 @@ export default class ShopChild extends React.Component{
                 </div>
             
             
-            {RequestModal &&
-                <div id="ShopChildoverlay">
-                    <div id= "ShopChildcontent">
-                        商品名<br />
-                        <input type="text"></input><br />
-                        <button>送信</button><br />
-                        <button onClick={() =>this.toggleRequestModal()}>閉じる</button>
+                {RequestModal && (
+                    <div id="ShopChildoverlay">
+                        <div id= "ShopChildcontent">
+                            商品名<br />
+                            <input type="text" value={requestName} onChange={this.handleRequestChange}/><br />
+                            <button onClick={this.submitRequest}>送信</button><br />
+                            <button onClick={() =>this.toggleRequestModal()}>閉じる</button>
+                        </div>
                     </div>
-                </div>
-            }
+                )}
 
-            {BuyModal &&
-                <div id="ShopChildoverlay">
-                    <div id= "ShopChildcontent">
-                        <h1 class ="gold">1000G</h1>
-                        <a>商品１  250G</a><br/><br/>
-                        <button>購入確定</button><br/>
-                        <br/>
-                        <button onClick={() =>this.toggleBuyModal()}>閉じる</button>
+                {BuyModal && selectedItem && (
+                    <div id="ShopChildoverlay">
+                        <div id= "ShopChildcontent">
+                            <h1 className ="gold">1000G</h1>
+                            <p>{selectedItem.name} {selectedItem.price}G</p><br/>
+                            <button>購入確定</button><br/>
+                            <br/>
+                            <button onClick={() =>this.toggleBuyModal()}>閉じる</button>
+                        </div>
                     </div>
+                )}
+                
                 </div>
-            }
-
-                </div>
-
             <Footer />
             </div>
         </div>
