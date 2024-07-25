@@ -65,9 +65,22 @@ export default class ApprovalList extends React.Component{
     }
   }
 
+    // モーダル表示・非表示を切り替えるメソッド
+    toggleAddModal() {
+      this.setState(prevState => ({
+        showAddModal: !prevState.showAddModal
+      }));
+    }
+  
+    toggleTaskModal(){
+      this.setState(prevState =>({
+        showTaskModal: !prevState.showTaskModal
+      }));
+    }
+
 
     render(){
-        const { tasks } = this.state;
+      const { tasks, showAddModal, showTaskModal } = this.state;
         return (
             <wrapper>
         <Header />
@@ -93,7 +106,7 @@ export default class ApprovalList extends React.Component{
 
                   <div className="button_container">
                     <button className="diary_button">日記</button>
-                    <button className="task_add_button" onClick={this.toggleModal}>追加</button>
+                    <button className="task_add_button" onClick={this.toggleAddModal}>追加</button>
                   </div>
                 </TabPanel>
 
@@ -134,6 +147,43 @@ export default class ApprovalList extends React.Component{
               </Tabs>
             </div>
           </div>
+
+          {/* タスク追加モーダル */}
+          {showAddModal && (
+            <div className="modal">
+              <div className="modal_content">
+                <button className="close_button" onClick={this.toggleAddModal}>×</button>
+                <h2>タスク追加</h2>
+                <form onSubmit={this.handleSubmit}>
+                  <label>
+                    タスク:
+                    <input type="text" placeholder="タスク名" required />
+                  </label>
+                  <label>
+                    カテゴリー:
+                    <select defaultValue="" required>
+                      <option value="" disabled>選択してください</option>
+                      <option value="勉強">勉強</option>
+                      <option value="家事">家事</option>
+                      <option value="趣味">趣味</option>
+                      <option value="運動">運動</option>
+                      <option value="その他">その他</option>
+                    </select>
+                  </label>
+                  <label>
+                    きげん:
+                    <input type="date" required />
+                  </label>
+                  <label>
+                    くわしく:
+                    <textarea placeholder="タスクの詳細を記入してください"></textarea>
+                  </label>
+                  <button type="submit" className="add_button">追加</button>
+                </form>
+              </div>
+            </div>
+          )}
+
           </main>
             <Footer />
             </wrapper>
