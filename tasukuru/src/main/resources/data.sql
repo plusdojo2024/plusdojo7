@@ -43,14 +43,14 @@ VALUES
 
 --ゲーム
 --ショップ
-INSERT INTO shops (id, kid_id, name, price, condition) VALUES (1, 1, 'ゲーム', 1000, FALSE);
-INSERT INTO shops (id, kid_id, name, price, condition) VALUES (2, 1, 'お菓子', 250, FALSE);
-INSERT INTO shops (id, kid_id, name, price, condition) VALUES (3, 1, 'まんが', 300, FALSE);
+INSERT INTO shops (kid_id, name, price, condition) VALUES (1, 'ゲーム', 1000, FALSE);
+INSERT INTO shops (kid_id, name, price, condition) VALUES (1, 'お菓子', 250, FALSE);
+INSERT INTO shops (kid_id, name, price, condition) VALUES (1, 'まんが', 300, FALSE);
 
 --リクエスト
-INSERT INTO requests (id, kid_id, name) VALUES (1, 1, 'ゲーム');
-INSERT INTO requests (id, kid_id, name) VALUES (2, 1, 'お菓子');
-INSERT INTO requests (id, kid_id, name) VALUES (3, 1, 'まんが');
+INSERT INTO requests (kid_id, name) VALUES (1, 'ゲーム');
+INSERT INTO requests (kid_id, name) VALUES (1, 'お菓子');
+INSERT INTO requests (kid_id, name) VALUES (1, 'まんが');
 
 --敵情報
 INSERT INTO enemies (id, hp, drop, name, image) VALUES (1, 30, 200, 'スライム', '../images/character_monster_slime_purple.png');
