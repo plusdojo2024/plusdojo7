@@ -116,7 +116,7 @@ export default class GuardianDiares extends React.Component {
                                 </TabList>
 
                                 <TabPanel>
-                                <div className="DiaryListBody" class="box">
+                                <div className="DiaryListBody" class="parent_Diary_Box">
                                     <table>
                                         <thead>
                                             <tr class="diaryRow">
@@ -152,7 +152,7 @@ export default class GuardianDiares extends React.Component {
                             </TabPanel>
 
                                 <TabPanel>
-                                    <div className="DiaryListBody" class="box">
+                                    <div className="DiaryListBody" class="parent_Diary_Box">
                                     <table >
                                         <thead>
                                             <tr class="diaryRow">
@@ -184,7 +184,7 @@ export default class GuardianDiares extends React.Component {
                             </TabPanel>
 
                             <TabPanel>
-                                <div className="DiaryListBody" class="box">
+                                <div className="DiaryListBody" class="parent_Diary_Box">
                                     <table>
                                         <thead>
                                             <tr class="diaryRow">
