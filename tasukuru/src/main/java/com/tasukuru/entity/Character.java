@@ -19,6 +19,6 @@ public class Character {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String character_image;
-	private String effect_image;
+	private String characterImage;
+	private String effectImage;
 }
