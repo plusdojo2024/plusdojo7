@@ -20,9 +20,8 @@ export default class GuardianDiares extends React.Component {
             replyIndex : 0,
             ackDiaryModal: false,
             showCompleteDiaryModal : false,
-
-
-        }
+        };
+        this.toggleAckDiaryModal = this.toggleAckDiaryModal.bind(this);
     }
 
     componentDidMount() {
@@ -59,14 +58,17 @@ export default class GuardianDiares extends React.Component {
     //元々のデータを表示する処理
     ackDiary = (index) => {
         const {diaries} = this.state;
+        const selectedDiary = diaries[index];
         this.setState({
             showTitle : diaries[index].title,
             showContent : diaries[index].content,
             showReply : diaries[index].reply,
             showDate : diaries[index].date,
             showParentCheck : diaries[index].parentCheck,
-            replyIndex : index
-        })
+            replyIndex : index,
+            selectedDiary,
+            ackDiaryModal: true,
+        });
         this.toggleAckDiaryModal();
     }
     //日記の一覧
@@ -96,8 +98,9 @@ export default class GuardianDiares extends React.Component {
     
 
     render() {
-        const { diaries,title,content,reply,ackDiaryModal,showCompleteDiaryModal,doSubmit} = this.state;
+        const { diaries,title,content,reply,ackDiaryModal,showCompleteDiaryModal,doSubmit,selectedDiary} = this.state;
         const filteredDiaries = diaries.filter(diary => diary.doSubmit === true);
+        const guardianDiaries = diaries.filter(diary => diary.doSubmit === true);
         return (
             <div>
                 <Header />
@@ -115,6 +118,7 @@ export default class GuardianDiares extends React.Component {
                                     <Tab>既読日記</Tab>
                                 </TabList>
 
+                                {/* 日記一覧のタブ */}
                                 <TabPanel>
                                 <div className="DiaryListBody" class="parent_Diary_Box">
                                     <table>
@@ -127,23 +131,17 @@ export default class GuardianDiares extends React.Component {
                                         </thead>
                                         <tbody>
                                             {filteredDiaries.map((diary, index) => {
-                                                
                                                 const dateOnly = new Date(diary.date).toISOString().split('T')[0];
                                                 return (
-                                                    
                                                         <tr className="diaryRow" key={index}>
                                                             <td className="dateOnly">{dateOnly}</td>
                                                             <td className="title">{diary.title}</td>
-                                                            
                                                             {/* <td className="content">{diary.content}</td>
                                                             <td className="reply">{diary.reply}</td> */}
                                                             <td className="action">
                                                                 <button onClick={() => { this.showDiary(index) }}>確認</button>
                                                             </td>
                                                         </tr>
-
-                                                  
-                                                        
                                                 );
                                             })}
                                         </tbody>
@@ -151,8 +149,8 @@ export default class GuardianDiares extends React.Component {
                                 </div>
                             </TabPanel>
 
-                                <TabPanel>
-                                    <div className="DiaryListBody" class="parent_Diary_Box">
+                            <TabPanel>
+                                <div className="DiaryListBody" class="parent_Diary_Box">
                                     <table >
                                         <thead>
                                             <tr class="diaryRow">
@@ -161,7 +159,7 @@ export default class GuardianDiares extends React.Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {filteredDiaries.map((diary, index) => {
+                                            {guardianDiaries.map((diary, index) => {
                                                 const dateOnly = new Date(diary.date).toISOString().split('T')[0];
                                                 return (
                                                     !diary.parentCheck  ? (
@@ -180,7 +178,6 @@ export default class GuardianDiares extends React.Component {
                                         </tbody>
                                     </table>
                                 </div>
-
                             </TabPanel>
 
                             <TabPanel>
@@ -193,11 +190,9 @@ export default class GuardianDiares extends React.Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {filteredDiaries.map((diary, index) => {
-                                                
+                                            {diaries.map((diary, index) => {
                                                 const dateOnly = new Date(diary.date).toISOString().split('T')[0];
                                                 return (
-                                                  
                                                     diary.parentCheck ? (
                                                         <tr className="diaryRow" key={index}>
                                                             <td className="dateOnly">{dateOnly}</td>
@@ -209,27 +204,26 @@ export default class GuardianDiares extends React.Component {
                                                             </td>
                                                         </tr>
                                                     ) : null
-                                                   
-                                                    
                                                 );
                                             })}
                                         </tbody>
                                     </table>
                                 </div>
                             </TabPanel>
-
                             </Tabs>
-                              
                             </div>    
                         </div>
                     </div>
                 </main>
-                {ackDiaryModal && (
+                {ackDiaryModal && selectedDiary && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
                             <h1>日記</h1>
-                            <input type="text" name="showTitle" value={this.state.showTitle}  placeholder="タイトル"></input><br /><br />
-                            <input type="text" name="showContent" value={this.state.showContent}  className="Diaries_input" placeholder="内容"></input><br /><br />
+                            {/* <input type="text" name="showTitle" value={this.state.showTitle}  placeholder="タイトル"></input><br /><br />
+                            <input type="text" name="showContent" value={this.state.showContent}  className="Diaries_input" placeholder="内容"></input><br /><br /> */}
+                            <p>日付<br />{new Date(selectedDiary.date).toISOString().split('T')[0]}</p>
+                            <p>タイトル<br />{selectedDiary.title}</p>
+                            <p>内容<br />{selectedDiary.content}</p>
                             <input type="text" name="showReply" value={this.state.showReply} onChange={this.enterInput}  className="Diaries_input" placeholder="返信"></input><br /><br />
                             <button onClick={this.replyDiary}>返信</button>
                             <button onClick={this.toggleAckDiaryModal} >閉じる</button><br />
@@ -247,7 +241,6 @@ export default class GuardianDiares extends React.Component {
                         </div>
                     </div>
                 )}
-
                 <Footer />
             </div>
             
