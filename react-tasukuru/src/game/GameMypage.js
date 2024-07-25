@@ -20,7 +20,7 @@ export default class GameMypage extends React.Component{
             id:"",
             character_image:"",
             effect_image:"",
-            
+            select_skin:"../images/character_yusha_01_red.png",
         }
 
     }
@@ -33,12 +33,24 @@ export default class GameMypage extends React.Component{
             //stateが変わると自動的に画面が再描画される。
             this.setState({
                 characters:json
+                
             })
         });
     }
 
+modSkin=(characterImage)=>{
+    
+        // fetch("/api/mypage/skin/mod")
+        console.log(characterImage);
+        this.setState({
+            select_skin: characterImage
+        });
+    }
+    
+
+
     render(){
-        const{characters}= this.state;
+        const{characters,index,select_skin}= this.state;
         return(
         <wrapper>
         <Header />
@@ -53,19 +65,20 @@ export default class GameMypage extends React.Component{
                 </TabList>
 
                 <TabPanel style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', justifyItems: 'center' }}> 
-
+                
                     {characters.map((character,index) =>(
                         <div id="characterskin">
-                        <img src={character.character_image} style={{height:'70px',margin:'10px'}}></img>
-                        <button  onClick={() =>{this.modCharacterSkin(index)}} id="skinchange_button" style={{ gridColumn: 'span 2', alignSelf: 'center' }}>変更</button>
+                        <img src={character.characterImage} id="skin"onClick={() => this.modSkin(character.characterImage)} style={{height:'70px',margin:'10px'}}></img>
+                        {character.id}
+                        
                         </div>
-                    ))}
+                    ))} 
 
 
 
-                    {/* <button  id="skinchange_button" style={{ gridColumn: 'span 2', alignSelf: 'center' }}>変更</button> */}
+                    <button  id="skinchange_button" style={{ gridColumn: 'span 2', alignSelf: 'center' }}>変更</button>
                 </TabPanel>
-            
+           
             <TabPanel>
             <h2>80個タスク完了！</h2>
             <h2>60個タスク完了！</h2>
@@ -73,7 +86,7 @@ export default class GameMypage extends React.Component{
             <h2>20個タスク完了！</h2>
             </TabPanel>
             </Tabs>
-            <img src="../images/character_yusha_01_red.png" alt="アバター" style={{height:'70px',margin:'10px'}}></img>
+             <img src={select_skin} alt="アバター" style={{height:'70px',margin:'10px'}}></img>
             </div>
             
             

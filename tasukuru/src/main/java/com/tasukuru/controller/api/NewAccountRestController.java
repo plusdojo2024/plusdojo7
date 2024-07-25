@@ -1,6 +1,7 @@
 package com.tasukuru.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +18,9 @@ public class NewAccountRestController {
     private FamilyUserRepository repository;
 
     @PostMapping("/api/NewAccount/accountAdd/")
-    public FamilyUser addAccount(@RequestBody FamilyUser familyUser) {
-        repository.save(familyUser);
-        return familyUser;
+    public ResponseEntity<?> addAccount(@RequestBody FamilyUser familyUser) {
+        FamilyUser savedUser = repository.save(familyUser);
+        // 保存後に成功レスポンスを返す
+        return ResponseEntity.ok("OK"); // or any success response you prefer
     }
 }

@@ -25,6 +25,10 @@ export default class MoneyChild extends React.Component {
                    <MoneyCurrentMoney />
                 </div>
                 
+                 {/* お小遣い一覧 */}
+               <div id="Money_List">
+                   <MoneyUseListChild />
+                </div>
                 <Footer />
             </div>
         );

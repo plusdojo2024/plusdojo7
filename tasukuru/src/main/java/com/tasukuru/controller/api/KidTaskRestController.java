@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tasukuru.entity.Task;
 import com.tasukuru.repository.TaskRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class KidTaskRestController {
 	@Autowired
@@ -16,7 +19,10 @@ public class KidTaskRestController {
 	
 	//タスク表示
 	@GetMapping("/api/task/")
-	private Iterable<Task> get(){
+	private Iterable<Task> get(HttpServletRequest request){
+		HttpSession session = request.getSession();
+//        session.setAttribute("KidsUser", foundUser); 
+		System.out.println(session.getAttribute("KidsUser"));
 		return repository.findAll();
 	}
 	
@@ -54,18 +60,6 @@ public class KidTaskRestController {
 //	@PostMapping("/api/task/regist/")
 //	private Task registTask(@RequestBody Task task) {
 //		
-//		return task;
-//	}
-//	
-//	//タスクソート*要編集
-//	@PostMapping("/api/task/sort")
-//	private Task sortTask(@RequestBody Task task) {
-//		return task;
-//	}
-//	
-//	//タスク絞り込み*要編集
-//	@PostMapping("/api/task/filter")
-//	private Task filterTask(@RequestBody Task task) {
 //		return task;
 //	}
 }

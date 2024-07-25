@@ -9,7 +9,6 @@ export default function NewAccount() {
     const [family_id, setFamilyId] = useState("");
     const [mail, setMail] = useState("");
     const [pass, setPass] = useState("");
-
     const navigate = useNavigate();
 
     const ReturnClick = () => {
@@ -17,13 +16,15 @@ export default function NewAccount() {
     };
 
     const accountDate = () => {
-        const data = { familyId: family_id, mail: mail, pass: pass }; // family_idに修正
+        const data = { familyId: family_id, mail: mail, pass: pass };
         axios.post("/api/NewAccount/accountAdd/", data)
             .then(response => {
                 console.log(response.data);
                 // レスポンスに応じた処理を記述する
-                if (response.data.success) { // 例えば、APIが成功を返した場合の条件
-                    navigate('/login');
+                if (response.data === "OK") {
+                    setTimeout(() => {
+                        navigate('/loginFamily'); // 成功メッセージ表示後にログインページに移動
+                    }, 2000); // 2秒後にログインページに移動（例）
                 }
             })
             .catch(error => {
@@ -31,7 +32,7 @@ export default function NewAccount() {
                 // エラー処理を記述する
                 // ユーザーにエラーを通知する方法を考慮する
             });
-    }
+    };
 
     return (
         <div>
@@ -53,3 +54,4 @@ export default function NewAccount() {
         </div>
     );
 }
+
