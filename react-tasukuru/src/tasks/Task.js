@@ -133,7 +133,7 @@ export default class Task extends React.Component {
 
                   <div className="button_container">
                     <NavigationButton path="/diaries" label="日記" className="diary_button" />
-                    <button className="task_add_button">再登録</button>
+                    <button className="task_add_button" onClick={this.toggleAddModal}>追加</button>
                   </div>
                 </TabPanel>
                 <TabPanel>
@@ -147,7 +147,7 @@ export default class Task extends React.Component {
 
                   <div className="button_container">
                     <NavigationButton path="/diaries" label="日記" className="diary_button" />
-                    <button className="task_add_button">再登録</button>
+                    <button className="task_add_button" onClick={this.toggleAddModal}>追加</button>
                   </div>
                 </TabPanel>
               </Tabs>
@@ -166,22 +166,15 @@ export default class Task extends React.Component {
                   </label>
                   <label>
                     カテゴリー:
-                    <select defaultValue="" required>
-                      <option value="" disabled>選択してください</option>
-                      <option value="勉強">勉強</option>
-                      <option value="家事">家事</option>
-                      <option value="趣味">趣味</option>
-                      <option value="運動">運動</option>
-                      <option value="その他">その他</option>
-                    </select>
+                    <input type="text" value={selectedTask.categoriesName} readOnly />
                   </label>
                   <label>
                     きげん:
-                    <input type="date" required />
+                    <input type="text" value={selectedTask.taskLimit} required />
                   </label>
                   <label>
                     くわしく:
-                    <textarea placeholder="タスクの詳細を記入してください"></textarea>
+                    <textarea value={selectedTask.content}></textarea>
                   </label>
                   <button type="submit" className="add_button">提出</button>
                 </form>
