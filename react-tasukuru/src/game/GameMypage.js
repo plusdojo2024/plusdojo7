@@ -20,7 +20,7 @@ export default class GameMypage extends React.Component{
             id:"",
             character_image:"",
             effect_image:"",
-            select_skin:"",
+            select_skin:"../images/character_yusha_01_red.png",
         }
 
     }
@@ -33,6 +33,7 @@ export default class GameMypage extends React.Component{
             //stateが変わると自動的に画面が再描画される。
             this.setState({
                 characters:json
+                
             })
         });
     }
@@ -41,9 +42,9 @@ modSkin=(characterImage)=>{
     
         // fetch("/api/mypage/skin/mod")
         console.log(characterImage);
-        this.select_skin =characterImage;
-       console.log(this.select_skin);
-      
+        this.setState({
+            select_skin: characterImage
+        });
     }
     
 
