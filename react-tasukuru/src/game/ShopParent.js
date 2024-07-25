@@ -11,6 +11,7 @@ export default class ShopParent extends React.Component {
         super(props);
         this.state = {
             shops: [],
+            requests: [],
             kidId: 0,
             name: "",
             price: "",
@@ -25,6 +26,7 @@ export default class ShopParent extends React.Component {
     
     componentDidMount() {
         this.fetchShops();
+        this.fetchRequests();
     }
 
     fetchShops() {
@@ -33,6 +35,14 @@ export default class ShopParent extends React.Component {
                 this.setState({ shops: res.data });
             });
     }
+
+    fetchRequests() {
+        axios.get("/api/requests")
+            .then(res =>{
+                this.setState({requests: res.data });
+            });
+    }
+
 
     onInput = (e) => {
         const name = e.target.name;
@@ -60,13 +70,37 @@ export default class ShopParent extends React.Component {
                 this.toggleModModal();
             });
     }
-
+    //ショップ商品の削除
     deleteItem = (id) => {
         axios.delete(`/api/shop/${id}`)
             .then(() => {
                 this.fetchShops();
             });
     }
+
+/*     //リクエストの追加　リクエストは保護者側の処理ではない為コメントアウト、子ども側ショップで使うから残しておく
+    addRequest = () => {
+        const { newRequestName } = this.state;
+        const data = { name: newRequestName };
+        axios.post("/api/requests/add", data)
+            .then(() => {
+                this.setState({ newRequestName: "" });
+                this.fetchRequests();
+            });
+    } */
+
+    //リクエストの削除
+    deleteRequest = (id) => {
+        axios.delete(`/api/requests/${id}`)
+            .then(() => {
+                this.fetchRequests();
+            })
+            .catch(error => {
+                console.error("Error deleting request:", error.response ? error.response.data : error.message);
+            });
+    }
+
+
 
     toggleItemAddModal = () => {
         this.setState(prevState => ({
@@ -82,7 +116,7 @@ export default class ShopParent extends React.Component {
     }
 
     render() {
-        const { shops, newItemName, newItemPrice, ItemAddModal, ItemModModal, itemToMod } = this.state;
+        const { shops, requests, newItemName, newItemPrice, ItemAddModal, ItemModModal, itemToMod } = this.state;
         return (
             <div className="wrapper">
                 <Header />
@@ -99,24 +133,33 @@ export default class ShopParent extends React.Component {
                                     </TabList>
 
                                     <TabPanel>
-                                        {shops.map(shop => (
-                                            <div key={shop.id}>
-                                                <h2>・{shop.name} {shop.price}G</h2>
-                                                <button onClick={() => this.toggleModModal(shop)}>編集</button><br/>
-                                                <button onClick={() => this.deleteItem(shop.id)}>削除</button>
-                                            </div>
-                                        ))}
+                                        <div className="shopParent-list">
+                                            {shops.map(shop => (
+                                                <div key={shop.id}>
+                                                    <h2>・{shop.name} {shop.price}G</h2>
+                                                    <button onClick={() => this.toggleModModal(shop)}>編集</button><br/>
+                                                    <button onClick={() => this.deleteItem(shop.id)}>削除</button>
+                                                </div>                                            
+                                            ))}
+                                        </div>
                                     </TabPanel>
+
+
+
                                     <TabPanel>
-                                        <h2>・じゃがりこ</h2>
-                                        <button onClick={() => this.deleteItem(/* 'じゃがりこ' */)}>削除</button>
-                                        <h2>・遊園地</h2>
-                                        <button onClick={() => this.deleteItem()}>削除</button>
-                                        <h2>・ゲームソフト</h2>
-                                        <button onClick={() => this.deleteItem()}>削除</button>
-                                        <h2>・映画館</h2>
-                                        <button onClick={() => this.deleteItem()}>削除</button>
+                                        <div className="request-list">
+                                            {requests.map(request => (
+                                                <div key={request.id}>
+                                                    <h2>・{request.name}</h2>
+                                                    <button onClick={() => this.deleteRequest(request.id)}>削除</button>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </TabPanel>
+
+                                    
+
+                                    
                                     <TabPanel>
                                         <h2>・ポッキー</h2>
                                         <button onClick={() => this.deleteItem()}>削除</button>

@@ -19,7 +19,7 @@ public class Request {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private Integer kid_id;
+	private Integer kidId;
 	private String name;
 	
 }

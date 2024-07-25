@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tasukuru.entity.Request;
 import com.tasukuru.entity.Shop;
+import com.tasukuru.repository.RequestsRepository;
 import com.tasukuru.repository.ShopsRepository;
 
 @RestController
@@ -20,8 +22,11 @@ public class ShopRestController {
 
     @Autowired
     private ShopsRepository shopsRepository;
+    
+    @Autowired
+    private RequestsRepository requestsRepository;
 
-    // 商品リストの取得する
+    // 商品リストの取得
     @GetMapping("/api/shop")
     public List<Shop> getAllShops() {
         return shopsRepository.findAll();
@@ -51,5 +56,31 @@ public class ShopRestController {
     @DeleteMapping("/api/shop/{id}")
     public void delete(@PathVariable Long id) {
         shopsRepository.deleteById(id);
+    }
+    
+    //ここからリクエスト関連の処理
+    //リクエストリストの取得
+    @GetMapping("/api/requests")
+    public List<Request> getAllRequests() {
+    	return requestsRepository.findAll();
+    }
+   
+    
+    
+    
+    //リクエストの追加
+    @PostMapping("/api/requests/add")
+    public Request addRequest(@RequestBody Request request) {
+    	return requestsRepository.save(request);
+    }
+    
+    //リクエストの編集はしない
+    
+    
+    
+    //リクエストの削除
+    @DeleteMapping("/api/requests/{id}")
+    public void deleteRequest(@PathVariable Integer id) {
+    	requestsRepository.deleteById(id);
     }
 }
