@@ -1,0 +1,41 @@
+.login_body {
+  text-align: center; /* 中央揃えに設定 */
+}
+
+.loginF_button {
+  color: #000; /* テキストの色を黒に設定 */
+  background-color: #fff100; /* 背景色を黄色に設定 */
+  border: none; /* ボーダーを無効化 */
+  border-bottom: 5px solid #ccc100; /* 下部のボーダーを設定 */
+  margin-top: 100px; /* 上部のマージンを設定 */
+  width: 250px; /* 幅を250pxに設定 */
+  height: 80px; /* 高さを80pxに設定 */
+  font-size: 18px; /* フォントサイズを18pxに設定 */
+  padding: 10px 20px; /* 上下に10px、左右に20pxの余白を設定 */
+  transition: background-color 0.3s, transform 0.2s; /* 背景色と変形の変化をアニメーションさせる */
+  font-family:"Mochiy Pop One", sans-serif;
+}
+
+.loginF_button:hover {
+  background-color: #ffeb3b; /* ホバー時の背景色を変更 */
+  transform: scale(1.05); /* ホバー時に少し拡大する */
+}
+
+.loginK_button {
+  color: #000; /* テキストの色を黒に設定 */
+  background-color: #006aff; /* 背景色を青色に設定 */
+  border: none; /* ボーダーを無効化 */
+  border-bottom: 5px solid #0049af; /* 下部のボーダーを設定 */
+  margin-top: 100px; /* 上部のマージンを設定 */
+  width: 250px; /* 幅を250pxに設定 */
+  height: 80px; /* 高さを80pxに設定 */
+  font-size: 18px; /* フォントサイズを18pxに設定 */
+  padding: 10px 20px; /* 上下に10px、左右に20pxの余白を設定 */
+  transition: background-color 0.3s, transform 0.2s; /* 背景色と変形の変化をアニメーションさせる */
+  font-family:"Mochiy Pop One", sans-serif;
+}
+
+.loginK_button:hover {
+  background-color: #0059ff; /* ホバー時の背景色を変更 */
+  transform: scale(1.05); /* ホバー時に少し拡大する */
+}
