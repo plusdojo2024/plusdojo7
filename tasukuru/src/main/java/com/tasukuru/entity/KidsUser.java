@@ -24,13 +24,13 @@ public class KidsUser {
 	private Integer id;
 	@Column(name="family_id")
 	private String familyId;
-	private Integer character_id;
-	private Integer enemie_id;
-	private Integer enemie_hp;
-	private Integer support_id;
+	private Integer characterId;
+	private Integer enemieId;
+	private Integer enemieHp;
+	private Integer supportId;
 	private String name;
-	private Integer dice_count;
+	private Integer diceCount;
 	private Integer money;
-	private Integer current_money;
+	private Integer currentMoney;
 	
 }

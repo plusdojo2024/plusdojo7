@@ -32,11 +32,13 @@ export default class Task extends React.Component {
       miss: false,
       showAddModal: false,
       showTaskModal: false,
+      selectedTask: null, //タスクが選択されたかどうか
     }
 
     //モーダル表示・非表示を切り替えるメソッドをバインド
     this.toggleAddModal = this.toggleAddModal.bind(this);
     this.toggleTaskModal = this.toggleTaskModal.bind(this);
+    this.handleTaskClick = this.handleTaskClick.bind(this);
 
   }
 
@@ -57,10 +59,17 @@ export default class Task extends React.Component {
     }));
   }
 
-  toggleTaskModal(){
-    this.setState(prevState =>({
+  toggleTaskModal() {
+    this.setState(prevState => ({
       showTaskModal: !prevState.showTaskModal
     }));
+  }
+
+  handleTaskClick(task) {
+    this.setState({
+      selectedTask: task,
+      showTaskModal: true
+    });
   }
 
 
@@ -82,7 +91,7 @@ export default class Task extends React.Component {
 
 
   render() {
-    const { tasks, showAddModal, showTaskModal } = this.state;
+    const { tasks, showAddModal, showTaskModal, selectedTask } = this.state;
 
     return (
 
@@ -102,7 +111,7 @@ export default class Task extends React.Component {
                   <div class="box">
                     {tasks.map(task => (
                       task.noComplete === true && task.complete === false && task.miss === false ? (
-                        <button key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }} onClick={this.toggleTaskModal}>{task.name}</button>
+                        <button key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }} onClick={() => this.handleTaskClick(task)}>{task.name}</button>
                       ) : null
                     ))}
                   </div>
@@ -145,7 +154,7 @@ export default class Task extends React.Component {
             </div>
           </div>
           {/* タスク提出モーダル */}
-          {showTaskModal && (
+          {showTaskModal && selectedTask && (
             <div className="modal">
               <div className="modal_content">
                 <button className="close_button" onClick={this.toggleTaskModal}>×</button>
@@ -153,7 +162,7 @@ export default class Task extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                   <label>
                     タスク:
-                    <input type="text" placeholder="タスク名" required />
+                    <input type="text" value={selectedTask.name} readOnly />
                   </label>
                   <label>
                     カテゴリー:
