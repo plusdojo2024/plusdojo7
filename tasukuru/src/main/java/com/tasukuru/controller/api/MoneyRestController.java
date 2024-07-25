@@ -35,8 +35,8 @@ public class MoneyRestController {
 		//所持金の計算を行う。
 		//kidsUser.setCurrent_money(kidsUser.getCurrent_money() - allowance.getUsed_money());
 		
-		int money = kidsUser.getCurrent_money() - allowance.getUsed_money();
-		kidsUser.setCurrent_money(money);
+		int money = kidsUser.getCurrentMoney() - allowance.getUsedMoney();
+		kidsUser.setCurrentMoney(money);
 		
 		//リポジトリ.save(int);
 		
@@ -54,7 +54,7 @@ public class MoneyRestController {
 		KidsUser kidsUser = kidsRepository.findById(1000);
 		
 		//所持金の計算を行う。
-		kidsUser.setCurrent_money(kidsUser.getCurrent_money() + allowance.getUsed_money());
+		kidsUser.setCurrentMoney(kidsUser.getCurrentMoney() + allowance.getUsedMoney());
 						
 		kidsRepository.save(kidsUser);
 		
@@ -73,7 +73,7 @@ public class MoneyRestController {
 		KidsUser kidsUser = kidsRepository.findById(1000);
 		
 		//所持金の計算を行う。
-		kidsUser.setCurrent_money(kidsUser.getCurrent_money() + allowance.getGet_money());
+		kidsUser.setCurrentMoney(kidsUser.getCurrentMoney() + allowance.getGetMoney());
 		
 		kidsRepository.save(kidsUser);
 
@@ -86,6 +86,6 @@ public class MoneyRestController {
 		//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
 		KidsUser kidsUser = kidsRepository.findById(1000);
 		
-	    return kidsUser.getCurrent_money();
+	    return kidsUser.getCurrentMoney();
 	}
 }

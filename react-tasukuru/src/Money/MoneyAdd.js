@@ -4,7 +4,7 @@ import './Money.css';
 
 export default class MoneyAdd extends React.Component{
     state = {
-       getMoney: "",
+        getMoney: "",
         showModal: false
        };
 

@@ -22,10 +22,10 @@ public class Allowance {
 	@Id //キー設定
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //auto increment
 	private Integer id;
-	private Integer kids_id;
-	private Integer get_money;
-	private String used_type;
-	private Integer used_money;
-	private Date money_time;
+	private Integer kidsId;
+	private Integer getMoney;
+	private String usedType;
+	private Integer usedMoney;
+	private Date moneyTime;
 	
 }
