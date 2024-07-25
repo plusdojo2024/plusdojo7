@@ -1,6 +1,7 @@
 import './App.css';
 import Header from './foundation/Header';
 import Footer from './foundation/Footer';
+import NewAccount from './account/NewAccount';
 import Login from './login/Login';
 import LoginFamily from './login/LoginFamily';
 import LoginKids from './login/LoginKids';
@@ -26,6 +27,7 @@ function App() {
 
         <BrowserRouter>
           <Routes>
+            <Route path="/newaccount" element={<NewAccount></NewAccount>}></Route>
             <Route path="/login" element={<Login></Login>}></Route>
             <Route path="/loginFamily" element={<LoginFamily></LoginFamily>}></Route>
             <Route path="/loginKids" element={<LoginKids></LoginKids>}></Route>

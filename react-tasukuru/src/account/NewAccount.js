@@ -2,9 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate をインポートする
 import LoginHeader from '../foundation/LoginHeader.js';
 import LoginFooter from "../foundation/LoginFooter.js";
-import './account.css';
+import './NewAccount.css';
 
-export default function LoginKids() {
+export default function NewAccount() {
     const navigate = useNavigate(); // useNavigate フックを使ってナビゲーションオブジェクトを取得する
     
     const ReturnClick = () => {
