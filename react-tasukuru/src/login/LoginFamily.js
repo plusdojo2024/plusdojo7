@@ -15,6 +15,9 @@ export default function LoginKids() {
     const ReturnClick = () => {
         navigate('/login');
     };
+    const NewAccountClick = () => {
+        navigate('/newaccount');
+    };
 
     const loginDate = () => {
         const data = { family_id: family_id, pass: pass }; // 現在のstateからデータを取得する
@@ -45,7 +48,7 @@ export default function LoginKids() {
                 <input type="text" placeholder="家族ID" className="textbox" value={family_id} onChange={(e) => setFamilyId(e.target.value)}/><br />
                 <input type="text" placeholder="パスワード" className="textbox" value={pass} onChange={(e) => setPass(e.target.value)}/><br />
                     <button className="loginMain_button" onClick={loginDate}>ログイン</button><br />
-                    <button className="loginMain_button">新規登録</button><br />
+                    <button className="loginMain_button" onClick={NewAccountClick}>新規登録</button><br />
                     <button className="loginR_button" onClick={ReturnClick}>←</button><br />
                 </div>
             </div>

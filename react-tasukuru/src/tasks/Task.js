@@ -30,15 +30,19 @@ export default class Task extends React.Component {
       noComplete: false,
       complete: false,
       miss: false,
-      showAddModal: false,
-      showTaskModal: false,
+      showAddModal: false,  //タスク追加モーダル
+      showTaskModal: false, //タスク一覧ボタンモーダル
+      showReRegModal: false,  //タスク再登録モーダル
       selectedTask: null, //タスクが選択されたかどうか
+      activeTab: 'noComplete',  //現在表示されているタブ
     }
 
     //モーダル表示・非表示を切り替えるメソッドをバインド
     this.toggleAddModal = this.toggleAddModal.bind(this);
     this.toggleTaskModal = this.toggleTaskModal.bind(this);
+    this.toggleReRegModal = this.toggleReRegModal.bind(this);
     this.handleTaskClick = this.handleTaskClick.bind(this);
+    this.handleTabChange = this.handleTabChange.bind(this);
 
   }
 
@@ -65,11 +69,29 @@ export default class Task extends React.Component {
     }));
   }
 
+  toggleReRegModal() {
+    this.setState(prevState => ({
+      showReRegModal: !prevState.showReRegModal
+    }));
+  }
+
   handleTaskClick(task) {
-    this.setState({
-      selectedTask: task,
-      showTaskModal: true
-    });
+    const { activeTab } = this.state;
+    if (activeTab === 'noComplete') {
+      this.setState({
+        selectedTask: task,
+        showTaskModal: true,
+      });
+    } else {
+      this.setState({
+        selectedTask: task,
+        showReRegModal: true,
+      });
+    }
+  }
+
+  handleTabChange(tab) {
+    this.setState({ activeTab: tab });
   }
 
 
@@ -91,7 +113,7 @@ export default class Task extends React.Component {
 
 
   render() {
-    const { tasks, showAddModal, showTaskModal, selectedTask } = this.state;
+    const { tasks, showAddModal, showTaskModal, showReRegModal, selectedTask } = this.state;
 
     return (
 
@@ -102,9 +124,9 @@ export default class Task extends React.Component {
             <div className="background">
               <Tabs>
                 <TabList className="TabList">
-                  <Tab>未たっせい</Tab>
-                  <Tab>かんりょう</Tab>
-                  <Tab>しっぱい</Tab>
+                  <Tab onClick={() => this.handleTabChange('noComplete')}>未たっせい</Tab>
+                  <Tab onClick={() => this.handleTabChange('complete')}>かんりょう</Tab>
+                  <Tab onClick={() => this.handleTabChange('miss')}>しっぱい</Tab>
                 </TabList>
 
                 <TabPanel>
@@ -126,7 +148,7 @@ export default class Task extends React.Component {
                   <div class="box">
                     {tasks.map(task => (
                       task.noComplete === false && task.complete === true && task.miss === false ? (
-                        <button key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }}>{task.name}</button>
+                        <button key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }} onClick={() => this.handleTaskClick(task)}>{task.name}</button>
                       ) : null
                     ))}
                   </div>
@@ -140,7 +162,7 @@ export default class Task extends React.Component {
                   <div class="box">
                     {tasks.map(task => (
                       task.noComplete === false && task.complete === false && task.miss === true ? (
-                        <button key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }}>{task.name}</button>
+                        <button key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }} onClick={() => this.handleTaskClick(task)}>{task.name}</button>
                       ) : null
                     ))}
                   </div>
@@ -161,19 +183,19 @@ export default class Task extends React.Component {
                 <h2>タスク提出</h2>
                 <form onSubmit={this.handleSubmit}>
                   <label>
-                    タスク:
+                    タスク
                     <input type="text" value={selectedTask.name} readOnly />
                   </label>
                   <label>
-                    カテゴリー:
+                    カテゴリー
                     <input type="text" value={selectedTask.categoriesName} readOnly />
                   </label>
                   <label>
-                    きげん:
+                    きげん
                     <input type="text" value={selectedTask.taskLimit} required />
                   </label>
                   <label>
-                    くわしく:
+                    くわしく
                     <textarea value={selectedTask.content}></textarea>
                   </label>
                   <button type="submit" className="add_button">提出</button>
@@ -190,11 +212,11 @@ export default class Task extends React.Component {
                 <h2>タスク追加</h2>
                 <form onSubmit={this.handleSubmit}>
                   <label>
-                    タスク:
+                    タスク
                     <input type="text" placeholder="タスク名" required />
                   </label>
                   <label>
-                    カテゴリー:
+                    カテゴリー
                     <select defaultValue="" required>
                       <option value="" disabled>選択してください</option>
                       <option value="勉強">勉強</option>
@@ -205,11 +227,11 @@ export default class Task extends React.Component {
                     </select>
                   </label>
                   <label>
-                    きげん:
+                    きげん
                     <input type="date" required />
                   </label>
                   <label>
-                    くわしく:
+                    くわしく
                     <textarea placeholder="タスクの詳細を記入してください"></textarea>
                   </label>
                   <button type="submit" className="add_button">追加</button>
@@ -217,6 +239,43 @@ export default class Task extends React.Component {
               </div>
             </div>
           )}
+
+          {/* タスク再登録モーダル */}
+          {showReRegModal && selectedTask && (
+            <div className="modal">
+              <div className="modal_content">
+                <button className="close_button" onClick={this.toggleReRegModal}>×</button>
+                <h2>タスク再登録</h2>
+                <form onSubmit={this.handleSubmit}>
+                  <label>
+                    タスク
+                    <input type="text" value={selectedTask.name} readOnly />
+                  </label>
+                  <label>
+                    カテゴリー
+                    <select defaultValue={selectedTask.categoriesName} required>
+                      <option value="" disabled>選択してください</option>
+                      <option value="勉強">勉強</option>
+                      <option value="家事">家事</option>
+                      <option value="趣味">趣味</option>
+                      <option value="運動">運動</option>
+                      <option value="その他">その他</option>
+                    </select>
+                  </label>
+                  <label>
+                    きげん
+                    <input type="date" required />
+                  </label>
+                  <label>
+                    くわしく
+                    <textarea placeholder={selectedTask.content}></textarea>
+                  </label>
+                  <button type="submit" className="add_button">再登録</button>
+                </form>
+              </div>
+            </div>
+          )}
+
         </main>
         <Footer />
       </wrapper>

@@ -75,8 +75,9 @@ main {
   font-family: "Mochiy Pop One", sans-serif;
   width: 95%;
   height: 50px;
-  margin-top: 5%;
+  margin-top: 3%;
   margin-left: 2.5%;
+  margin-bottom: 3%;
   border-radius: 5px;
 }
 
