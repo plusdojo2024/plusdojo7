@@ -1,79 +1,100 @@
 import React from "react";
-import axios from "axios";
 import './Money.css';
-class MoneyUseListChild　extends React.Component {
+
+class MoneyUseListChild extends React.Component {
 
     state = {
-        allowances:[],
-        date:"",
+        allowances: [],
+        date: "",
         item: "",
         amount: "",
+        selectedMonth: "", // 選択された月を管理する state
         showModal: false,
-     };
+    };
 
-     //データ取得
-    componentDidMount(){
-        //学習用にaxiosでなく、標準のfetchを利用している。
+    componentDidMount() {
         fetch("/api/money/list")
-        //取得したレスポンスを JSON 形式に変換
         .then(res => res.json())
-        //JSON データを取得した後、コンソールにログ出力
         .then(json => {
             console.log(json);
-            //stateのbooksに受け取ったデータを保持する。
-            //stateが変わると自動的に画面が再描画される。
-            //取得した JSON データをコンポーネントの状態 (this.state.books) に保存
             this.setState({
-                allowances : json
-            })
+                allowances: json
+            });
+
+            // 最初のデータの月を選択状態に設定
+            if (json.length > 0) {
+                const firstAllowance = json[0];
+                const selectedMonth = this.getMonthFromDate(firstAllowance.moneyTime);
+                this.setState({ selectedMonth });
+            }
         });
     }
 
-    toggleModal = () => {
-        const{showModal} = this.state;
-        this.setState({
-            showModal: !showModal
-        });
+    // 日付から月を取得する関数
+    getMonthFromDate = (dateString) => {
+        const dateObj = new Date(dateString);
+        return `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}`;
     }
 
-    onInput = (e) => {
-        //コントロールの名前を取得する
-        const name= e.target.name;
-        //コントロールに入力した値をstateに更新する。
-        this.setState({
-            [name]: e.target.value
-        });
+    // 月の表示フォーマットを修正する関数
+    formatMonth = (month) => {
+        const dateObj = new Date(month);
+        const formattedMonth = dateObj.toLocaleString('default', { month: 'long'});
+        return formattedMonth;
     }
 
-    modMoney = () => {
-        //利用するstateの値を宣言
-        const { allowances } = this.state;
+    // 前の月に移動する関数
+    goToPreviousMonth = () => {
+        const { selectedMonth } = this.state;
+        const dateObj = new Date(selectedMonth);
+        dateObj.setMonth(dateObj.getMonth() - 1);
+        const newMonth = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}`;
+        this.setState({ selectedMonth: newMonth });
+    }
 
-        //stateの値を利用してpostデータを作成
-        const data = {
-            date:allowances,
-            item: "",
-            amount: "",
-        };
+    // 次の月に移動する関数
+    goToNextMonth = () => {
+        const { selectedMonth } = this.state;
+        const dateObj = new Date(selectedMonth);
+        dateObj.setMonth(dateObj.getMonth() + 1);
+        const newMonth = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}`;
+        this.setState({ selectedMonth: newMonth });
+    }
 
-        this.toggleModal();
+    // 使用履歴の中で、指定された月のデータのみをフィルタリングする関数
+    filterByMonth = (allowance) => {
+        const { selectedMonth } = this.state;
+        const allowanceMonth = this.getMonthFromDate(allowance.moneyTime);
+        return allowanceMonth === selectedMonth;
+    }
+
+    // 月の切り替えボタンを表示する関数
+    renderMonthSwitcher = () => {
+        return (
+            <div className="month-switcher">
+                <button onClick={this.goToPreviousMonth}>前の月</button>
+                <span>{this.formatMonth(this.state.selectedMonth)}</span>
+                <button onClick={this.goToNextMonth}>次の月</button>
+            </div>
+        );
     }
 
     render() {
         const { allowances } = this.state;
         return (
             <div>
-                <h2>使ったお金一覧</h2>
-                {allowances.map((allowance, index) => (
-                   <div class="use">
-                   <p>{allowance.moneyDate}&nbsp;&nbsp;{allowance.usedType}&nbsp;&nbsp;{allowance.usedMoney}</p>
-                   
-                   {/* Todo:編集ボタンを押すとmodBook関数が実行されるようにする。引数はindex */}
-                   <button onClick={() => {this.modBook(index)}}>編集</button>
-                  
-                   </div>
-             
+                <h2>つかったお金</h2>
 
+                {/* 月の切り替えボタンを表示 */}
+                {this.renderMonthSwitcher()}
+
+                {/* 選択された月のデータを表示 */}
+                {allowances.filter(this.filterByMonth).map((allowance, idx) => (
+                    <div key={idx} className="use">
+                        <p>{allowance.moneyDate}&nbsp;&nbsp;{allowance.usedType}&nbsp;&nbsp;{allowance.usedMoney}</p>
+                        {/* Todo: 編集ボタンを押すと modBook 関数が実行されるようにする。引数は index */}
+                        <button onClick={() => {this.modBook(idx)}}>へんしゅう</button>
+                    </div>
                 ))}
             </div>
         );
