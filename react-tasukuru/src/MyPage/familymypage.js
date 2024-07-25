@@ -107,7 +107,7 @@ export default class FamilyMyPage extends React.Component {
                 <h2>子供アカウント追加</h2>
                 <form onSubmit={this.handleSubmit}>
                   <label>
-                    <input type="text" placeholder="パスワード" className="familymypage-textbox"/><br /> {/* familymypage-specific */}
+                    <input type="text" placeholder="なまえ" className="familymypage-textbox"/><br /> {/* familymypage-specific */}
                   </label>
                   <button type="submit" className="familymypage-add_button">追加する</button> {/* familymypage-specific */}
                 </form>
@@ -145,8 +145,8 @@ export default class FamilyMyPage extends React.Component {
                 <button className="familymypage-close_button" onClick={this.toggleFamilyDelModal}>×</button>
                 <h2>家族アカウント削除しますか？</h2>
                 <form onSubmit={this.handleSubmit}>
-                  <button type="submit" className="familymypage-add_button">はい</button> {/* familymypage-specific */}
-                  <button type="submit" className="familymypage-add_button">いいえ</button> {/* familymypage-specific */}
+                  <button type="submit" className="familymypage-del_button">はい</button> {/* familymypage-specific */}
+                  <button type="submit" className="familymypage-del_button">いいえ</button> {/* familymypage-specific */}
                 </form>
               </div>
             </div>
