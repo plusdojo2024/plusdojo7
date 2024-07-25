@@ -2,6 +2,8 @@ package com.tasukuru.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -15,8 +17,10 @@ import lombok.NoArgsConstructor;
 @Table(name="familyUser")												//マッピングされるテーブルを指定する
 public class FamilyUser {
 	//ID列であることを示す
-	@Id
-	@Column(name="family_id")
+	@Id //キー設定
+	@GeneratedValue(strategy=GenerationType.IDENTITY) //auto increment
+	private Integer id;
+	@Column(unique = true)
 	private String familyId;
 	private String mail;
 	private String pass;

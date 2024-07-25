@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   height: 100%; /* コンテンツを中央揃え */
+  height:70vh;
 }
 
 .Diaries_background{

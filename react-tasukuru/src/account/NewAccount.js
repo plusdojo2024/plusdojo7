@@ -17,7 +17,7 @@ export default function NewAccount() {
     };
 
     const accountDate = () => {
-        const data = { family_id: family_id, mail: mail, pass: pass };
+        const data = { familyId: family_id, mail: mail, pass: pass };
         axios.post("/api/NewAccount/accountAdd/", data)
             .then(response => {
                 console.log(response.data);
