@@ -41,11 +41,19 @@ public class FamilyMyPageRestController {
     }
 
     // 名前追加
-    @PostMapping("/api/kidsUser/add/")
+    @PostMapping("/api/kidsName/add/")
     public ResponseEntity<String> addName(@RequestBody KidsUser kidsUser) {
         KidsUser savedUser = repository.save(kidsUser);
         // 保存後に成功レスポンスを返す
         return ResponseEntity.ok("名前が追加されました: " + savedUser.getName());
+    }
+    
+    // 名前削除
+    @PostMapping("/api/kidsName/del/")
+    public ResponseEntity<String> delName(@RequestBody KidsUser kidsUser) {
+        KidsUser deleteUser = repository.delete(kidsUser);
+        // 保存後に成功レスポンスを返す
+        return ResponseEntity.ok("名前が削除されました: " + deleteUser.getName());
     }
 }
 
