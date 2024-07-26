@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tasukuru.entity.KidsUser;
-import com.tasukuru.repository.KidesUserRepository;
+import com.tasukuru.repository.KidsUserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
 public class KidsLoginRestController {
 
     @Autowired
-    private KidesUserRepository userRepository;
+    private KidsUserRepository userRepository;
 
     @PostMapping("/api/KidsLogin/loginDate/")
     public ResponseEntity<String> login(@RequestBody Map<String, String> loginRequest,HttpServletRequest request) {

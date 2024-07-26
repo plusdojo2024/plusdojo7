@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tasukuru.entity.KidsUser;
-import com.tasukuru.repository.KidesUserRepository;
+import com.tasukuru.repository.KidsUserRepository;
 
 @RestController
 public class KidsUserRestController {
 	
 	@Autowired
-	private KidesUserRepository kidsRepo;
+	private KidsUserRepository kidsRepo;
 	
 	@GetMapping("/api/kids/")
 	private Iterable<KidsUser> get() {

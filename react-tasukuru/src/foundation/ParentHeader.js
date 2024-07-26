@@ -9,9 +9,6 @@ export default class ParentHeader extends React.Component{
                 {/* 個人名 */}
                 
         <select className = "parent_header_childName"> 
-            <option className="parent_header_otherName" >ひろし</option>
-                <option value="1" className="parent_header_otherName">りょうたろう</option>
-                <option value="2" className="parent_header_otherName">あつし</option>
                 
         </select> 
                 <hr></hr>
