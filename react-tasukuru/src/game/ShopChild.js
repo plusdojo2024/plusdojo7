@@ -101,71 +101,72 @@ export default class ShopChild extends React.Component{
         return(
         <div>  
             <Header />
-            <div className="ShopChildBody">
+            <main>
                 <div className ="background_image_renga">
-            
-                <h1 class ="gold">1000G</h1>
-                
-                <Tabs id ="ShopChildTab">
-                    <TabList id ="ShopChildTabList">
-                        <Tab>販売中</Tab>
-                        <Tab>購入済み</Tab>
-                    </TabList>
+                    <div className="ShopChildBody">
+                        <h1 class ="gold">1000G</h1>
+                        
+                        <Tabs id ="ShopChildTab">
+                            <TabList id ="ShopChildTabList">
+                                <Tab>販売中</Tab>
+                                <Tab>購入済み</Tab>
+                            </TabList>
 
-                    <TabPanel>
-                        {shops.length > 0 ? (
-                            shops.map(shop => (
-                                <div key={shop.id}> 
-                                    <h2>{shop.name}   {shop.price}G</h2>
-                                    <button id="buy_button" onClick={() => this.Buy(shop)}>購入する</button>
+                            <TabPanel>
+                                {shops.length > 0 ? (
+                                    shops.map(shop => (
+                                        <div key={shop.id}> 
+                                            <h2>{shop.name}   {shop.price}G</h2>
+                                            <button id="buy_button" onClick={() => this.Buy(shop)}>購入する</button>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <h2>販売中の商品はありません。</h2>
+                                )}
+                            </TabPanel>
+
+                        <TabPanel>
+                            <h2>購入済み商品１</h2>
+                            <h2>購入済み商品２</h2>
+                            <h2>購入済み商品３</h2>
+                            <h2>購入済み商品４</h2>
+                            <h2>購入済み商品５</h2>
+                        </TabPanel>
+                        </Tabs>
+                        
+                        <div className="request_button">
+                            <button id ="request_button" onClick={() =>this.Request()}>商品リクエスト</button>
+                        </div>
+                    
+                    
+                        {RequestModal && (
+                            <div id="ShopChildoverlay">
+                                <div id= "ShopChildcontent">
+                                    商品名<br />
+                                    <input type="text" value={requestName} onChange={this.handleRequestChange}/><br />
+                                    <button onClick={this.submitRequest}>送信</button><br />
+                                    <button onClick={() =>this.toggleRequestModal()}>閉じる</button>
                                 </div>
-                            ))
-                        ) : (
-                            <h2>販売中の商品はありません。</h2>
+                            </div>
                         )}
-                    </TabPanel>
 
-                <TabPanel>
-                    <h2>購入済み商品１</h2>
-                    <h2>購入済み商品２</h2>
-                    <h2>購入済み商品３</h2>
-                    <h2>購入済み商品４</h2>
-                    <h2>購入済み商品５</h2>
-                </TabPanel>
-                </Tabs>
-                
-                <div className="request_button">
-                    <button id ="request_button" onClick={() =>this.Request()}>商品リクエスト</button>
-                </div>
-            
-            
-                {RequestModal && (
-                    <div id="ShopChildoverlay">
-                        <div id= "ShopChildcontent">
-                            商品名<br />
-                            <input type="text" value={requestName} onChange={this.handleRequestChange}/><br />
-                            <button onClick={this.submitRequest}>送信</button><br />
-                            <button onClick={() =>this.toggleRequestModal()}>閉じる</button>
+                        {BuyModal && selectedItem && (
+                            <div id="ShopChildoverlay">
+                                <div id= "ShopChildcontent">
+                                    <h1 className ="gold">1000G</h1>
+                                    <p>{selectedItem.name} {selectedItem.price}G</p><br/>
+                                    <button>購入確定</button><br/>
+                                    <br/>
+                                    <button onClick={() =>this.toggleBuyModal()}>閉じる</button>
+                                </div>
+                            </div>
+                        )}
                         </div>
-                    </div>
-                )}
-
-                {BuyModal && selectedItem && (
-                    <div id="ShopChildoverlay">
-                        <div id= "ShopChildcontent">
-                            <h1 className ="gold">1000G</h1>
-                            <p>{selectedItem.name} {selectedItem.price}G</p><br/>
-                            <button>購入確定</button><br/>
-                            <br/>
-                            <button onClick={() =>this.toggleBuyModal()}>閉じる</button>
-                        </div>
-                    </div>
-                )}
-                
-                </div>
+                    </div>                
+            </main>
             <Footer />
             </div>
-        </div>
+        
         );
     }
 }

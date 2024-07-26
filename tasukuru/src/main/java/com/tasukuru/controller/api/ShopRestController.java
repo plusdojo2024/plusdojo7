@@ -66,17 +66,13 @@ public class ShopRestController {
     }
    
     
-    
-    
     //リクエストの追加
     @PostMapping("/api/requests/add")
     public Request addRequest(@RequestBody Request request) {
     	return requestsRepository.save(request);
     }
     
-    //リクエストの編集はしない
-    
-    
+
     
     //リクエストの削除
     @DeleteMapping("/api/requests/{id}")
