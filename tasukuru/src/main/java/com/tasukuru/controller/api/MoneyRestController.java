@@ -148,7 +148,7 @@ public class MoneyRestController {
 	
 	  //サポートキャラの表示処理
 	 @GetMapping("/api/money/support")
-	 private String imageget() {
+	 private Support imageget() {
 	
 	        //kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
 	        KidsUser kidsUser = kidsRepository.findById(1);	
@@ -156,12 +156,12 @@ public class MoneyRestController {
 	        // supportId を取得
             int supportId = kidsUser.getSupportId();
     
-             // Supportエンティティを取得
+            // Supportエンティティを取得
             Support support = supportRepository.findById(supportId);
             
     		
             //画像を返す		
-    		return  support.getImage();
+    		return  support;
 	}	
 	
 }
