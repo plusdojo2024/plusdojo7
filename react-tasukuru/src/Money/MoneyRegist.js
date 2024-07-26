@@ -100,7 +100,7 @@ export default class MoneyRegist extends React.Component {
                             
                         />
                         <br />
-                        <label>金額:</label>
+                        <label>つかったお金</label>
                         <input
                             type="number"
                             name="amount"
@@ -108,7 +108,7 @@ export default class MoneyRegist extends React.Component {
                             onChange={this.onInput}
                         />
                         <br />
-                        <button onClick={this.registMoney}> 登録する</button>
+                        <button onClick={this.registMoney}> とうろく</button>
                     </div>
                     }
                 </div>
