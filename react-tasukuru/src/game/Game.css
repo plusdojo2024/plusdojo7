@@ -109,6 +109,28 @@ body, html {
     margin-bottom: 10px;
 }
 
+/* 攻撃ボタンを押すとモデルボックスのデザイン */
+.game_attack_modal {
+    position: fixed;
+    top: 0;
+    left: 0.05;
+    width: 80%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    
+}
+
+.game_modal_content {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    width: 200px; /* Set the width of the modal */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    text-align: center;
+}
+
+
 /* ---------ここまでゲーム戦闘画面------------ */
 
 /* --------------------ここからサイコロ関連画面---------------------- */

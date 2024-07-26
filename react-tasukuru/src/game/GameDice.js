@@ -142,25 +142,25 @@ export default class GameDice extends React.Component {
                                 </div>
                             </button>
                             {/* 攻撃モーダル */}
-                            {AttackModal &&
+                            {/* {AttackModal &&
                                 <div id="Attackoverlay">
                                     <div id="Attackcontent">
                                         <br />
                                         <button onClick={this.handleModalAttack}>攻撃</button>
                                     </div>
                                 </div>
-                            }
+                            } */}
 
-                        {/* {AttackModal && (
-                        <div className="attack_modal">
-                            <div className="modal_content">
-                                <p>選択されたサイコロの数: {this.state.selectedDiceCount}</p>
-                                <p>ダメージ: {this.rollDice(parseInt(this.state.selectedDiceCount, 10))}</p>
-                                <button onClick={this.handleModalAttack}>攻撃する</button>
-                                <button onClick={this.toggleAttackModal}>キャンセル</button>
+                            {AttackModal && (
+                            <div className="game_attack_modal">
+                                <div className="game_modal_content">
+                                    <p>サイコロの数: {this.state.selectedDiceCount}</p>
+                                    <p>ダメージ: {this.rollDice(parseInt(this.state.selectedDiceCount, 10))}</p>
+                                    <button onClick={this.handleModalAttack}>攻撃する</button>
+                                   
+                                </div>
                             </div>
-                        </div>
-                    )} */}
+                        )}
                         </div>
                     </div>
                 </div>
