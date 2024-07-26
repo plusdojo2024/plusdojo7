@@ -6,8 +6,24 @@ export default class GameDice extends React.Component {
         super(props);
         this.state = {
             AttackModal: false,  // 攻撃モーダルの表示状態
-            selectedDiceCount: "1"  // 選択されたサイコロの数の初期値
+            selectedDiceCount: "1",  // 選択されたサイコロの数の初期値
+            kids : [],
+            kidUserData : null,
         };
+    }
+
+    componentDidMount() {
+            
+        // 子供ユーザーデータを取得
+        fetch("/api/kids/1/")
+        .then(res => res.json())
+        .then(kidUserData => {
+            console.log(kidUserData); // 子供ユーザーデータをコンソールに出力（確認用）
+            this.setState({ kidUserData });
+        })
+        .catch(error => console.error("Error fetching kid user data:", error));
+
+
     }
 
     // 攻撃モーダルの表示切替
@@ -19,17 +35,32 @@ export default class GameDice extends React.Component {
 
     // 攻撃ボタンがクリックされた時の処理
     handleAttack = () => {
-        this.toggleAttackModal(); // モーダルを表示する
+        const { kidUserData, selectedDiceCount } = this.state;
+        if (kidUserData.diceCount >= selectedDiceCount) {
+            this.toggleAttackModal(); // モーダルを表示する
+        } else {
+            alert("サイコロが足りません！");
+        }
     }
 
     // モーダル内の攻撃ボタンがクリックされた時の処理
     handleModalAttack = () => {
         const { handleAttack, currentEnemy } = this.props;
-        const { selectedDiceCount } = this.state;
+        const { selectedDiceCount,kidUserData } = this.state;
 
         // 選択されたサイコロの数に応じたダメージ計算
         const damage = this.rollDice(parseInt(selectedDiceCount, 10));
         handleAttack(currentEnemy.id, damage); // 親コンポーネントの攻撃処理を呼び出す
+
+        // サイコロ数を減らす
+        const newDiceCount = kidUserData.diceCount - selectedDiceCount;
+        this.setState(prevState => ({
+            kidUserData: {
+                ...prevState.kidUserData,
+                diceCount: newDiceCount
+            }
+        }));
+
         this.toggleAttackModal(); // モーダルを閉じる
     }
 
@@ -52,13 +83,20 @@ export default class GameDice extends React.Component {
     }
 
     render() {
-        const { AttackModal } = this.state;
+        const { AttackModal,kidUserData } = this.state;
 
         return (
             <div className="game_content">
                 <div className="background_image_renga">
+
                     {/* サイコロ所持数 */}
-                    <div className="game_dice_count">サイコロ<br /><span id="dice_count">999</span>個所持</div>
+                    {kidUserData && (
+                        <div>
+                            <div className="game_dice_count">サイコロ<br /><span id="dice_count"> {kidUserData.diceCount} 個</span></div>
+                            
+                            
+                        </div>
+                    )}                
 
                     {/* サイコロのプルダウン */}
                     <div className="game_dice_content">
