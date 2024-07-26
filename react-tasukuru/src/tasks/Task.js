@@ -8,16 +8,13 @@ import NavigationButton from "./NavigationButton";
 
 function Tasks() {
   const [tasks, setTasks] = useState([]);
-  const [userId, setKidsUser] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [showReRegModal, setShowReRegModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [activeTab, setActiveTab] = useState('noComplete');
 
-  useEffect(() => {
-    // if (userId) {
-    // ID を基にタスクデータを取得する
+  useState(() => {
     axios.get("/api/task/")
       .then(response => {
         console.log('Tasks', response.data);  //ここでタスクデータを確認
@@ -26,8 +23,7 @@ function Tasks() {
       .catch(error => {
         console.error('タスクデータの取得に失敗しました', error);
       });
-    // }
-  }, [userId]);
+  });
 
   const toggleAddModal = () => setShowAddModal(prev => !prev);
   const toggleTaskModal = () => setShowTaskModal(prev => !prev);
