@@ -34,10 +34,6 @@ public class ShopRestController {
     
     @Autowired
     private KidsUserRepository kidsUserRepository;
-
-    
-    
-    
     
     //ログイン処理
 	@GetMapping("/api/shopchild/")
@@ -60,16 +56,6 @@ public class ShopRestController {
 		//return repository.findAll();
 	}
 
-
-	
-    
-
-
-    
-    
-    
-    
-    
     // 商品リストの取得
     @GetMapping("/api/shop")
     public List<Shop> getAllShops() {
