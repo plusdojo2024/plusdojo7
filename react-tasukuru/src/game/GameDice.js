@@ -152,12 +152,12 @@ export default class GameDice extends React.Component {
                             } */}
 
                             {AttackModal && (
-                            <div className="attack_modal">
-                                <div className="modal_content">
+                            <div className="game_attack_modal">
+                                <div className="game_modal_content">
                                     <p>サイコロの数: {this.state.selectedDiceCount}</p>
                                     <p>ダメージ: {this.rollDice(parseInt(this.state.selectedDiceCount, 10))}</p>
                                     <button onClick={this.handleModalAttack}>攻撃する</button>
-                                    <button onClick={this.toggleAttackModal}>キャンセル</button>
+                                   
                                 </div>
                             </div>
                         )}
