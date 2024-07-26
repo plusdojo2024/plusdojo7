@@ -1,9 +1,14 @@
 package com.tasukuru.controller.api;
 
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tasukuru.entity.KidsUser;
@@ -44,6 +49,35 @@ public class KidsUserRestController {
 		return kidsRepo.findAll();
 	}
 	
+	//攻撃した後、残るサイコロ数をデータベースに保存する
+	@PostMapping("/api/kids/currentUser/updateDiceCount")
+    public ResponseEntity<KidsUser> updateDiceCount(@RequestBody Map<String, Integer> requestBody, HttpServletRequest httpRequest) {
+        HttpSession session = httpRequest.getSession();
+        KidsUser loginUser = (KidsUser) session.getAttribute("KidsUser");
+
+        if (loginUser != null) {
+            KidsUser user = kidsRepo.findById(loginUser.getId()).orElse(null);
+            if (user != null) {
+                Integer newDiceCount = requestBody.get("newDiceCount");
+                if (newDiceCount != null) {
+                    user.setDiceCount(newDiceCount);
+                    kidsRepo.save(user);
+                    return ResponseEntity.ok(user);
+                } else {
+                    return ResponseEntity.badRequest().body(null);
+                }
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+    }
+	
+	
+
+
+
 //	 @GetMapping("/api/kids/{id}/")
 //	    public ResponseEntity<KidsUser> getKidsUser(@PathVariable int id) {
 //	        KidsUser user = kidsRepo.findById(id);
