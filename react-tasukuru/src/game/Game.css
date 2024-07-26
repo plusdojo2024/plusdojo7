@@ -69,12 +69,46 @@ body, html {
 /*敵キャラ画像*/
 .game_enemies_icon {
     text-align: center;
-    margin-top: 120px;
+    margin-top: 20px;
 }
 /*敵キャラ画像大きさ*/
 .game_enemies_icon img {
     height: 140px;
 }
+
+/* HP のデザイン */
+.enemy-health-bar {
+    width: 100%;
+    max-width: 140px;
+    margin: 1px 130px;
+    margin-bottom: 74px;
+}
+
+.health-bar-bg {
+    width: 100%;
+    background-color: #ccc;
+    border: 1px solid #000;
+    height: 20px;
+    
+}
+
+.health-bar-fill {
+    height: 100%;
+    background-color: red;
+    width: 100%; /* Full width for full health */
+    transition: width 0.3s ease-in-out;
+    
+}
+
+.enemy-hp {
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+.enemy-name-text {
+    margin-bottom: 10px;
+}
+
 /* ---------ここまでゲーム戦闘画面------------ */
 
 /* --------------------ここからサイコロ関連画面---------------------- */
@@ -88,7 +122,7 @@ body, html {
     position:absolute;
     padding: 7px;
     line-height: 40px;
-    margin-top: 50px;
+    margin-top: 40px;
     background-color:#F9F7ED;
     border:1px solid #000;
 }

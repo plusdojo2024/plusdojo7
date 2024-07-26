@@ -7,15 +7,15 @@ export default class GameDice extends React.Component {
         this.state = {
             AttackModal: false,  // 攻撃モーダルの表示状態
             selectedDiceCount: "1",  // 選択されたサイコロの数の初期値
-            kids : [],
             kidUserData : null,
+            diceCount : "",
         };
     }
 
     componentDidMount() {
             
         // 子供ユーザーデータを取得
-        fetch("/api/kids/1/")
+        fetch("/api/kids/2/")
         .then(res => res.json())
         .then(kidUserData => {
             console.log(kidUserData); // 子供ユーザーデータをコンソールに出力（確認用）
@@ -60,8 +60,29 @@ export default class GameDice extends React.Component {
                 diceCount: newDiceCount
             }
         }));
+        
+        //攻撃して残るサイコロ数をデータベースに保存する
+        this.saveDiceCount(newDiceCount,kidUserData.id);
 
         this.toggleAttackModal(); // モーダルを閉じる
+    }
+
+     // 攻撃して残るサイコロ数をデータベースに保存する
+    saveDiceCount = (newDiceCount, userId) => {
+        fetch(`/api/kids/${userId}/dice`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newDiceCount)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Dice count updated:", data);
+        })
+        .catch(error => {
+            console.error("Error updating dice count:", error);
+        });
     }
 
     // サイコロを振る（ランダムな数値を返す）
@@ -129,6 +150,17 @@ export default class GameDice extends React.Component {
                                     </div>
                                 </div>
                             }
+
+                        {/* {AttackModal && (
+                        <div className="attack_modal">
+                            <div className="modal_content">
+                                <p>選択されたサイコロの数: {this.state.selectedDiceCount}</p>
+                                <p>ダメージ: {this.rollDice(parseInt(this.state.selectedDiceCount, 10))}</p>
+                                <button onClick={this.handleModalAttack}>攻撃する</button>
+                                <button onClick={this.toggleAttackModal}>キャンセル</button>
+                            </div>
+                        </div>
+                    )} */}
                         </div>
                     </div>
                 </div>
