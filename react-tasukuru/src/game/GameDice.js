@@ -15,7 +15,7 @@ export default class GameDice extends React.Component {
     componentDidMount() {
             
         // 子供ユーザーデータを取得
-        fetch("/api/kids/2/")
+        fetch("/api/kids/currentUser/")
         .then(res => res.json())
         .then(kidUserData => {
             console.log(kidUserData); // 子供ユーザーデータをコンソールに出力（確認用）
@@ -69,12 +69,12 @@ export default class GameDice extends React.Component {
 
      // 攻撃して残るサイコロ数をデータベースに保存する
     saveDiceCount = (newDiceCount, userId) => {
-        fetch(`/api/kids/${userId}/dice`, {
+        fetch("/api/kids/currentUser/dice/", {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(newDiceCount)
+            body: JSON.stringify({diceCount : newDiceCount})
         })
         .then(response => response.json())
         .then(data => {
