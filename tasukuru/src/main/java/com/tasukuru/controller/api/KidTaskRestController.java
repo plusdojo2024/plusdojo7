@@ -43,8 +43,7 @@ public class KidTaskRestController {
 	private Task submitTask(@RequestBody Task task) {
 		Task existingTask = repository.findById(task.getId()).orElse(null);
 		if(existingTask != null) {
-			existingTask.setTaskCheck(true);
-            existingTask.setNoComplete(false);
+            existingTask.setNoComplete(true);
             repository.save(existingTask);
             return existingTask;
 		} else {
