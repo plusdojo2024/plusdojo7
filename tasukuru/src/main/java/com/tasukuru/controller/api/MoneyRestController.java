@@ -15,6 +15,9 @@ import com.tasukuru.repository.AllowanceRepository;
 import com.tasukuru.repository.KidsUserRepository;
 import com.tasukuru.repository.SupportRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class MoneyRestController {
 	
@@ -29,14 +32,20 @@ public class MoneyRestController {
 
 	//利用記録処理
 	@PostMapping("/api/money/regist")
-	private Allowance regist(@RequestBody Allowance allowance) {
-		//System.out.println(allowance.getUsed_type());
+	private Allowance regist(@RequestBody Allowance allowance, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
+		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		
+		int userId = loginUser.getId();
+		
+		allowance.setKidsId(userId);
 		
 		//リポジトリ.save(エンティティ);
 		repository.save(allowance);
 		
 		//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
-		KidsUser kidsUser = kidsRepository.findById(1000);
+		KidsUser kidsUser = kidsRepository.findById(userId);
 		
 		//所持金の計算を行う。
 		//kidsUser.setCurrent_money(kidsUser.getCurrent_money() - allowance.getUsed_money());
@@ -56,14 +65,20 @@ public class MoneyRestController {
 	
 	//お小遣い追加処理
 	@PostMapping("/api/money/add")
-	private Allowance add(@RequestBody Allowance allowance) {
-		//System.out.println(allowance.getGet_money());
+	private Allowance add(@RequestBody Allowance allowance, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
+		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		
+		int userId = loginUser.getId();
+		
+		allowance.setKidsId(userId);
 		
 		//リポジトリ.save(エンティティ);
 		repository.save(allowance);
 		
 		//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
-		KidsUser kidsUser = kidsRepository.findById(1000);
+		KidsUser kidsUser = kidsRepository.findById(userId);
 		
 		//所持金の計算を行う。
 		kidsUser.setCurrentMoney(kidsUser.getCurrentMoney() + allowance.getGetMoney());
@@ -77,25 +92,42 @@ public class MoneyRestController {
 	
 	//所持金データ取得
 	@GetMapping("/api/money/current")
-	private Integer get(){
+	private Integer get(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
+		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		
+		int userId = loginUser.getId();
 		
 		//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
-		KidsUser kidsUser = kidsRepository.findById(1000);
+		KidsUser kidsUser = kidsRepository.findById(userId);
 		
 	    return kidsUser.getCurrentMoney();
 	}
 	
 	//一覧取得処理
 		@GetMapping("/api/money/list")
-		private List<Allowance> list(){
+		private List<Allowance> list(HttpServletRequest request){
+			HttpSession session = request.getSession();
+			//セッションからログインしているKidsUser情報を取得
+			KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
 			
-			return repository.findByKidsId(1);
+			int userId = loginUser.getId();
+			
+			return repository.findByKidsId(userId);
 		}
 		
 	//更新処理
 	@PostMapping("/api/money/mod")
-	private Allowance mod(@RequestBody Allowance allowance) {
-
+	private Allowance mod(@RequestBody Allowance allowance, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
+		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		
+		int userId = loginUser.getId();
+		
+		allowance.setKidsId(userId);
+		
 		//postされたデータからIDを取得
 		int Id = allowance.getId();
 		
@@ -103,7 +135,7 @@ public class MoneyRestController {
 		Allowance useMoney = repository.findById(Id);
 		
 		//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
-		KidsUser kidsUser = kidsRepository.findById(1000);
+		KidsUser kidsUser = kidsRepository.findById(userId);
 		
 		//所持金の修正を行う
 		kidsUser.setCurrentMoney(kidsUser.getCurrentMoney() + useMoney.getUsedMoney());
@@ -126,7 +158,15 @@ public class MoneyRestController {
 	
 	//削除処理
 		@PostMapping("/api/money/del")
-		private Allowance del(@RequestBody Allowance allowance) {
+		private Allowance del(@RequestBody Allowance allowance, HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			//セッションからログインしているKidsUser情報を取得
+			KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+			
+			int userId = loginUser.getId();
+			
+			allowance.setKidsId(userId);
+			
 			//postされたデータからIDを取得
 			int Id = allowance.getId();
 			
@@ -134,7 +174,7 @@ public class MoneyRestController {
 			Allowance useMoney = repository.findById(Id);
 			
 			//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
-			KidsUser kidsUser = kidsRepository.findById(1000);
+			KidsUser kidsUser = kidsRepository.findById(userId);
 			
 			//所持金の修正を行う。
 			kidsUser.setCurrentMoney(kidsUser.getCurrentMoney() + useMoney.getUsedMoney());
@@ -148,10 +188,15 @@ public class MoneyRestController {
 	
 	  //サポートキャラの表示処理
 	 @GetMapping("/api/money/support")
-	 private Support imageget() {
-	
+	 private Support imageget(HttpServletRequest request) {
+		 	HttpSession session = request.getSession();
+			//セッションからログインしているKidsUser情報を取得
+			KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+			
+			int userId = loginUser.getId();
+		 
 	        //kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
-	        KidsUser kidsUser = kidsRepository.findById(1);	
+	        KidsUser kidsUser = kidsRepository.findById(userId);	
 	
 	        // supportId を取得
             int supportId = kidsUser.getSupportId();
