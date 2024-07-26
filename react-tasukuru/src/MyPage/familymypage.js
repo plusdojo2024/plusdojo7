@@ -102,7 +102,7 @@ export default class FamilyMyPage extends Component {
   newNameSave() {
     const { newname, familyId } = this.state;
     const data = { name: newname, familyId: familyId };
-    axios.post("/api/kidsUser/add/", data)
+    axios.post("/api/kidsName/add/", data)
       .then(response => {
         this.toggleKidsAddModal();
         this.componentDidMount();
@@ -116,7 +116,7 @@ export default class FamilyMyPage extends Component {
   deleteName() {
     const { selectedName } = this.state; 
     const data = { name: selectedName }; 
-    axios.post("/api/kidsUser/delete/", data)
+    axios.post("/api/kidsName/del/", data)
       .then(response => {
         this.toggleKidsDelModal(); 
         this.componentDidMount(); 
@@ -169,7 +169,7 @@ export default class FamilyMyPage extends Component {
                       )}
                     </select>
                   </label>
-                  <button type="submit" className="familymypage-add_button">再登録</button>
+                  <button type="submit" className="familymypage-add_button">決定</button>
                 </form>
               </div>
             </div>
