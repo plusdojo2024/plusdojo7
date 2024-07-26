@@ -4,8 +4,8 @@ import './Game.css';
 export default class GameBattle extends React.Component {
     
     render() {
-        const { enemies } = this.props;
-        const currentEnemy = enemies[0]; // 仮で最初の敵キャラを表示
+        const { enemy } = this.props;
+        const currentEnemy = enemy; // 仮で最初の敵キャラを表示
         
         return (    
             <div id="game_body">

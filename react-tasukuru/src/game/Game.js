@@ -15,12 +15,17 @@ export default class Game extends Component {
     }
 
     componentDidMount() {
+        // kids_usersテーブルからenemy_idを
+
         // ゲームデータの取得
         fetch("/api/game/enemies")
             .then(res => res.json())
             .then(json => {
                 console.log(json); // データをコンソールに出力（確認用）
-                this.setState({ enemies: json });
+                this.setState({ 
+                    enemies: json.enemies,
+                    currentEnemyIndex: json.currentEnemyId
+                });
             })
             .catch(error => console.error("Error fetching enemies:", error));
     }
@@ -35,6 +40,7 @@ export default class Game extends Component {
             updatedEnemy.hp -= damage;
             if (updatedEnemy.hp <= 0) {
                 // HPがゼロ以下になった場合は次の敵キャラを表示する
+                alert("敵を倒しました。");
                 updatedEnemies.splice(index, 1);  // 現在の敵キャラを削除
                 this.setState({ enemies: updatedEnemies });
             } else {
@@ -52,7 +58,7 @@ export default class Game extends Component {
                 <Header />
                 <main>
                     {/* GameBattleコンポーネントに敵キャラデータを渡す */}
-                    <GameBattle enemies={enemies} />
+                    <GameBattle enemy={enemies[currentEnemyIndex]} />
                     {/* GameDiceコンポーネントに敵キャラデータと攻撃処理を渡す */}
                     {enemies.length > 0 && (
                         <GameDice

@@ -1,6 +1,7 @@
 package com.tasukuru.controller.api;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,9 +29,39 @@ public class GameRestController {
 
     // ゲームの敵キャラクター一覧を取得するエンドポイント
     @GetMapping("/api/game/enemies")
-    public List<Enemie> getEnemies() {
-        return enemiesRepository.findAll();
+    public ReplayEnemiesAndCurrentEnemyId getEnemies() {
+    	ReplayEnemiesAndCurrentEnemyId replay = new ReplayEnemiesAndCurrentEnemyId();
+    	replay.enemies = enemiesRepository.findAll();
+    	replay.currentEnemyId = kidsUserRepository.findById(4).getEnemieId() - 1;
+    	
+        return replay;
     }
+    
+    public static class ReplayEnemiesAndCurrentEnemyId{
+    	public List<Enemie> enemies;
+    	
+    	public Integer currentEnemyId;
+    }
+    
+    @GetMapping("/api/enemies/currentUser/")
+	private Optional<KidsUser> get(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
+		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		
+		if(loginUser != null) {		//ここから絞り込むコード
+			//ログインしているユーザーのIDを取得
+			int userId = loginUser.getId();
+			//ユーザーIDに一致するタスクを取得して返す
+			return Optional.of(kidsUserRepository.findById(userId));
+		} else {
+			//ログインしていない場合、空のリストを返す
+			return null;
+		}
+		
+		//System.out.println(session.getAttribute("KidsUser"));
+		//return repository.findAll();
+	}
 
 //    // ログインしているユーザーに関連する敵キャラクター一覧を取得するエンドポイント
 //    @GetMapping("/api/game/enemies/user/{userId}")
