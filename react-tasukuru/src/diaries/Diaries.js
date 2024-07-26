@@ -74,9 +74,12 @@ export default class Diaries extends React.Component {
         const selectedDiary = diaries[index];
         axios.post("/api/diary/diaryMod/",selectedDiary)
             .then(response => {
-                console.log("サイコロ１増え",response.data);
-                this.toggleDiceModal();
-                this.componentDidMount();
+                axios.put(`/api/kidsUser/incrementDiceCount/${selectedDiary.kidsId}`)
+                    .then(response =>{
+                    console.log("サイコロ１増え",response.data);
+                    this.toggleDiceModal();
+                    this.componentDidMount();
+                })
             })
             .catch(error => {
                 console.error("サイコロ増えず", error);
@@ -178,7 +181,9 @@ export default class Diaries extends React.Component {
     render() {
         const {diaries, title, content, selectedDiary, UnreadDiarieModal, LookedDiarieModal, GetDiceModal, GuardianUnreadDiarieModal, SubmitModal, diaryRegitModal } = this.state;
         const allDiaries = diaries.filter(diary => diary.status === 'all');
-        const guardianDiaries = diaries.filter(diary => diary.status === 'guardian');
+        const parentCheckDiaries = diaries.filter(diary => diary.doSubmit === true && diary.parentCheck === true);
+
+        
         return (
             <div className="background_image_renga_diaries">
                 <div className="Diaries_background"></div>
@@ -190,7 +195,6 @@ export default class Diaries extends React.Component {
                             <Tab>いちらん</Tab>
                             <Tab>みどく</Tab>
                             <Tab>きどく</Tab>
-                            {/*<Tab>保護者用</Tab>削除予定のテストタブ。保護者側のみ表示にするかも。*/}
                         </TabList>
                         
                         {/* 日記一覧リスト・・・提出するためのタブ */}
@@ -215,7 +219,7 @@ export default class Diaries extends React.Component {
                         {/* 未読日記リスト・・・サイコロをもらうためのタブ */}
                         <TabPanel>
                             <div className="Diarie_box">
-                            {diaries.filter(diary => diary.doSubmit && !diary.parentCheck).map((diary, index) => {
+                            {parentCheckDiaries.map((diary, index) => {
                                 const dateOnly = new Date(diary.date).toISOString().split('T')[0];
                                 return (
                                     <tr className="" key={index}>
@@ -250,25 +254,6 @@ export default class Diaries extends React.Component {
                             </div>
                         </TabPanel>
 
-                        {/* 保護者用既読日記リスト。テストタブであり、提出されたものがここに来る
-                        <TabPanel>
-                            <div className="Diarie_box">
-                            {guardianDiaries.map((diary, index) => {
-                                const dateOnly = new Date(diary.date).toISOString().split('T')[0];
-                                return (
-                                    <tr className="" key={index}>
-                                        <td className="dateOnly">{dateOnly}</td>
-                                        <td className="title">{diary.title}</td>
-                                        <td className="content">{diary.content}</td>
-                                        <td className="action">
-                                        <button className="Diaries_submit_button" onClick={() => this.GuardianUnreadDiarie(index)}>確認</button>
-                                        </td>
-                                    </tr>
-                                );
-                            })} 
-                            </div>
-                        </TabPanel>
-                        */}
                         <div className="button_container">
                             <button className="Diaries_regist_button" onClick={() => this.addDiary()}>日記登録</button>
                         </div>
