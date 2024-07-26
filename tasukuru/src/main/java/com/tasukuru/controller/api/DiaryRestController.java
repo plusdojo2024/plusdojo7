@@ -1,6 +1,7 @@
 package com.tasukuru.controller.api;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tasukuru.entity.Diary;
+import com.tasukuru.entity.KidsUser;
 import com.tasukuru.repository.DiaryRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @CrossOrigin
@@ -21,8 +26,19 @@ public class DiaryRestController {
 	private DiaryRepository repository;
 	
 	@GetMapping("/api/diary/")
-	private Iterable<Diary> get() {
-		return repository.findAll();
+	private Iterable<Diary> get(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
+		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		
+		if(loginUser != null) {		//ここから絞り込むコード
+			//ログインしているユーザーのIDを取得
+			int userId = loginUser.getId();
+			//ユーザーIDに一致するタスクを取得して返す
+			return repository.findByKidsId(userId);
+		}else {
+			return List.of();
+		}
 	}
 	
 	@PostMapping("/api/diary/diaryAdd/")

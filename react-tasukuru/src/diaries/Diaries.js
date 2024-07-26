@@ -72,15 +72,14 @@ export default class Diaries extends React.Component {
     GetDice(index) {
         const { diaries } = this.state;
         const selectedDiary = diaries[index];
-        selectedDiary.childCheck = true;
         axios.post("/api/diary/diaryMod/",selectedDiary)
             .then(response => {
-                console.log("既読にしました",response.data);
+                console.log("サイコロ１増え",response.data);
                 this.toggleDiceModal();
                 this.componentDidMount();
             })
             .catch(error => {
-                console.error("既読のエラーが発生しました:", error);
+                console.error("サイコロ増えず", error);
             });
         
     }
