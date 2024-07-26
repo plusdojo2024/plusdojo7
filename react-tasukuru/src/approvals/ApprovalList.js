@@ -2,7 +2,11 @@ import React from "react";
 import Header from '../foundation/ParentHeader';
 import Footer from '../foundation/ParentFooter';
 import './Approval.css';
+
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // useNavigate をインポートする
+
+
 
 import { BrowserRouter, Routes, Route, json } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -80,6 +84,12 @@ export default class ApprovalList extends React.Component{
       }));
     }
 
+    toggleApprovalModal = () =>{
+      this.setState(prevState =>({
+        showApprovalModal: !prevState.showApprovalModal
+      }));
+    }
+
     onInput = (e) => {
       const {categoriesName} = this.state;
       const name= e.target.name;
@@ -104,7 +114,8 @@ export default class ApprovalList extends React.Component{
           miss: false,
           review_one: false,
           review_two: false,
-          review_three: false
+          review_three: false,
+          kidsId:1
         };
         console.log("dataは" + data);
 
@@ -124,9 +135,15 @@ export default class ApprovalList extends React.Component{
         
         }
     
+        
+
+         toDiary = () => {
+          // ボタンがクリックされたら /diary に遷移する
+          useNavigate('/diaries');
+      };
 
     render(){
-      const { tasks, showAddModal, showTaskModal, name, content, categoriesName, taskLimit } = this.state;
+      const { tasks, showAddModal, showTaskModal, showApprovalModal, name, content, categoriesName, taskLimit } = this.state;
         return (
             <wrapper>
         <Header />
@@ -145,13 +162,13 @@ export default class ApprovalList extends React.Component{
                   <div class="box">
                   {tasks.map(task => (
                   task.taskCheck === false && task.noComplete === true && task.complete === false && task.miss === false ? (
-                        <button key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }}>{task.name}</button>
+                        <button onClick={this.toggleApprovalModal} key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }}>{task.name}</button>
                       ) : null
                     ))}
                   </div>
-
+                  
                   <div className="button_container">
-                    <button className="diary_button">日記</button>
+                  <button onClick={this.toDiary} label="日記" className="diary_button" />
                     <button className="task_add_button" onClick={this.toggleAddModal}>追加</button>
                   </div>
                 </TabPanel>
@@ -167,7 +184,7 @@ export default class ApprovalList extends React.Component{
 
                   <div className="button_container">
                     <button className="diary_button">日記</button>
-                    <button className="task_add_button">再登録</button>
+                    <button className="task_add_button" onClick={this.toggleAddModal}>追加</button>
                   </div>
                 </TabPanel>
                 <TabPanel>
@@ -181,7 +198,7 @@ export default class ApprovalList extends React.Component{
 
                   <div className="button_container">
                     <button className="diary_button">日記</button>
-                    <button className="task_add_button">再登録</button>
+                    <button className="task_add_button" onClick={this.toggleAddModal}>追加</button>
                   </div>
                 </TabPanel>
                 <TabPanel>
@@ -195,7 +212,7 @@ export default class ApprovalList extends React.Component{
 
                   <div className="button_container">
                     <button className="diary_button">日記</button>
-                    <button className="task_add_button">再登録</button>
+                    <button className="task_add_button" onClick={this.toggleAddModal}>追加</button>
                   </div>
                 </TabPanel>
               </Tabs>
@@ -237,6 +254,60 @@ export default class ApprovalList extends React.Component{
               </div>
             </div>
           )}
+
+          {/* 親承認モーダル */}
+          {showApprovalModal && (
+            <div className="modal">
+              <div className="modal_content">
+                <button className="close_button" onClick={this.toggleApprovalModal}>×</button>
+                <form onSubmit={this.handleSubmit}>
+                  <label>
+                  タスク名:
+                  <input type="text" /*value={selectedTask.name}*/ readOnly name="name" placeholder="タスク名"  />
+                  </label>
+                  <label>
+                  期限:
+                  <input type="text" /*value={selectedTask.taskLimid}*/ readOnly name="taskLimit" />
+                  </label>
+                  <label>
+                  提出時間:
+                  <input type="text" /*value={selectedTask.subitTime}*/ readOnly name="submitTime"  />
+                  </label>
+                  <label>
+                  詳細:
+                  <input type="text" /*value={selectedTask.content}*/ readOnly name="content"  />
+                  </label>
+                  <label>
+
+<div class="cont">
+<div class="stars">
+<form action="">
+  <input class="star star-3" id="star-3-2" type="radio" name="star"/>
+  <label class="star star-3" for="star-3-2"></label>
+  <input class="star star-2" id="star-2-2" type="radio" name="star"/>
+  <label class="star star-2" for="star-2-2"></label>
+  <input class="star star-1" id="star-1-2" type="radio" name="star"/>
+  <label class="star star-1" for="star-1-2"></label>
+  <div class="rev-box">
+    <textarea class="review" col="30" name="review"></textarea>
+    <label class="review" for="review">Breif Review</label>
+  </div>
+  </form>
+</div>
+</div>
+                  </label>
+                  <button type="submit"  onClick={this.addTask} className="add_button" >追加</button>
+
+                </form>
+                <section>
+                
+
+</section>
+              </div>
+            </div>
+          )}
+
+
 
           </main>
             <Footer />
