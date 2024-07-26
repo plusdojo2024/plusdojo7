@@ -27,6 +27,7 @@ public class GameRestController {
 
     // ゲームの敵キャラクター一覧を取得するエンドポイント
     @GetMapping("/api/game/enemies")
+<<<<<<< Updated upstream
     public List<Enemie> getEnemies(HttpServletRequest request) {
         HttpSession session = request.getSession();
         KidsUser loginUser = (KidsUser) session.getAttribute("KidsUser");
@@ -61,5 +62,27 @@ public class GameRestController {
             // 更新したエネミーを保存
             enemiesRepository.save(enemy);
         }
+=======
+    public Iterable<Enemie> getEnemies() {
+        return repository.findAll();
+>>>>>>> Stashed changes
+    }
+    
+    // 敵にダメージを与えるエンドポイント（@PostMapping を使用）
+    @PostMapping("/api/game/enemies/{id}/attack/{damage}")
+    public void attackEnemy(@PathVariable Integer id, @PathVariable Integer damage) {
+        Enemie enemy = repository.findById(id)
+                                 .orElseThrow(() -> new IllegalArgumentException("Enemy not found"));
+
+        // ダメージを適用し、HPを更新
+        int currentHp = enemy.getHp();
+        int updatedHp = currentHp - damage;
+        if (updatedHp < 0) {
+            updatedHp = 0; // HPが0未満にならないようにする
+        }
+        enemy.setHp(updatedHp);
+
+        // 更新したエネミーを保存
+        repository.save(enemy);
     }
 }

@@ -50,6 +50,7 @@ export default class GameDice extends React.Component {
 
         // 選択されたサイコロの数に応じたダメージ計算
         const damage = this.rollDice(parseInt(selectedDiceCount, 10));
+<<<<<<< Updated upstream
         handleAttack(currentEnemy.id, damage); // 親コンポーネントの攻撃処理を呼び出す
 
         // サイコロ数を減らす
@@ -65,6 +66,24 @@ export default class GameDice extends React.Component {
         this.saveDiceCount(newDiceCount,kidUserData.id);
 
         this.toggleAttackModal(); // モーダルを閉じる
+=======
+        
+        // APIを呼び出して敵のHPを更新
+        fetch(`/api/game/enemies/${currentEnemy.id}/attack/${damage}`, {
+            method: 'POST'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // 親コンポーネントの攻撃処理を呼び出す（ここで何か追加できる処理はありますか？）
+            handleAttack(currentEnemy.id, damage);
+            this.toggleAttackModal(); // モーダルを閉じる
+        })
+        .catch(error => {
+            console.error('Error while attacking enemy:', error);
+        });
+>>>>>>> Stashed changes
     }
 
      // 攻撃して残るサイコロ数をデータベースに保存する
@@ -168,3 +187,5 @@ export default class GameDice extends React.Component {
         );
     }
 }
+
+
