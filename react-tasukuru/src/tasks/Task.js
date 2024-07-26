@@ -15,17 +15,6 @@ function Tasks() {
   const [selectedTask, setSelectedTask] = useState(null);
   const [activeTab, setActiveTab] = useState('noComplete');
 
-  // useEffect(() => {
-  //   axios.get("/api/task/")
-  //     .then(response => {
-  //       console.log('KidsUser', response.data);
-  //       setKidsUser(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error('ユーザーデータの取得に失敗しました', error);
-  //     });
-  // }, [KidsId]);
-
   useEffect(() => {
     // if (userId) {
     // ID を基にタスクデータを取得する
