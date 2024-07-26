@@ -54,37 +54,37 @@ export default class GameDice extends React.Component {
 
         // サイコロ数を減らす
         const newDiceCount = kidUserData.diceCount - selectedDiceCount;
-        this.setState(prevState => ({
-            kidUserData: {
-                ...prevState.kidUserData,
-                diceCount: newDiceCount
-            }
-        }));
+    this.setState(prevState => ({
+        kidUserData: {
+            ...prevState.kidUserData,
+            diceCount: newDiceCount
+        }
+    }), () => {
+        // //攻撃した後、残るサイコロ数をデータベースに保存する
+        fetch('/api/kids/currentUser/updateDiceCount', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                newDiceCount: newDiceCount
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Dice count updated successfully:', data);
+        })
+        .catch((error) => {
+            console.error('Error updating dice count:', error);
+        });
+    });
         
-        //攻撃して残るサイコロ数をデータベースに保存する
-        this.saveDiceCount(newDiceCount,kidUserData.id);
+      
 
         this.toggleAttackModal(); // モーダルを閉じる
     }
 
-     // 攻撃して残るサイコロ数をデータベースに保存する
-    saveDiceCount = (newDiceCount, userId) => {
-        fetch("/api/kids/currentUser/dice/", {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({diceCount : newDiceCount})
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Dice count updated:", data);
-        })
-        .catch(error => {
-            console.error("Error updating dice count:", error);
-        });
-    }
-
+     
     // サイコロを振る（ランダムな数値を返す）
     rollDice = (count) => {
         let totalDamage = 0;
