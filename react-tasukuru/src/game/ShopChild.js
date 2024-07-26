@@ -14,7 +14,7 @@ export default class ShopChild extends React.Component {
         this.state = {
             shops: [],
             kidId: "",
-            money: 0, // 追加
+            money: 0,
             name: "",
             price: "",
             condition: "",
@@ -27,7 +27,7 @@ export default class ShopChild extends React.Component {
 
     componentDidMount() {
         this.fetchShops();
-        this.fetchUserMoney(); // 追加
+        this.fetchUserMoney();
     }
 
     fetchShops() {
@@ -37,7 +37,7 @@ export default class ShopChild extends React.Component {
             });
     }
 
-    fetchUserMoney() { // 追加
+    fetchUserMoney() {
         axios.get('/api/shopchild/')
             .then(res => {
                 if (res.data) {
@@ -109,7 +109,7 @@ export default class ShopChild extends React.Component {
                     this.setState({ BuyModal: false });
                     alert('購入しました！');
                     this.fetchShops();
-                    this.fetchUserMoney(); // 購入後に通貨を再取得
+                    this.fetchUserMoney();
                 })
                 .catch(error => {
                     console.error(error);
@@ -128,7 +128,7 @@ export default class ShopChild extends React.Component {
                 <main>
                     <div className="background_image_renga">
                         <div className="ShopChildBody">
-                            <h1 className="gold">{money}G</h1> {/* ここを変更 */}
+                            <h1 className="gold">{money}G</h1>
                             
                             <Tabs id="ShopChildTab">
                                 <TabList id="ShopChildTabList">
@@ -176,7 +176,7 @@ export default class ShopChild extends React.Component {
                             {BuyModal && selectedItem && (
                                 <div id="ShopChildoverlay">
                                     <div id="ShopChildcontent">
-                                        <h1 className="gold">{money}G</h1> {/* ここを変更 */}
+                                        <h1 className="gold">{money}G</h1>
                                         <p>{selectedItem.name} {selectedItem.price}G</p><br />
                                         <button onClick={this.confirmBuy}>購入確定</button><br />
                                         <br />
