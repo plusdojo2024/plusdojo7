@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Header from '../foundation/Header';
 import Footer from '../foundation/Footer';
 import './Task.css';
@@ -13,6 +13,22 @@ function Tasks() {
   const [showReRegModal, setShowReRegModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [activeTab, setActiveTab] = useState('noComplete');
+  const [newTask, setNewTask] = useState({
+    name: "",
+    categoriesName: "",
+    taskLimit: "",
+    content: "",
+    comment: "",
+    complete: false,
+    noComplete: false,
+    miss: false,
+    reviewOne: false,
+    reviewTwo: false,
+    reviewThree: false,
+    taskCheck: false,
+    taskImage: null,
+    regTime: new Date().toISOString(),
+  });
 
   useState(() => {
     axios.get("/api/task/")
@@ -23,7 +39,7 @@ function Tasks() {
       .catch(error => {
         console.error('タスクデータの取得に失敗しました', error);
       });
-  });
+  }, []);
 
   const toggleAddModal = () => setShowAddModal(prev => !prev);
   const toggleTaskModal = () => setShowTaskModal(prev => !prev);
@@ -52,21 +68,65 @@ function Tasks() {
 
   const handleSubmitTask = (event) => {
     event.preventDefault();
-    axios.post('/api/task/submit/',{
+    axios.post('/api/task/submit/', {
       id: selectedTask.id
     })
-    .then(response => {
-      console.log(response.data);
-      setTasks(prevTasks => prevTasks.map(task =>
-        task.id === selectedTask.id ? {...task, noComplete: true} : task
-      ));
-      console.log('Updated Tasks', tasks);
-      toggleTaskModal();
-    })
-    .catch(error => {
-      console.error('タスクの提出に失敗しました', error);
-    });
+      .then(response => {
+        console.log(response.data);
+        setTasks(prevTasks => prevTasks.map(task =>
+          task.id === selectedTask.id ? { ...task, noComplete: true } : task
+        ));
+        console.log('Updated Tasks', tasks);
+        toggleTaskModal();
+      })
+      .catch(error => {
+        console.error('タスクの提出に失敗しました', error);
+      });
   };
+
+  const handleAddTaskChange = (event) => {
+    const { name, value } = event.target;
+    setNewTask(prevTask => ({
+      ...prevTask,
+      [name]: value
+    }));
+  };
+
+  const handleAddTaskSubmit = (event) => {
+    event.preventDefault();
+    const taskToAdd = {
+      ...newTask,
+      taskLimit: new Date(newTask.taskLimit).toISOString(),
+      regTime: new Date().toISOString(),
+    };
+    axios.post('/api/task/add/', taskToAdd)
+      .then(response => {
+        console.log('Added Task', response.data);
+        setTasks([...tasks, response.data]);
+        toggleAddModal();
+        setNewTask({
+          name: "",
+          categoriesName: "",
+          taskLimit: "",
+          content: "",
+          comment: "",
+          taskCheck: false,
+          noComplete: false,
+          complete: false,
+          miss: false,
+          reviewOne: false,
+          reviewTwo: false,
+          reviewThree: false,
+          taskImage: null,
+          regTime: new Date().toISOString(),
+        });
+      })
+      .catch(error => {
+        console.error('タスクの追加に失敗しました', error);
+      });
+  };
+
+
 
   return (
     <div>
@@ -161,14 +221,14 @@ function Tasks() {
             <div className="modal_content">
               <button className="close_button" onClick={toggleAddModal}>×</button>
               <h2>タスク追加</h2>
-              <form>
+              <form onSubmit={handleAddTaskSubmit}>
                 <label>
                   タスク名
-                  <input type="text" placeholder="タスク名" required />
+                  <input type="text" name="name" value={newTask.name} onChange={handleAddTaskChange} placeholder="タスク名" required />
                 </label>
                 <label>
                   カテゴリー
-                  <select defaultValue="" required>
+                  <select name="categoriesName" value={newTask.categoriesName} onChange={handleAddTaskChange} defaultValue="" required>
                     <option value="" disabled>選択してください</option>
                     <option value="勉強">勉強</option>
                     <option value="家事">家事</option>
@@ -179,11 +239,11 @@ function Tasks() {
                 </label>
                 <label>
                   きげん
-                  <input type="date" required />
+                  <input type="date" name="taskLimit" value={newTask.taskLimit} onChange={handleAddTaskChange} required />
                 </label>
                 <label>
                   くわしく
-                  <textarea placeholder="タスクの詳細を記入してください"></textarea>
+                  <textarea name="content" value={newTask.content} onChange={handleAddTaskChange} placeholder="タスクの詳細を記入してください"></textarea>
                 </label>
                 <button type="submit" className="add_button">追加</button>
               </form>
