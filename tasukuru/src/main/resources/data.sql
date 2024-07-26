@@ -15,7 +15,7 @@ INSERT INTO kids_users (id, family_id, character_id, enemie_id, enemie_hp, suppo
 (3, 'OOTA', 3, 3, 250,3, '次郎', 10, 200, 1500),
 (4, 'IKEDA', 4, 4, 300, 4, '一郎', 40, 250, 200);
 
---タクス情報
+--タスク情報
 INSERT INTO tasks (kids_id, name, content, reg_time, categories_name, task_limit, submit_time, task_image, comment, review_one, review_two, review_three, task_check, no_complete, complete, miss) 
 VALUES 
 (1, '宿題', '算数の宿題をする', '2024-07-19T09:00:00', '勉強', '2024-07-20T18:00:00', NULL, 'homework.png', '頑張ってね！', TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE),
@@ -28,7 +28,10 @@ VALUES
 (1, '計算ドリル', '簡単な計算問題を解く', '2024-07-20T09:00:00', '勉強', '2024-07-21T20:00:00', NULL, 'math_drill.png', '計算問題を解いてみよう！', FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE),
 (1, 'ごみを分別する', 'ごみをリサイクルに分ける', '2024-07-20T10:00:00', '家事', '2024-07-20T20:00:00', NULL, 'recycling.png', 'ごみをちゃんと分けようね！', FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE),
 (1, 'プログラミングゲーム', '簡単なプログラミングゲームを遊ぶ', '2024-07-20T11:00:00', '趣味', '2024-07-22T18:00:00', NULL, 'programming_game.png', 'プログラミングを楽しもう！', FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE),
-(1, 'ダンス練習', 'お気に入りのダンスを練習する', '2024-07-20T12:00:00', '運動', '2024-07-21T10:00:00', NULL, 'dance.png', '楽しくダンスしよう！', TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE);
+(1, 'ダンス練習', 'お気に入りのダンスを練習する', '2024-07-20T12:00:00', '運動', '2024-07-21T10:00:00', NULL, 'dance.png', '楽しくダンスしよう！', TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE),
+(2, '宿題', '算数の宿題をする', '2024-07-19T09:00:00', '勉強', '2024-07-20T18:00:00', NULL, 'homework.png', '頑張ってね！', TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE),
+(2, '掃除', '部屋を掃除する', '2024-07-19T10:00:00', '家事', '2024-07-20T12:00:00', NULL, 'cleaning.png', '綺麗にしてね！', FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE),
+(2, '読書', '本を30分読む', '2024-07-19T11:00:00', '趣味', '2024-07-21T18:00:00', NULL, 'reading.png', '楽しんでね！', FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE);
 
 
 --日記情報
