@@ -100,6 +100,7 @@ class MoneyUseList　extends React.Component {
             });
         });
         this.toggleModal();
+        
     }
 
     //削除
@@ -127,6 +128,7 @@ class MoneyUseList　extends React.Component {
             });
         });
         this.toggleModal();
+        
     }
 
 
