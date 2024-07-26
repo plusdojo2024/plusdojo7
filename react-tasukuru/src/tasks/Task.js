@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import Header from '../foundation/Header';
 import Footer from '../foundation/Footer';
 import './Task.css';
@@ -50,6 +50,23 @@ function Tasks() {
     }
   };
 
+  const handleSubmitTask = (event) => {
+    event.preventDefault();
+    axios.post('/api/task/submit/',{
+      id: selectedTask.id
+    })
+    .then(response => {
+      console.log(response.data);
+      setTasks(prevTasks => prevTasks.map(task =>
+        task.id === selectedTask.id ? {...task, noComplete: true} : task
+      ));
+      toggleTaskModal();
+    })
+    .catch(error => {
+      console.error('タスクの提出に失敗しました', error);
+    });
+  };
+
   return (
     <div>
       <Header />
@@ -71,7 +88,7 @@ function Tasks() {
 
               <TabPanel>
                 <div className="box">
-                  {tasks.filter(task => task.noComplete && !task.complete && !task.miss).map(task => (
+                  {tasks.filter(task => !task.taskCheck && !task.noComplete && !task.complete && !task.miss).map(task => (
                     <button key={task.id} className="task_button" style={{ backgroundColor: getButtonColor(task.categoriesName) }} onClick={() => handleTaskClick(task)}>{task.name}</button>
                   ))}
                 </div>
@@ -83,7 +100,7 @@ function Tasks() {
 
               <TabPanel>
                 <div className="box">
-                  {tasks.filter(task => task.complete && !task.miss).map(task => (
+                  {tasks.filter(task => task.taskCheck && !task.noComplete && task.complete && !task.miss).map(task => (
                     <button key={task.id} className="task_button" style={{ backgroundColor: getButtonColor(task.categoriesName) }} onClick={() => handleTaskClick(task)}>{task.name}</button>
                   ))}
                 </div>
@@ -95,7 +112,7 @@ function Tasks() {
 
               <TabPanel>
                 <div className="box">
-                  {tasks.filter(task => task.miss).map(task => (
+                  {tasks.filter(task => !task.taskCheck && !task.noComplete && !task.complete && task.miss).map(task => (
                     <button key={task.id} className="task_button" style={{ backgroundColor: getButtonColor(task.categoriesName) }} onClick={() => handleTaskClick(task)}>{task.name}</button>
                   ))}
                 </div>
@@ -114,7 +131,7 @@ function Tasks() {
             <div className="modal_content">
               <button className="close_button" onClick={toggleTaskModal}>×</button>
               <h2>タスク提出</h2>
-              <form>
+              <form onSubmit={handleSubmitTask}>
                 <label>
                   タスク
                   <input type="text" value={selectedTask.name} readOnly />
