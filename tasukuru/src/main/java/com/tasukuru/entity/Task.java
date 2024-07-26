@@ -1,5 +1,6 @@
 package com.tasukuru.entity;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
@@ -37,4 +38,9 @@ public class Task {
 	private Boolean noComplete;
 	private Boolean complete;
 	private Boolean miss;
+	
+	public String taskLimitString() {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		return df.format(this.taskLimit);
+	}
 }
