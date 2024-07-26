@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tasukuru.entity.Allowance;
 import com.tasukuru.entity.KidsUser;
 import com.tasukuru.repository.AllowanceRepository;
-import com.tasukuru.repository.KidesUserRepository;
+import com.tasukuru.repository.KidsUserRepository;
 import com.tasukuru.repository.SupportRepository;
 
 @RestController
@@ -21,7 +21,7 @@ public class MoneyRestController {
 	private AllowanceRepository repository;
 	
 	@Autowired
-	private KidesUserRepository kidsRepository;
+	private KidsUserRepository kidsRepository;
 	
 	@Autowired
 	private SupportRepository characterRepository;
