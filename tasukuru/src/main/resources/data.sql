@@ -3,6 +3,11 @@ INSERT INTO allowances (id, kids_id, get_money, used_type, used_money, money_tim
 INSERT INTO allowances (id, kids_id, get_money, used_type, used_money, money_time) VALUES (1001, 1, NULL, 'まんが', 500, '2024-07-21');
 INSERT INTO kids_users (id, current_money) VALUES (1000, '1000');
 
+--サポートキャラ情報
+INSERT INTO support(buff,condition,damage,id,image) VALUES (false, false, 5, 1, '../images/normal.png' );
+INSERT INTO support(buff,condition,damage,id,image) VALUES (true, false, 8, 2, '../images/buff.png' );
+INSERT INTO support(buff,condition,damage,id,image) VALUES (false, true, 0, 3, '../images/none.png' ); 
+
 --保護者情報
 INSERT INTO family_user (family_id, mail, pass) VALUES ('YAMADA','yamada@example.com','1234');
 INSERT INTO family_user (family_id, mail, pass) VALUES ('OOTA','oota@example.com','1234');
