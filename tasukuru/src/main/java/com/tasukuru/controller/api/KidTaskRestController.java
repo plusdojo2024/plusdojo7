@@ -1,11 +1,14 @@
 package com.tasukuru.controller.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tasukuru.entity.KidsUser;
 import com.tasukuru.entity.Task;
 import com.tasukuru.repository.TaskRepository;
 
@@ -19,11 +22,19 @@ public class KidTaskRestController {
 	
 	//タスク表示
 	@GetMapping("/api/task/")
-	private Iterable<Task> get(HttpServletRequest request){
+	private List<Task> get(HttpServletRequest request){
 		HttpSession session = request.getSession();
-//        session.setAttribute("KidsUser", foundUser); 
-		System.out.println(session.getAttribute("KidsUser"));
-		return repository.findAll();
+		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		
+		if(loginUser != null) {
+			int userId = loginUser.getId();
+			return repository.findByKidsId(userId);
+		} else {
+			return List.of();
+		}
+		
+		//System.out.println(session.getAttribute("KidsUser"));
+		//return repository.findAll();
 	}
 	
 	//タスク追加
