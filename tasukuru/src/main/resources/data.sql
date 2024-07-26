@@ -15,10 +15,10 @@ INSERT INTO family_user (family_id, mail, pass) VALUES ('IKEDA','ikeda@example.c
 
 --子供情報
 INSERT INTO kids_users (id, family_id, character_id, enemie_id, enemie_hp, support_id, name, dice_count, money, current_money) VALUES 
-(1, 'YAMADA', 1, 1, 150, 1, 'ひろし', 20, 100, 1000),
-(2, 'YAMADA', 2, 2, 200, 2, '太郎', 30, 150, 1200),
-(3, 'OOTA', 3, 3, 250,3, '次郎', 10, 200, 1500),
-(4, 'IKEDA', 4, 4, 300, 4, '一郎', 40, 250, 200);
+(1, 'YAMADA', 1, 1, 150, 1, 'ひろし', 20, 10000, 1000),
+(2, 'YAMADA', 2, 2, 200, 2, '太郎', 30, 15000, 1200),
+(3, 'OOTA', 3, 3, 250,3, '次郎', 10, 20000, 1500),
+(4, 'IKEDA', 4, 4, 300, 4, '一郎', 40, 25000, 200);
 
 --タスク情報
 INSERT INTO tasks (kids_id, name, content, reg_time, categories_name, task_limit, submit_time, task_image, comment, review_one, review_two, review_three, task_check, no_complete, complete, miss) 

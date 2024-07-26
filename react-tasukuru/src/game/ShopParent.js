@@ -13,6 +13,7 @@ export default class ShopParent extends React.Component {
             shops: [],
             requests: [],
             kidId: 0,
+            money: 0,
             name: "",
             price: "",
             condition: "",
@@ -21,12 +22,14 @@ export default class ShopParent extends React.Component {
             ItemAddModal: false,
             ItemModModal: false,
             itemToMod: null,
+            
         };
     }
     
     componentDidMount() {
         this.fetchShops();
         this.fetchRequests();
+        this.fetchUserMoney();
     }
 
     fetchShops() {
@@ -42,6 +45,19 @@ export default class ShopParent extends React.Component {
                 this.setState({requests: res.data });
             });
     }
+
+    fetchUserMoney() {
+        axios.get('/api/shopchild/')
+            .then(res => {
+                if (res.data) {
+                    this.setState({ money: res.data.money });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching user money:', error);
+            });
+    }
+
 
 
     onInput = (e) => {
@@ -78,16 +94,6 @@ export default class ShopParent extends React.Component {
             });
     }
 
-/*     //リクエストの追加　リクエストは保護者側の処理ではない為コメントアウト、子ども側ショップで使うから残しておく
-    addRequest = () => {
-        const { newRequestName } = this.state;
-        const data = { name: newRequestName };
-        axios.post("/api/requests/add", data)
-            .then(() => {
-                this.setState({ newRequestName: "" });
-                this.fetchRequests();
-            });
-    } */
 
     //リクエストの削除
     deleteRequest = (id) => {
@@ -116,14 +122,14 @@ export default class ShopParent extends React.Component {
     }
 
     render() {
-        const { shops, requests, newItemName, newItemPrice, ItemAddModal, ItemModModal, itemToMod } = this.state;
+        const { shops, requests, newItemName, newItemPrice, ItemAddModal, ItemModModal, itemToMod, money } = this.state;
         return (
             <div className="wrapper">
                 <Header />
                 <main>
                     <div className="background_image_renga">
                         <div className="ShopParentBody">
-                            <h1 className="ShopParentgold">1000G</h1>
+                            <h1 className="ShopParentgold">{money}G</h1>
                             <div className="ShopParentTabs">
                                 <Tabs>
                                     <TabList id="ShopParentTabList">

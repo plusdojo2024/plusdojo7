@@ -25,7 +25,7 @@ export default class MoneyChild extends React.Component {
                 <Header />
                 {/* サポートキャラ */}
                 <div id="Money_Support">
-                   <MoneySupport />
+                   <MoneySupport  key={this.state.key}/>
                 </div>
                 <br />
 

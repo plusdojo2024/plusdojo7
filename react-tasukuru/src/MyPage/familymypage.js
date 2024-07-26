@@ -1,19 +1,22 @@
 import React, { Component } from "react";
 import ParentHeader from '../foundation/ParentHeader.js';
 import ParentFooter from "../foundation/ParentFooter.js";
-import './familymypage.css'; // CSSファイルをインポートする際は、拡張子を含める必要があります
-import axios from 'axios'; // axiosをインポートする
+import './familymypage.css'; 
+import axios from 'axios'; 
 
 export default class FamilyMyPage extends Component {
   constructor(props) {
     super(props);
-    // stateの初期化
     this.state = {
+      familyId: "",
       newname: "",
-      kidsSelectionModal: false,  // 子供アカウント選択モーダルの表示状態
-      kidsAddModal: false,       // 子供アカウント追加モーダルの表示状態
-      kidsDelModal: false,       // 子供アカウント削除モーダルの表示状態
-      familyDelModal: false,     // 家族アカウント削除モーダルの表示状態
+      selectedName: "",
+      kidsSelectionModal: false,
+      kidsAddModal: false,
+      kidsDelModal: false,
+      familyDelModal: false,
+      kids: [],
+      nameList: []
     };
 
     // メソッドのバインド
@@ -23,7 +26,28 @@ export default class FamilyMyPage extends Component {
     this.toggleFamilyDelModal = this.toggleFamilyDelModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setNewName = this.setNewName.bind(this);
-    this.newNameSave = this.newNameSave.bind(this); // メソッドをバインドする
+    this.newNameSave = this.newNameSave.bind(this);
+    this.deleteName = this.deleteName.bind(this);
+    this.handleNameSelect = this.handleNameSelect.bind(this);
+  }
+
+  // コンポーネントがマウントされた後にデータを取得する
+  componentDidMount() {
+    axios.get("/api/familymypage/")
+      .then(response => {
+        const kids = response.data;
+        const familyId = kids.length > 0 ? kids[0].familyId : "";
+        const nameList = kids.map(kid => kid.name);
+
+        this.setState({ 
+          kids: kids,
+          nameList: nameList,
+          familyId: familyId
+        });
+      })
+      .catch(error => {
+        console.error('データの取得に失敗しました', error);
+      });
   }
 
   // モーダル表示・非表示を切り替えるメソッド
@@ -56,9 +80,10 @@ export default class FamilyMyPage extends Component {
     event.preventDefault();
     
     if (this.state.kidsAddModal) {
-      this.newNameSave(); // 新しい名前を保存するメソッドを呼び出す
+      this.newNameSave();
+    } else if (this.state.kidsDelModal) {
+      this.deleteName();
     } else {
-      // 他のモーダルの処理（例：子供アカウント選択、削除、家族削除など）
       console.log('Form submitted!');
     }
   }
@@ -68,33 +93,38 @@ export default class FamilyMyPage extends Component {
     this.setState({ newname: event.target.value });
   }
 
-  // 新しい名前を保存するメソッド
-  newNameSave() {
-    const { newname } = this.state;
-    const data = { name: newname };
-    axios.post("/api/kidsUser/add/", data)
-        .then(response => {
-            console.log(response.data);
-            this.toggleKidsAddModal(); // モーダルを閉じる
-        })
-        .catch(error => {
-            console.error('There was an error!', error);
-        });
-}
+  // 名前選択の処理
+  handleNameSelect(event) {
+    this.setState({ selectedName: event.target.value });
+  }
 
   // 新しい名前を保存するメソッド
-  newN() {
-    const { newname } = this.state;
-    const data = { name: newname };
-    axios.post("/api/kidsUser/del/", data)
-        .then(response => {
-            console.log(response.data);
-            this.toggleKidsAddModal(); // モーダルを閉じる
-        })
-        .catch(error => {
-            console.error('There was an error!', error);
-        });
-}
+  newNameSave() {
+    const { newname, familyId } = this.state;
+    const data = { name: newname, familyId: familyId };
+    axios.post("/api/kidsName/add/", data)
+      .then(response => {
+        this.toggleKidsAddModal();
+        this.componentDidMount();
+      })
+      .catch(error => {
+        console.error('名前の追加に失敗しました', error);
+      });
+  }
+
+  // 名前を削除するメソッド
+  deleteName() {
+    const { selectedName } = this.state; 
+    const data = { name: selectedName }; 
+    axios.post("/api/kidsName/del/", data)
+      .then(response => {
+        this.toggleKidsDelModal(); 
+        this.componentDidMount(); 
+      })
+      .catch(error => {
+        console.error('名前の削除に失敗しました', error);
+      });
+  }
 
   render() {
     const { 
@@ -102,14 +132,16 @@ export default class FamilyMyPage extends Component {
       kidsAddModal,
       kidsDelModal,
       familyDelModal,
-      newname
+      newname,
+      selectedName,
+      nameList
     } = this.state;
 
     return (
       <div>
         <ParentHeader />
         <main>
-          <div className="background_image_renga"> {/* familymypage-specific */}
+          <div className="background_image_renga">
             <div className="familymypage-background">
               <button className="familymypage_button" onClick={this.toggleKidsSelectionModal}>子供アカウント選択</button><br />
               <button className="familymypage_button" onClick={this.toggleKidsAddModal}>子供アカウント追加</button><br />
@@ -120,22 +152,24 @@ export default class FamilyMyPage extends Component {
 
           {/* 子供アカウント選択モーダル */}
           {kidsSelectionModal && (
-            <div className="familymypage-modal"> {/* familymypage-specific */}
-              <div className="familymypage-modal_content"> {/* familymypage-specific */}
+            <div className="familymypage-modal">
+              <div className="familymypage-modal_content">
                 <button className="familymypage-close_button" onClick={this.toggleKidsSelectionModal}>×</button>
                 <h2>子供アカウント選択</h2>
                 <form onSubmit={this.handleSubmit}>
                   <label>
                     <select defaultValue="" required>
                       <option value="" disabled>選択してください</option>
-                      <option value="勉強">勉強</option>
-                      <option value="家事">家事</option>
-                      <option value="趣味">趣味</option>
-                      <option value="運動">運動</option>
-                      <option value="その他">その他</option>
+                      {nameList.length > 0 ? (
+                        nameList.map((name, index) => (
+                          <option key={index} value={name}>{name}</option>
+                        ))
+                      ) : (
+                        <option value="" disabled>名前がありません</option>
+                      )}
                     </select>
                   </label>
-                  <button type="submit" className="familymypage-add_button">再登録</button> {/* familymypage-specific */}
+                  <button type="submit" className="familymypage-add_button">決定</button>
                 </form>
               </div>
             </div>
@@ -143,15 +177,15 @@ export default class FamilyMyPage extends Component {
 
           {/* 子供アカウント追加モーダル */}
           {kidsAddModal && (
-            <div className="familymypage-modal"> {/* familymypage-specific */}
-              <div className="familymypage-modal_content"> {/* familymypage-specific */}
+            <div className="familymypage-modal">
+              <div className="familymypage-modal_content">
                 <button className="familymypage-close_button" onClick={this.toggleKidsAddModal}>×</button>
                 <h2>子供アカウント追加</h2>
                 <form onSubmit={this.handleSubmit}>
                   <label>
-                    <input type="text" placeholder="なまえ" className="familymypage-textbox" value={newname} onChange={this.setNewName}/><br /> {/* familymypage-specific */}
+                    <input type="text" placeholder="なまえ" className="familymypage-textbox" value={newname} onChange={this.setNewName}/><br />
                   </label>
-                  <button type="submit" className="familymypage-add_button">追加する</button> {/* familymypage-specific */}
+                  <button type="submit" className="familymypage-add_button">追加する</button>
                 </form>
               </div>
             </div>
@@ -159,22 +193,24 @@ export default class FamilyMyPage extends Component {
 
           {/* 子供アカウント削除モーダル */}
           {kidsDelModal && (
-            <div className="familymypage-modal"> {/* familymypage-specific */}
-              <div className="familymypage-modal_content"> {/* familymypage-specific */}
+            <div className="familymypage-modal">
+              <div className="familymypage-modal_content">
                 <button className="familymypage-close_button" onClick={this.toggleKidsDelModal}>×</button>
                 <h2>子供アカウント削除</h2>
                 <form onSubmit={this.handleSubmit}>
                   <label>
-                    <select defaultValue="" required>
+                    <select value={selectedName} onChange={this.handleNameSelect} required>
                       <option value="" disabled>選択してください</option>
-                      <option value="勉強">勉強</option>
-                      <option value="家事">家事</option>
-                      <option value="趣味">趣味</option>
-                      <option value="運動">運動</option>
-                      <option value="その他">その他</option>
+                      {nameList.length > 0 ? (
+                        nameList.map((name, index) => (
+                          <option key={index} value={name}>{name}</option>
+                        ))
+                      ) : (
+                        <option value="" disabled>名前がありません</option>
+                      )}
                     </select>
                   </label>
-                  <button type="submit" className="familymypage-add_button">削除する</button> {/* familymypage-specific */}
+                  <button type="submit" className="familymypage-add_button">削除する</button>
                 </form>
               </div>
             </div>
@@ -182,13 +218,13 @@ export default class FamilyMyPage extends Component {
 
           {/* 家族アカウント削除モーダル */}
           {familyDelModal && (
-            <div className="familymypage-modal"> {/* familymypage-specific */}
-              <div className="familymypage-modal_content"> {/* familymypage-specific */}
+            <div className="familymypage-modal">
+              <div className="familymypage-modal_content">
                 <button className="familymypage-close_button" onClick={this.toggleFamilyDelModal}>×</button>
                 <h2>家族アカウント削除しますか？</h2>
                 <form onSubmit={this.handleSubmit}>
-                  <button type="submit" className="familymypage-del_button">はい</button> {/* familymypage-specific */}
-                  <button type="submit" className="familymypage-del_button">いいえ</button> {/* familymypage-specific */}
+                  <button type="submit" className="familymypage-del_button">はい</button>
+                  <button type="button" className="familymypage-del_button" onClick={this.toggleFamilyDelModal}>いいえ</button>
                 </form>
               </div>
             </div>
