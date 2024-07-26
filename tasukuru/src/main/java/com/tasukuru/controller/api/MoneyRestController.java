@@ -50,22 +50,6 @@ public class MoneyRestController {
 		return allowance;
 	}
 	
-	//削除処理
-	@PostMapping("/api/money/del")
-	private Allowance del(@RequestBody Allowance allowance) {
-		repository.delete(allowance);
-		
-		//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
-		KidsUser kidsUser = kidsRepository.findById(1000);
-		
-		//所持金の計算を行う。
-		kidsUser.setCurrentMoney(kidsUser.getCurrentMoney() + allowance.getUsedMoney());
-						
-		kidsRepository.save(kidsUser);
-		
-		return allowance;
-	}
-	
 	//お小遣い追加処理
 	@PostMapping("/api/money/add")
 	private Allowance add(@RequestBody Allowance allowance) {
@@ -84,6 +68,7 @@ public class MoneyRestController {
 
 		return allowance;
 	}
+	
 	//所持金データ取得
 	@GetMapping("/api/money/current")
 	private Integer get(){
@@ -93,6 +78,7 @@ public class MoneyRestController {
 		
 	    return kidsUser.getCurrentMoney();
 	}
+	
 	//一覧取得処理
 		@GetMapping("/api/money/list")
 		private List<Allowance> list(){
@@ -103,17 +89,56 @@ public class MoneyRestController {
 	//更新処理
 	@PostMapping("/api/money/mod")
 	private Allowance mod(@RequestBody Allowance allowance) {
+
+		//postされたデータからIDを取得
+		int Id = allowance.getId();
 		
-	    //kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
+		//idを指定して、Allowanceエンティティを取得
+		Allowance useMoney = repository.findById(Id);
+		
+		//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
 		KidsUser kidsUser = kidsRepository.findById(1000);
 		
+		//所持金の修正を行う
+		kidsUser.setCurrentMoney(kidsUser.getCurrentMoney() + useMoney.getUsedMoney());
+		
+		// 修正を保存する		
+		kidsRepository.save(kidsUser);
+		
+		//更新
+		repository.save(allowance);
+	   
 		//所持金の計算を行う。
-		kidsUser.setCurrentMoney(kidsUser.getCurrentMoney() + allowance.getGetMoney());
+		kidsUser.setCurrentMoney(kidsUser.getCurrentMoney() - allowance.getUsedMoney());
+		
 		// 更新を保存する		
 		kidsRepository.save(kidsUser);
+		
         // 更新されたAllowanceオブジェクトを返す
 		return allowance;
 	}
+	
+	//削除処理
+		@PostMapping("/api/money/del")
+		private Allowance del(@RequestBody Allowance allowance) {
+			//postされたデータからIDを取得
+			int Id = allowance.getId();
+			
+			//idを指定して、Allowanceエンティティを取得
+			Allowance useMoney = repository.findById(Id);
+			
+			//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
+			KidsUser kidsUser = kidsRepository.findById(1000);
+			
+			//所持金の修正を行う。
+			kidsUser.setCurrentMoney(kidsUser.getCurrentMoney() + useMoney.getUsedMoney());
+							
+			kidsRepository.save(kidsUser);
+			
+			repository.delete(allowance);
+			
+			return allowance;
+		}
 	
 	//サポートキャラの表示処理
 	//@GetMapping("/api/money/support")

@@ -1,6 +1,10 @@
 import React from "react";
 import axios from "axios";
 import './Money.css';
+import DatePicker from "react-datepicker"; // react-datepicker のインポート
+import "react-datepicker/dist/react-datepicker.css"; // react-datepicker のスタイルシート
+import { ja } from "date-fns/locale"; // 日本語ロケールのインポート
+import { registerLocale, setDefaultLocale } from "react-datepicker";
 
 class MoneyUseList　extends React.Component {
 
@@ -10,6 +14,11 @@ class MoneyUseList　extends React.Component {
         item: "",
         amount: "",
         showModal: false,
+        modIndex: 0,
+        modDate: '',
+        modItem: '',
+        modAmount:'',
+
      };
 
      //データ取得
@@ -30,6 +39,7 @@ class MoneyUseList　extends React.Component {
         });
     }
 
+    // 関数を使って、モーダルを開くまたは閉じる
     toggleModal = () => {
         const{showModal} = this.state;
         this.setState({
@@ -46,36 +56,128 @@ class MoneyUseList　extends React.Component {
         });
     }
 
-    modMoney = () => {
+    handleDateChange = date => {
+        this.setState({ date });
+    };
+
+    //モーダル表示（編集）
+    modMoney = (index) => {
         //利用するstateの値を宣言
         const { allowances } = this.state;
 
-        //stateの値を利用してpostデータを作成
-        const data = {
-            date:allowances,
-            item: "",
-            amount: "",
-        };
+        this.setState ({
+            date:allowances[index].moneyTime,
+            item: allowances[index].usedType,
+            amount: allowances[index].usedMoney,
+            modIndex: index,
+        });
 
         this.toggleModal();
     }
 
+    //更新
+    updateMoney = () => {
+        //利用するstateの値を宣言
+        const { allowances, modIndex, date, item, amount } = this.state;
+
+        //stateの値を利用してpostデータを作成
+        const data = {
+           id:allowances[modIndex].id, 
+           moneyTime : date,
+           usedType : item,
+           usedMoney : amount
+        };
+
+        //const data = {};
+        //axiosだとpostが記述しやすい
+        axios.post("/api/money/mod", data)
+        .then(json => {
+            console.log(json);
+            this.setState({
+               date:new Date(), // 登録後に日付をリセット
+               item:"",
+               amount:""
+            });
+        });
+        this.toggleModal();
+    }
+
+    //削除
+    deleteMoney = () => {
+        //利用するstateの値を宣言
+        const { allowances, modIndex, date, item, amount } = this.state;
+
+        //stateの値を利用してpostデータを作成
+        const data = {
+           id:allowances[modIndex].id, 
+           moneyTime : date,
+           usedType : item,
+           usedMoney : amount
+        };
+
+        //const data = {};
+        //axiosだとpostが記述しやすい
+        axios.post("/api/money/del", data)
+        .then(json => {
+            console.log(json);
+            this.setState({
+               date:new Date(), // 登録後に日付をリセット
+               item:"",
+               amount:""
+            });
+        });
+        this.toggleModal();
+    }
+
+
     render() {
-        const { allowances } = this.state;
+        const { allowances, date, item, amount,showModal } = this.state;
         return (
             <div>
                 <h2>使ったお金一覧</h2>
                 {allowances.map((allowance, index) => (
                    <div class="use">
-                   <p>{allowance.moneyDate}&nbsp;&nbsp;{allowance.usedType}&nbsp;&nbsp;{allowance.usedMoney}</p>
-                   
-                   {/* Todo:編集ボタンを押すとmodBook関数が実行されるようにする。引数はindex */}
-                   <button onClick={() => {this.modBook(index)}}>編集</button>
-                  
+                   <p>{allowance.moneyDate}&nbsp;&nbsp;{allowance.usedType}&nbsp;&nbsp;{allowance.usedMoney}円&nbsp;&nbsp;<button onClick={() => {this.modMoney(index)}}>編集</button></p>
+                                    
                    </div>
-             
-
                 ))}
+
+                {/* モーダルウィンドウ */}
+                {showModal &&
+                    <div>
+                    <button className="close" onClick={this.toggleModal}>
+                        &times;
+                    </button>
+                
+                        <label>日付</label>
+                        <DatePicker
+                        selected={date}
+                        onChange={this.handleDateChange}
+                        dateFormat="yyyy/MM/dd" // 日付のフォーマット指定
+                    />
+                        <br />
+
+                        <label>購入した物</label>
+                        <input
+                            type="text"
+                            name="item"
+                            value={item}
+                            onChange={this.onInput}
+                            
+                        />
+                        <br />
+                        <label>金額</label>
+                        <input
+                            type="number"
+                            name="amount"
+                            value={amount}
+                            onChange={this.onInput}
+                        />
+                        <br />
+                        <button onClick={this.updateMoney}> 更新</button> <button onClick={this.deleteMoney}> 削除</button>
+                    </div>
+                }
+ 
             </div>
         );
     }
