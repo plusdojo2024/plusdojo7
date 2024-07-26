@@ -59,6 +59,9 @@ export default class GuardianDiares extends React.Component {
     ackDiary = (index) => {
         const {diaries} = this.state;
         const selectedDiary = diaries[index];
+        let updatedDiaries = [...diaries];
+        updatedDiaries[index].parentCheck = true; //parentCheckを true に設定
+        updatedDiaries[index].doSubmit = true;
         this.setState({
             showTitle : diaries[index].title,
             showContent : diaries[index].content,
@@ -70,6 +73,10 @@ export default class GuardianDiares extends React.Component {
             ackDiaryModal: true,
         })
         this.toggleAckDiaryModal();
+        axios.post("api/diary/diaryMod/",updatedDiaries[index])
+            .then(Response => {
+                this.componentDidMount();
+            });
     }
     //日記の一覧
     showDiary = (index) => {
