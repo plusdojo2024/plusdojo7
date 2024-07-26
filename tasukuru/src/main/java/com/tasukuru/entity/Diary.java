@@ -31,6 +31,7 @@ public class Diary {
 	private boolean parentCheck;
 	private boolean childCheck;
 	private boolean doSubmit;
+	private boolean diceCheck;
 	
 	public String dateString() {
 		SimpleDateFormat dformat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");

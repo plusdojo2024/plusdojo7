@@ -51,6 +51,15 @@ export default class Diaries extends React.Component {
     UnreadDiarie(index) {
         const { diaries } = this.state;
         const selectedDiary = diaries[index];
+        selectedDiary.childCheck = true;
+        axios.post("/api/diary/diaryMod/",selectedDiary)
+            .then(response => {
+                console.log("既読にしました",response.data);
+                this.componentDidMount();
+            })
+            .catch(error => {
+                console.error("既読のエラーが発生しました:", error);
+            });
         this.toggleUnreadModal({ selectedDiary }, this.toggleUnreadModal);
     }
     //既読日記処理
@@ -63,7 +72,7 @@ export default class Diaries extends React.Component {
     GetDice(index) {
         const { diaries } = this.state;
         const selectedDiary = diaries[index];
-        selectedDiary.childCheeck = true;
+        selectedDiary.childCheck = true;
         axios.post("/api/diary/diaryMod/",selectedDiary)
             .then(response => {
                 console.log("既読にしました",response.data);
@@ -182,7 +191,7 @@ export default class Diaries extends React.Component {
                             <Tab>いちらん</Tab>
                             <Tab>みどく</Tab>
                             <Tab>きどく</Tab>
-                            <Tab>保護者用</Tab>{/*削除予定のテストタブ。保護者側のみ表示にするかも。*/}
+                            {/*<Tab>保護者用</Tab>削除予定のテストタブ。保護者側のみ表示にするかも。*/}
                         </TabList>
                         
                         {/* 日記一覧リスト・・・提出するためのタブ */}
@@ -242,7 +251,7 @@ export default class Diaries extends React.Component {
                             </div>
                         </TabPanel>
 
-                        {/* 保護者用既読日記リスト。テストタブであり、提出されたものがここに来る*/}
+                        {/* 保護者用既読日記リスト。テストタブであり、提出されたものがここに来る
                         <TabPanel>
                             <div className="Diarie_box">
                             {guardianDiaries.map((diary, index) => {
@@ -260,6 +269,7 @@ export default class Diaries extends React.Component {
                             })} 
                             </div>
                         </TabPanel>
+                        */}
                         <div className="button_container">
                             <button className="Diaries_regist_button" onClick={() => this.addDiary()}>日記登録</button>
                         </div>
@@ -362,8 +372,8 @@ export default class Diaries extends React.Component {
 7/25
 子が提出→親未読→返信→子供未読→サイコロもらう→子供既読
 子が提出→親未読＆子未読→返信→子供未読→サイコロもらう→子供既読
-流れがおかしくなっている
-日記のデータがずれている
+流れがおかしくなっている→一応動くので優先度低め
+日記のデータがずれている→テストデータのせいでずれていたので解決
 
 
 参考になりそうなページ
