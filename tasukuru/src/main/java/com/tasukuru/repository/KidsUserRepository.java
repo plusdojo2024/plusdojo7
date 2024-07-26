@@ -1,5 +1,6 @@
 package com.tasukuru.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +11,8 @@ public interface KidsUserRepository extends JpaRepository<KidsUser, Integer> {
 
 	//IDを指定し、KidsUserEntityの情報を取得する
 	public KidsUser findById(int Id);
+	
+	public List<KidsUser> findByFamilyId(String familyId);
 	
 	void save(Optional<KidsUser> kidsUser);
 	
