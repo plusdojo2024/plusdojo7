@@ -24,12 +24,16 @@ public class KidTaskRestController {
 	@GetMapping("/api/task/")
 	private List<Task> get(HttpServletRequest request){
 		HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
 		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
 		
-		if(loginUser != null) {
+		if(loginUser != null) {		//ここから絞り込むコード
+			//ログインしているユーザーのIDを取得
 			int userId = loginUser.getId();
+			//ユーザーIDに一致するタスクを取得して返す
 			return repository.findByKidsId(userId);
 		} else {
+			//ログインしていない場合、空のリストを返す
 			return List.of();
 		}
 		
