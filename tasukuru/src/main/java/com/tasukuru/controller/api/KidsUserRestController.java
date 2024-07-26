@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tasukuru.entity.KidsUser;
-import com.tasukuru.repository.KidesUserRepository;
+import com.tasukuru.repository.KidsUserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpSession;
 public class KidsUserRestController {
 	
 	@Autowired
-	private KidesUserRepository kidsRepo;
+	private KidsUserRepository kidsRepo;
 	
 	@GetMapping("/api/kids/currentUser/")
 	private Optional<KidsUser> get(HttpServletRequest request){

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.tasukuru.entity.KidsUser;
 
-public interface KidesUserRepository extends JpaRepository<KidsUser, Integer> {
+public interface KidsUserRepository extends JpaRepository<KidsUser, Integer> {
 
 	//IDを指定し、KidsUserEntityの情報を取得する
 	public KidsUser findById(int Id);

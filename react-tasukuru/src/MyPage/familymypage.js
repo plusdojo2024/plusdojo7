@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import ParentHeader from '../foundation/ParentHeader.js';
 import ParentFooter from "../foundation/ParentFooter.js";
 import './familymypage.css'; // CSSファイルをインポートする際は、拡張子を含める必要があります
+import axios from 'axios'; // axiosをインポートする
 
-export default class FamilyMyPage extends React.Component {
+export default class FamilyMyPage extends Component {
   constructor(props) {
     super(props);
     // stateの初期化
     this.state = {
+      newname: "",
       kidsSelectionModal: false,  // 子供アカウント選択モーダルの表示状態
       kidsAddModal: false,       // 子供アカウント追加モーダルの表示状態
       kidsDelModal: false,       // 子供アカウント削除モーダルの表示状態
@@ -19,7 +21,9 @@ export default class FamilyMyPage extends React.Component {
     this.toggleKidsAddModal = this.toggleKidsAddModal.bind(this);
     this.toggleKidsDelModal = this.toggleKidsDelModal.bind(this);
     this.toggleFamilyDelModal = this.toggleFamilyDelModal.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this); // handleSubmitメソッドのバインドを追加
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.setNewName = this.setNewName.bind(this);
+    this.newNameSave = this.newNameSave.bind(this); // メソッドをバインドする
   }
 
   // モーダル表示・非表示を切り替えるメソッド
@@ -50,17 +54,55 @@ export default class FamilyMyPage extends React.Component {
   // フォームのサブミット処理
   handleSubmit(event) {
     event.preventDefault();
-    // フォームの送信処理を記述する（現在は未実装）
-    console.log('Form submitted!');
-    // ここにフォーム送信時の実際の処理を追加する
+    
+    if (this.state.kidsAddModal) {
+      this.newNameSave(); // 新しい名前を保存するメソッドを呼び出す
+    } else {
+      // 他のモーダルの処理（例：子供アカウント選択、削除、家族削除など）
+      console.log('Form submitted!');
+    }
   }
+
+  // 新しい名前を設定するメソッド
+  setNewName(event) {
+    this.setState({ newname: event.target.value });
+  }
+
+  // 新しい名前を保存するメソッド
+  newNameSave() {
+    const { newname } = this.state;
+    const data = { name: newname };
+    axios.post("/api/kidsUser/add/", data)
+        .then(response => {
+            console.log(response.data);
+            this.toggleKidsAddModal(); // モーダルを閉じる
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+        });
+}
+
+  // 新しい名前を保存するメソッド
+  newN() {
+    const { newname } = this.state;
+    const data = { name: newname };
+    axios.post("/api/kidsUser/del/", data)
+        .then(response => {
+            console.log(response.data);
+            this.toggleKidsAddModal(); // モーダルを閉じる
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+        });
+}
 
   render() {
     const { 
       kidsSelectionModal,
       kidsAddModal,
       kidsDelModal,
-      familyDelModal 
+      familyDelModal,
+      newname
     } = this.state;
 
     return (
@@ -107,7 +149,7 @@ export default class FamilyMyPage extends React.Component {
                 <h2>子供アカウント追加</h2>
                 <form onSubmit={this.handleSubmit}>
                   <label>
-                    <input type="text" placeholder="なまえ" className="familymypage-textbox"/><br /> {/* familymypage-specific */}
+                    <input type="text" placeholder="なまえ" className="familymypage-textbox" value={newname} onChange={this.setNewName}/><br /> {/* familymypage-specific */}
                   </label>
                   <button type="submit" className="familymypage-add_button">追加する</button> {/* familymypage-specific */}
                 </form>
