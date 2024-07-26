@@ -23,19 +23,19 @@ INSERT INTO kids_users (id, family_id, character_id, enemie_id, enemie_hp, suppo
 --タスク情報
 INSERT INTO tasks (kids_id, name, content, reg_time, categories_name, task_limit, submit_time, task_image, comment, review_one, review_two, review_three, task_check, no_complete, complete, miss) 
 VALUES 
-(1, '宿題', '算数の宿題をする', '2024-07-19T09:00:00', '勉強', '2024-07-20T18:00:00', NULL, 'homework.png', '頑張ってね！', TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE),
-(1, '掃除', '部屋を掃除する', '2024-07-19T10:00:00', '家事', '2024-07-20T12:00:00', NULL, 'cleaning.png', '綺麗にしてね！', FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE),
+(1, '宿題', '算数の宿題をする', '2024-07-19T09:00:00', '勉強', '2024-07-20T18:00:00', NULL, 'homework.png', '頑張ってね！', TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE),
+(1, '掃除', '部屋を掃除する', '2024-07-19T10:00:00', '家事', '2024-07-20T12:00:00', NULL, 'cleaning.png', '綺麗にしてね！', FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE),
 (1, '読書', '本を30分読む', '2024-07-19T11:00:00', '趣味', '2024-07-21T18:00:00', NULL, 'reading.png', '楽しんでね！', FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE),
-(1, '英単語カード作成', '英単語カードを作る', '2024-07-19T14:00:00', '勉強', '2024-07-22T16:00:00', NULL, 'vocab_cards.png', '単語を覚える準備をしよう！', TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE),
-(1, '部屋の片付け', 'おもちゃを片付ける', '2024-07-19T15:00:00', '家事', '2024-07-20T09:00:00', NULL, 'cleaning_toys.png', 'おもちゃを元に戻そうね！', FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE),
-(1, '縄跳び練習', '縄跳びを10分間練習する', '2024-07-19T16:00:00', '運動', '2024-07-21T07:00:00', NULL, 'jump_rope.png', '跳び続けて元気に運動しよう！', FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE),
+(1, '英単語カード作成', '英単語カードを作る', '2024-07-19T14:00:00', '勉強', '2024-07-22T16:00:00', NULL, 'vocab_cards.png', '単語を覚える準備をしよう！', TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE),
+(1, '部屋の片付け', 'おもちゃを片付ける', '2024-07-19T15:00:00', '家事', '2024-07-20T09:00:00', NULL, 'cleaning_toys.png', 'おもちゃを元に戻そうね！', FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE),
+(1, '縄跳び練習', '縄跳びを10分間練習する', '2024-07-19T16:00:00', '運動', '2024-07-21T07:00:00', NULL, 'jump_rope.png', '跳び続けて元気に運動しよう！', FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE),
 (1, '絵本を読む', 'お気に入りの絵本を読む', '2024-07-19T17:00:00', '趣味', '2024-07-23T18:00:00', NULL, 'storybook.png', '楽しい物語を読もう！', TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE),
-(1, '計算ドリル', '簡単な計算問題を解く', '2024-07-20T09:00:00', '勉強', '2024-07-21T20:00:00', NULL, 'math_drill.png', '計算問題を解いてみよう！', FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE),
-(1, 'ごみを分別する', 'ごみをリサイクルに分ける', '2024-07-20T10:00:00', '家事', '2024-07-20T20:00:00', NULL, 'recycling.png', 'ごみをちゃんと分けようね！', FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE),
+(1, '計算ドリル', '簡単な計算問題を解く', '2024-07-20T09:00:00', '勉強', '2024-07-21T20:00:00', NULL, 'math_drill.png', '計算問題を解いてみよう！', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE),
+(1, 'ごみを分別する', 'ごみをリサイクルに分ける', '2024-07-20T10:00:00', '家事', '2024-07-20T20:00:00', NULL, 'recycling.png', 'ごみをちゃんと分けようね！', FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE),
 (1, 'プログラミングゲーム', '簡単なプログラミングゲームを遊ぶ', '2024-07-20T11:00:00', '趣味', '2024-07-22T18:00:00', NULL, 'programming_game.png', 'プログラミングを楽しもう！', FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE),
-(1, 'ダンス練習', 'お気に入りのダンスを練習する', '2024-07-20T12:00:00', '運動', '2024-07-21T10:00:00', NULL, 'dance.png', '楽しくダンスしよう！', TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE),
-(2, '宿題', '算数の宿題をする', '2024-07-19T09:00:00', '勉強', '2024-07-20T18:00:00', NULL, 'homework.png', '頑張ってね！', TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE),
-(2, '掃除', '部屋を掃除する', '2024-07-19T10:00:00', '家事', '2024-07-20T12:00:00', NULL, 'cleaning.png', '綺麗にしてね！', FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE),
+(1, 'ダンス練習', 'お気に入りのダンスを練習する', '2024-07-20T12:00:00', '運動', '2024-07-21T10:00:00', NULL, 'dance.png', '楽しくダンスしよう！', TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE),
+(2, '宿題', '算数の宿題をする', '2024-07-19T09:00:00', '勉強', '2024-07-20T18:00:00', NULL, 'homework.png', '頑張ってね！', TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE),
+(2, '掃除', '部屋を掃除する', '2024-07-19T10:00:00', '家事', '2024-07-20T12:00:00', NULL, 'cleaning.png', '綺麗にしてね！', FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE),
 (2, '読書', '本を30分読む', '2024-07-19T11:00:00', '趣味', '2024-07-21T18:00:00', NULL, 'reading.png', '楽しんでね！', FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE);
 
 

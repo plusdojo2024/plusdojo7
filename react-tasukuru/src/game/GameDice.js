@@ -82,6 +82,23 @@ export default class GameDice extends React.Component {
       
 
         this.toggleAttackModal(); // モーダルを閉じる
+
+        
+        // APIを呼び出して敵のHPを更新
+        fetch(`/api/game/enemies/${currentEnemy.id}/attack/${damage}`, {
+            method: 'POST'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // 親コンポーネントの攻撃処理を呼び出す（ここで何か追加できる処理はありますか？）
+            handleAttack(currentEnemy.id, damage);
+            this.toggleAttackModal(); // モーダルを閉じる
+        })
+        .catch(error => {
+            console.error('Error while attacking enemy:', error);
+        });
     }
 
      
@@ -168,3 +185,5 @@ export default class GameDice extends React.Component {
         );
     }
 }
+
+

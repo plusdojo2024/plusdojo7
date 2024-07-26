@@ -2,8 +2,10 @@ import React from "react";
 import axios from "axios";
 import './Money.css';
 
+
 export default class MoneyAdd extends React.Component{
     state = {
+        date:new Date(),
         getMoney: "",
         showModal: false
        };
@@ -30,11 +32,12 @@ export default class MoneyAdd extends React.Component{
 
     addMoney = () => {
         //利用するstateの値を宣言
-        const { getMoney } = this.state;
+        const { getMoney, date } = this.state;
 
         //stateの値を利用してpostデータを作成
         const data = {
-           getMoney : getMoney
+           getMoney : getMoney,
+           moneyTime : date
         };
 
         //const data = {};

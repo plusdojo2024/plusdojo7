@@ -73,9 +73,6 @@ modSkin=(characterImage)=>{
                         
                         </div>
                     ))} 
-
-
-
                     <button  id="skinchange_button" style={{ gridColumn: 'span 2', alignSelf: 'center' }}>変更</button>
                 </TabPanel>
            
@@ -86,7 +83,7 @@ modSkin=(characterImage)=>{
             <h2>20個タスク完了！</h2>
             </TabPanel>
             </Tabs>
-             <img src={select_skin} alt="アバター" style={{height:'70px',margin:'10px'}}></img>
+             <img src={select_skin} alt="アバター" class="changeskinphoto" style={{height:'70px',margin:'10px'}}></img>
             </div>
             
             

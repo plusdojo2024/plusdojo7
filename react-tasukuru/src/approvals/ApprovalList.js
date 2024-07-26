@@ -91,28 +91,39 @@ export default class ApprovalList extends React.Component{
 
     addTask = () => {
       const {name, content, categoriesName, taskLimit} = this.state;
-      
-        const data = {name:name, content:content, categoriesName:categoriesName, taskLimit:taskLimit, taskCheck:false, noComplete:true, complete:false, miss:false
-          ,review_one:false, review_two:false, review_three:false
+        console.log("nameは" + name);
+        console.log("taskLimitは" + taskLimit);
+        const data = {
+          name: name,
+          content: content,
+          categoriesName: categoriesName,
+          taskLimit: taskLimit,
+          taskCheck: false,
+          noComplete: false,
+          complete: false,
+          miss: false,
+          review_one: false,
+          review_two: false,
+          review_three: false
         };
         console.log("dataは" + data);
-        axios.post("api/familyTask/add/",data)
-        .then(json => {
-          console.log(json);
+
+        axios.post("/api/familyTask/add/",data)
+       .then(json => {
+           console.log(json);
         this.setState({
         name:""
         ,content:""
         ,categoriesName:""
         ,taskLimit:""
       });
+      console.log("nameは" + name);
        //追加したら再読み込みする。
         this.componentDidMount();
-        })
-        .catch(error => {
-          console.error("エラーが発生しました", error);
+      });
         
-    });
-    }
+        }
+    
 
     render(){
       const { tasks, showAddModal, showTaskModal, name, content, categoriesName, taskLimit } = this.state;
@@ -161,7 +172,11 @@ export default class ApprovalList extends React.Component{
                 </TabPanel>
                 <TabPanel>
                   <div class="box">
-                   
+                  {tasks.map(task => (
+                  task.taskCheck === true && task.noComplete === true && task.complete === true && task.miss === false ? (
+                        <button key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }}>{task.name}</button>
+                      ) : null
+                    ))}
                   </div>
 
                   <div className="button_container">
@@ -171,7 +186,11 @@ export default class ApprovalList extends React.Component{
                 </TabPanel>
                 <TabPanel>
                   <div class="box">
-                    
+                  {tasks.map(task => (
+                  task.miss === true ? (
+                        <button key={task.id} className="task_button" style={{ backgroundColor: this.getButtonColor(task.categoriesName) }}>{task.name}</button>
+                      ) : null
+                    ))}
                   </div>
 
                   <div className="button_container">
@@ -207,7 +226,7 @@ export default class ApprovalList extends React.Component{
                   </label>
                   <label>
                     きげん:
-                    <input type="date" name="taskLimit" required onChange={this.onInput} value={taskLimit} />
+                    <input type="datetime-local" name="taskLimit" required onChange={this.onInput} value={taskLimit} />
                   </label>
                   <label>
                     くわしく:

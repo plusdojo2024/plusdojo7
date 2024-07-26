@@ -16,13 +16,32 @@ public class FamilyTaskRestController {
 	private FamilyTaskRepository repository;
 	
 	@GetMapping("/api/familyTask/")
-	private Iterable<Task> get(){
-		return repository.findAll();
+	private Iterable<Task> get(/*HttpServletRequest request*/){
+		/*HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
+		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		
+		if(loginUser != null) {		//ここから絞り込むコード
+			//ログインしているユーザーのIDを取得
+			int userId = loginUser.getId();
+			//ユーザーIDに一致するタスクを取得して返す
+			return repository.findByKidsId(userId);
+		} else {
+			//ログインしていない場合、空のリストを返す
+			return List.of();
+		}
+		
+		//System.out.println(session.getAttribute("KidsUser"));
+		//return repository.findAll();
+		 */
+		 return repository.findByKidsId(1);
 	}
+
 	
 	@PostMapping("/api/familyTask/add/")	
 	private Task addTask(@RequestBody Task task){
 		repository.save(task);
+		System.out.println("taskは" + task);
 		return task;
 	}
 

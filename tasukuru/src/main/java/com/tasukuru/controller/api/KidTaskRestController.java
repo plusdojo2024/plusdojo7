@@ -36,9 +36,20 @@ public class KidTaskRestController {
 			//ログインしていない場合、空のリストを返す
 			return List.of();
 		}
-		
-		//System.out.println(session.getAttribute("KidsUser"));
-		//return repository.findAll();
+	}
+	
+	//タスク提出
+	@PostMapping("/api/task/submit/")
+	private Task submitTask(@RequestBody Task task) {
+		Task existingTask = repository.findById(task.getId()).orElse(null);
+		if(existingTask != null) {
+			existingTask.setTaskCheck(true);
+            existingTask.setNoComplete(false);
+            repository.save(existingTask);
+            return existingTask;
+		} else {
+			return null;
+		}
 	}
 	
 	//タスク追加
@@ -61,20 +72,5 @@ public class KidTaskRestController {
 		repository.delete(task);
 		return task;
 	}
-	
-//	//タスク提出
-//	@PostMapping("/api/task/submit/")
-//	private Task submitTask(@RequestBody Task task) {
-//		task.setSubmitTime(LocalDateTime.now());	//提出時間を設定
-//		task.setTaskCheck(true);	//タスクを提出済みにする
-//		repository.save(task);
-//		return task;
-//	}
-//	
-//	//タスク再登録*要編集
-//	@PostMapping("/api/task/regist/")
-//	private Task registTask(@RequestBody Task task) {
-//		
-//		return task;
-//	}
+
 }

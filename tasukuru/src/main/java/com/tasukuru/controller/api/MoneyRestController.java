@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tasukuru.entity.Allowance;
 import com.tasukuru.entity.KidsUser;
+import com.tasukuru.entity.Support;
 import com.tasukuru.repository.AllowanceRepository;
 import com.tasukuru.repository.KidsUserRepository;
 import com.tasukuru.repository.SupportRepository;
@@ -24,7 +25,7 @@ public class MoneyRestController {
 	private KidsUserRepository kidsRepository;
 	
 	@Autowired
-	private SupportRepository characterRepository;
+	private SupportRepository supportRepository;
 
 	//利用記録処理
 	@PostMapping("/api/money/regist")
@@ -42,6 +43,9 @@ public class MoneyRestController {
 		
 		int money = kidsUser.getCurrentMoney() - allowance.getUsedMoney();
 		kidsUser.setCurrentMoney(money);
+		
+        //サポートid更新
+		kidsUser.setSupportId(2);
 		
 		//リポジトリ.save(int);
 		
@@ -64,6 +68,8 @@ public class MoneyRestController {
 		//所持金の計算を行う。
 		kidsUser.setCurrentMoney(kidsUser.getCurrentMoney() + allowance.getGetMoney());
 		
+		
+     // KidsUserエンティティを保存
 		kidsRepository.save(kidsUser);
 
 		return allowance;
@@ -140,10 +146,22 @@ public class MoneyRestController {
 			return allowance;
 		}
 	
-	//サポートキャラの表示処理
-	//@GetMapping("/api/money/support")
+	  //サポートキャラの表示処理
+	 @GetMapping("/api/money/support")
+	 private String imageget() {
 	
-		
+	        //kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
+	        KidsUser kidsUser = kidsRepository.findById(1);	
 	
+	        // supportId を取得
+            int supportId = kidsUser.getSupportId();
+    
+             // Supportエンティティを取得
+            Support support = supportRepository.findById(supportId);
+            
+    		
+            //画像を返す		
+    		return  support.getImage();
+	}	
 	
 }
