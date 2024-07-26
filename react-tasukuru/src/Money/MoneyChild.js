@@ -4,32 +4,47 @@ import Footer from "../foundation/Footer";
 import MoneyRegist from "./MoneyRegist";  // Import MoneyRegist component
 import MoneyCurrentMoney from "./MoneyCurrentMoney"; 
 import MoneyUseListChild from "./MoneyUseListChild"; 
+import MoneySupport from "./MoneySupport";
+import './Money.css';
 
 export default class MoneyChild extends React.Component {
     
+    state = {
+        key: 0
+    };
 
+    reloadComponet = () => {
+        this.setState({
+            key: this.key + 1
+        });
+    };
 
     render() {
         return (
             <div>
                 <Header />
+                {/* サポートキャラ */}
+                <div id="Money_Support">
+                   <MoneySupport />
+                </div>
+                <br />
 
                  {/* 利用記録 */}
                 <div id="Money_Regist">
-                   <MoneyRegist />
+                   <MoneyRegist onReloadComponent={this.reloadComponet}/>
                 </div>
                 <br />
 
                  {/* 所持金 */}
                 <div id="Money_CurrentMoney">
-                   <MoneyCurrentMoney />
+                   <MoneyCurrentMoney key={this.state.key}/>
                 </div>
                 
                  {/* お小遣い一覧 */}
-               <div id="Money_List">
-                   <MoneyUseListChild />
+                <div id="Money_List">
+                   <MoneyUseListChild key={this.state.key}/>
                 </div>
-                <Footer />
+                {/*<Footer />*/}
             </div>
         );
     }

@@ -4,11 +4,21 @@ import Footer from "../foundation/Footer";
 import MoneyAdd from "./MoneyAdd";  // MoneyAddコンポーネントをインポート
 import MoneyCurrentMoney from "./MoneyCurrentMoney"; 
 import MoneyUseList from "./MoneyUseList";
+import './Money.css';
 
 
 
 export default class MoneyParent extends React.Component  {
 
+    state = {
+        key: 0
+    };
+
+    reloadComponet = () => {
+        this.setState({
+            key: this.key + 1
+        });
+    };
     
     render() {
         return (
@@ -17,12 +27,12 @@ export default class MoneyParent extends React.Component  {
                 
                 {/* 所持金 */}
                 <div id="Money_CurrentMoney">
-                   <MoneyCurrentMoney />
+                   <MoneyCurrentMoney key={this.state.key} />
                 </div>
 
                 {/* お小遣い追加 */}
                 <div id="Money_Add">
-                   <MoneyAdd />
+                   <MoneyAdd onReloadComponent={this.reloadComponet} />
                 </div>
 
                {/* お小遣い一覧 */}

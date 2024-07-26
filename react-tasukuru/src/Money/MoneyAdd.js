@@ -21,7 +21,7 @@ export default class MoneyAdd extends React.Component{
 
 
 
-       onInput = (e) => {
+    onInput = (e) => {
         //コントロールの名前を取得する
         const name= e.target.name;
         //コントロールに入力した値をstateに更新する。
@@ -49,7 +49,9 @@ export default class MoneyAdd extends React.Component{
               getMoney:""
             });
         });
+        this.props.onReloadComponent();
         this.toggleModal();
+        
     }
 
 
