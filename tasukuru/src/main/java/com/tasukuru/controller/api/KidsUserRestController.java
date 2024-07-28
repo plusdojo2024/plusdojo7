@@ -74,6 +74,26 @@ public class KidsUserRestController {
         }
     }
 	
+	// サイコロを1増やす
+    @PostMapping("/api/kids/currentUser/incrementDiceCount")
+    public ResponseEntity<KidsUser> incrementDiceCount(HttpServletRequest httpRequest) {
+        HttpSession session = httpRequest.getSession();
+        KidsUser loginUser = (KidsUser) session.getAttribute("KidsUser");
+
+        if (loginUser != null) {
+            KidsUser user = kidsRepo.findById(loginUser.getId()).orElse(null);
+            if (user != null) {
+                user.setDiceCount(user.getDiceCount() + 1);
+                kidsRepo.save(user);
+                return ResponseEntity.ok(user);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+    }
+	
 	
 
 
