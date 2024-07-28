@@ -135,34 +135,9 @@ export default class Diaries extends React.Component {
         this.setState({ LookedDiarieModal: !LookedDiarieModal });
     }
 
-    // toggleDiceModal() {
-    //     const { GetDiceModal } = this.state;
-    //     this.setState({ GetDiceModal: !GetDiceModal }, () => {
-    //         if (!GetDiceModal) {
-    //             this.setState({ LookedDiarieModal: false, UnreadDiarieModal: false });
-    //         }
-    //     });
-    // }
     toggleDiceModal() {
-        const { GetDiceModal, selectedDiary, diaries } = this.state;
-        
-        if (!GetDiceModal && selectedDiary) { 
-            selectedDiary.childCheck = true;
-            console.log("さいころ")
-            axios.post("/api/diary/diaryMod/", selectedDiary)
-                .then(response => {
-                    this.setState({
-                        GetDiceModal: !GetDiceModal,
-                        selectedDiary: null,
-                    });
-                    this.componentDidMount(); // サーバから最新のデータを再取得
-                })
-                .catch(error => {
-                    console.error("サイコロ入手モーダルでエラーが発生しました:", error);
-                });
-        } else {
-            this.setState({ GetDiceModal: !GetDiceModal });
-        }
+        const { GetDiceModal } = this.state;
+        this.setState({ GetDiceModal: !GetDiceModal });
     }
 
     toggleGuardianUnreadDiarieModal() {
@@ -317,7 +292,7 @@ export default class Diaries extends React.Component {
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
                             サイコロを手にいれたよ！<br />
-                            <button onClick={() => { this.toggleDiceModal(); }}>とじる</button><br />
+                            <button onClick={() => { this.toggleDiceModal(); this.toggleUnreadModal(); }}>とじる</button><br />
                         </div>
                     </div>
                 )}

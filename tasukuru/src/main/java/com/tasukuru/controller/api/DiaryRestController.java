@@ -58,6 +58,7 @@ public class DiaryRestController {
             existingDiary.setReply(diary.getReply());
             existingDiary.setDate(diary.getDate());
             existingDiary.setParentCheck(diary.isParentCheck());
+            existingDiary.setChildCheck(diary.isChildCheck());
             existingDiary.setDoSubmit(diary.isDoSubmit());
             repository.save(existingDiary);
             return existingDiary;
