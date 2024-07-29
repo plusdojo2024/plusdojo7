@@ -143,7 +143,7 @@ class MoneyUseList　extends React.Component {
 
         //const data = {};
         //axiosだとpostが記述しやすい
-        axios.post("/api/money/mod", data)
+        axios.post("/api/money/modParent", data)
         .then(json => {
             console.log(json);
             this.setState({
@@ -173,7 +173,7 @@ class MoneyUseList　extends React.Component {
 
         //const data = {};
         //axiosだとpostが記述しやすい
-        axios.post("/api/money/del", data)
+        axios.post("/api/money/delParent", data)
         .then(json => {
             console.log(json);
             this.setState({
