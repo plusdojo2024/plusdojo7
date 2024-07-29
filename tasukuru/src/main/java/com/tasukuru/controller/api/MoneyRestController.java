@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tasukuru.entity.Allowance;
+import com.tasukuru.entity.FamilyUser;
 import com.tasukuru.entity.KidsUser;
 import com.tasukuru.entity.Support;
 import com.tasukuru.repository.AllowanceRepository;
@@ -68,9 +69,9 @@ public class MoneyRestController {
 	private Allowance add(@RequestBody Allowance allowance, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		//セッションからログインしているKidsUser情報を取得
-		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		FamilyUser loginUser = (FamilyUser)session.getAttribute("FamilyUser");
 		
-		int userId = loginUser.getId();
+		int userId = loginUser.getSelectedKidId();
 		
 		allowance.setKidsId(userId);
 		
@@ -95,9 +96,9 @@ public class MoneyRestController {
 	private Integer get(HttpServletRequest request){
 		HttpSession session = request.getSession();
 		//セッションからログインしているKidsUser情報を取得
-		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		FamilyUser loginUser = (FamilyUser)session.getAttribute("FamilyUser");
 		
-		int userId = loginUser.getId();
+		int userId = loginUser.getSelectedKidId();
 		
 		//kidsRepositoryをつかって、idを指定して、KidsUserエンティティを取得する。
 		KidsUser kidsUser = kidsRepository.findById(userId);
@@ -114,6 +115,18 @@ public class MoneyRestController {
 			
 			int userId = loginUser.getId();
 			
+			return repository.findByKidsId(userId);
+		}
+		
+	//一覧取得処理(保護者)
+		@GetMapping("/api/money/listParent")
+		private List<Allowance> listParent(HttpServletRequest request){
+			HttpSession session = request.getSession();
+			//セッションからログインしているKidsUser情報を取得
+			FamilyUser loginUser = (FamilyUser)session.getAttribute("FamilyUser");
+					
+			int userId = loginUser.getSelectedKidId();
+					
 			return repository.findByKidsId(userId);
 		}
 		

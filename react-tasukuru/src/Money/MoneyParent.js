@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../foundation/Header";
-import Footer from "../foundation/Footer";
+import Header from "../foundation/HeaderParent";
+import Footer from "../foundation/FooterParent";
 import MoneyAdd from "./MoneyAdd";  // MoneyAddコンポーネントをインポート
 import MoneyCurrentMoney from "./MoneyCurrentMoney"; 
 import MoneyUseList from "./MoneyUseList";

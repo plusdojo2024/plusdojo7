@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ParentHeader from '../foundation/ParentHeader.js';
-import ParentFooter from "../foundation/ParentFooter.js";
+import ParentFooter from "../foundation/FooterParent";
 import './familymypage.css'; 
 import axios from 'axios'; 
 
