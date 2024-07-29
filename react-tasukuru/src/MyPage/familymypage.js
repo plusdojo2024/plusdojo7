@@ -11,6 +11,7 @@ export default class FamilyMyPage extends Component {
       familyId: "",
       newname: "",
       selectedName: "",
+      selectedKidId: null, 
       kidsSelectionModal: false,
       kidsAddModal: false,
       kidsDelModal: false,
@@ -24,10 +25,11 @@ export default class FamilyMyPage extends Component {
     this.toggleKidsAddModal = this.toggleKidsAddModal.bind(this);
     this.toggleKidsDelModal = this.toggleKidsDelModal.bind(this);
     this.toggleFamilyDelModal = this.toggleFamilyDelModal.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.setNewName = this.setNewName.bind(this);
     this.newNameSave = this.newNameSave.bind(this);
+    this.selectionNameSave = this.selectionNameSave.bind(this); // 追加
     this.deleteName = this.deleteName.bind(this);
+    this.handleKidSelect = this.handleKidSelect.bind(this);
     this.handleNameSelect = this.handleNameSelect.bind(this);
   }
 
@@ -75,19 +77,6 @@ export default class FamilyMyPage extends Component {
     }));
   }
 
-  // フォームのサブミット処理
-  handleSubmit(event) {
-    event.preventDefault();
-    
-    if (this.state.kidsAddModal) {
-      this.newNameSave();
-    } else if (this.state.kidsDelModal) {
-      this.deleteName();
-    } else {
-      console.log('Form submitted!');
-    }
-  }
-
   // 新しい名前を設定するメソッド
   setNewName(event) {
     this.setState({ newname: event.target.value });
@@ -98,6 +87,26 @@ export default class FamilyMyPage extends Component {
     this.setState({ selectedName: event.target.value });
   }
 
+  // 子供選択の処理
+  handleKidSelect(event) {
+    const selectedKidId = event.target.value;
+    this.setState({ selectedKidId });
+  }
+
+  // 選択した子供を保存するメソッド
+  selectionNameSave() {
+    const { selectedKidId } = this.state;
+    const data = { selectedKidId: selectedKidId }; // 修正: データ形式を修正
+    axios.post("/api/kidsName/selection/", data)
+      .then(response => {
+        this.toggleKidsSelectionModal();
+        this.componentDidMount(); // データの再取得
+      })
+      .catch(error => {
+        console.error('子供の選択に失敗しました', error);
+      });
+  }
+
   // 新しい名前を保存するメソッド
   newNameSave() {
     const { newname, familyId } = this.state;
@@ -105,7 +114,7 @@ export default class FamilyMyPage extends Component {
     axios.post("/api/kidsName/add/", data)
       .then(response => {
         this.toggleKidsAddModal();
-        this.componentDidMount();
+        this.componentDidMount(); // データの再取得
       })
       .catch(error => {
         console.error('名前の追加に失敗しました', error);
@@ -119,7 +128,7 @@ export default class FamilyMyPage extends Component {
     axios.post("/api/kidsName/del/", data)
       .then(response => {
         this.toggleKidsDelModal(); 
-        this.componentDidMount(); 
+        this.componentDidMount(); // データの再取得
       })
       .catch(error => {
         console.error('名前の削除に失敗しました', error);
@@ -134,6 +143,7 @@ export default class FamilyMyPage extends Component {
       familyDelModal,
       newname,
       selectedName,
+      selectedKidId,
       nameList
     } = this.state;
 
@@ -156,13 +166,16 @@ export default class FamilyMyPage extends Component {
               <div className="familymypage-modal_content">
                 <button className="familymypage-close_button" onClick={this.toggleKidsSelectionModal}>×</button>
                 <h2>子供アカウント選択</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={(event) => {
+                  event.preventDefault();
+                  this.selectionNameSave(); // 修正: 名前を保存するメソッドを呼び出す
+                }}>
                   <label>
-                    <select defaultValue="" required>
+                    <select defaultValue="" onChange={this.handleKidSelect} required>
                       <option value="" disabled>選択してください</option>
-                      {nameList.length > 0 ? (
-                        nameList.map((name, index) => (
-                          <option key={index} value={name}>{name}</option>
+                      {this.state.kids.length > 0 ? (
+                        this.state.kids.map((kid, index) => (
+                          <option key={index} value={kid.id}>{kid.name}</option>
                         ))
                       ) : (
                         <option value="" disabled>名前がありません</option>
@@ -181,7 +194,10 @@ export default class FamilyMyPage extends Component {
               <div className="familymypage-modal_content">
                 <button className="familymypage-close_button" onClick={this.toggleKidsAddModal}>×</button>
                 <h2>子供アカウント追加</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={(event) => {
+                  event.preventDefault();
+                  this.newNameSave();
+                }}>
                   <label>
                     <input type="text" placeholder="なまえ" className="familymypage-textbox" value={newname} onChange={this.setNewName}/><br />
                   </label>
@@ -197,7 +213,10 @@ export default class FamilyMyPage extends Component {
               <div className="familymypage-modal_content">
                 <button className="familymypage-close_button" onClick={this.toggleKidsDelModal}>×</button>
                 <h2>子供アカウント削除</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={(event) => {
+                  event.preventDefault();
+                  this.deleteName();
+                }}>
                   <label>
                     <select value={selectedName} onChange={this.handleNameSelect} required>
                       <option value="" disabled>選択してください</option>
@@ -222,7 +241,11 @@ export default class FamilyMyPage extends Component {
               <div className="familymypage-modal_content">
                 <button className="familymypage-close_button" onClick={this.toggleFamilyDelModal}>×</button>
                 <h2>家族アカウント削除しますか？</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={(event) => {
+                  event.preventDefault();
+                  // ここで家族アカウント削除の処理を追加
+                  console.log('家族アカウント削除の処理');
+                }}>
                   <button type="submit" className="familymypage-del_button">はい</button>
                   <button type="button" className="familymypage-del_button" onClick={this.toggleFamilyDelModal}>いいえ</button>
                 </form>
@@ -236,4 +259,5 @@ export default class FamilyMyPage extends Component {
     );
   }
 }
+
 
