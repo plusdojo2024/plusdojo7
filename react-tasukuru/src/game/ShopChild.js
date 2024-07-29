@@ -198,7 +198,7 @@ confirmBuy = () => {
                                 <div id="ShopChildoverlay">
                                     <div id="ShopChildcontent">
                                         商品名<br />
-                                        <input type="text" value={requestName} onChange={this.RequestChange} /><br />
+                                        <input className="ShopChildtext-area" type="text" value={requestName} onChange={this.RequestChange} /><br />
                                         <button className="ShopChildsubmit-button" onClick={this.submitRequest}>送信</button><br />
                                         <button className="ShopChildclose-button" onClick={() => this.toggleRequestModal()}>閉じる</button>
                                     </div>

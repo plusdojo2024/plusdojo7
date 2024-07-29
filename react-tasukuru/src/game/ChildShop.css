@@ -79,3 +79,7 @@
 .ShopChild-sale, #buy-button{
     margin-top:5px;
 }
+
+.ShopChildtext-area {
+    width:8rem;
+}
