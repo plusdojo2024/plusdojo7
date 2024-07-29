@@ -70,8 +70,8 @@ export default class MoneyRegist extends React.Component {
     render() {
         const { date, item, amount,showModal } = this.state;
         return (
-            <div className="money_overlay">
-                <div className="money-content">
+            <div >
+                <div className="money-contents">
                     
                     <button onClick={this.toggleModal}>
                         つかったお金をきろくする
@@ -79,7 +79,8 @@ export default class MoneyRegist extends React.Component {
 
                     {/* モーダルウィンドウ */}
                     {showModal &&
-                    <div>
+                    <div className="money_overlay">
+                       <div className="money-content">       
                     <button className="close" onClick={this.toggleModal}>
                         &times;
                     </button>
@@ -110,11 +111,12 @@ export default class MoneyRegist extends React.Component {
                         />
                         <br />
                         <button onClick={this.registMoney}> とうろく</button>
+                        </div>
                     </div>
                     }
                 </div>
             </div>
-        );
+        );　　　
     }
 }
 
