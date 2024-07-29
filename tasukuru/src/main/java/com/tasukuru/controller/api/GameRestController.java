@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tasukuru.entity.Enemie;
@@ -32,17 +32,19 @@ public class GameRestController {
     public ReplayEnemiesAndCurrentEnemyId getEnemies() {
     	ReplayEnemiesAndCurrentEnemyId replay = new ReplayEnemiesAndCurrentEnemyId();
     	replay.enemies = enemiesRepository.findAll();
-    	replay.currentEnemyId = kidsUserRepository.findById(4).getEnemieId() - 1;
+    	replay.currentEnemyId = kidsUserRepository.findById(1).getEnemieId() - 1;
     	
         return replay;
     }
     
+ 
     public static class ReplayEnemiesAndCurrentEnemyId{
     	public List<Enemie> enemies;
     	
     	public Integer currentEnemyId;
     }
     
+ 
     @GetMapping("/api/enemies/currentUser/")
 	private Optional<KidsUser> get(HttpServletRequest request){
 		HttpSession session = request.getSession();
@@ -63,15 +65,10 @@ public class GameRestController {
 		//return repository.findAll();
 	}
 
-//    // ログインしているユーザーに関連する敵キャラクター一覧を取得するエンドポイント
-//    @GetMapping("/api/game/enemies/user/{userId}")
-//    public List<Enemie> getEnemiesByUserId(@PathVariable Integer userId) {
-//        return enemiesRepository.findByUserId(userId);
-//    }
 
     // 敵にダメージを与えるエンドポイント（@PostMapping を使用）
-    @PostMapping("/api/game/enemies/{id}/damage/{damage}")
-    public void attackEnemy(@PathVariable Integer id, @PathVariable Integer damage) {
+    @PostMapping("/api/enemies/{id}/damage/{damage}")
+    public ResponseEntity<Void> attackEnemy(@PathVariable Integer id, @PathVariable Integer damage) {
         Enemie enemy = enemiesRepository.findById(id)
                                         .orElseThrow(() -> new IllegalArgumentException("Enemy not found"));
 
@@ -85,6 +82,9 @@ public class GameRestController {
 
         // 更新したエネミーを保存
         enemiesRepository.save(enemy);
+
+        System.out.println("Enemy HP updated: ID = " + id + ", New HP = " + updatedHp);
+        return ResponseEntity.ok().build();
     }
 
     // ログインしているユーザーの情報を取得するエンドポイント
@@ -94,13 +94,13 @@ public class GameRestController {
         return (KidsUser) session.getAttribute("KidsUser");
     }
 
-    // ログインしているユーザーのサイコロ数を更新するエンドポイント
-    @PostMapping("/api/kids/currentUser/dice")
-    public void updateDiceCount(HttpServletRequest request, @RequestBody Integer diceCount) {
-        KidsUser currentUser = getCurrentUser(request);
-        if (currentUser != null) {
-            currentUser.setDiceCount(diceCount);
-            kidsUserRepository.save(currentUser);
-        }
-    }
+//    // ログインしているユーザーのサイコロ数を更新するエンドポイント
+//    @PostMapping("/api/kids/currentUser/dice")
+//    public void updateDiceCount(HttpServletRequest request, @RequestBody Integer diceCount) {
+//        KidsUser currentUser = getCurrentUser(request);
+//        if (currentUser != null) {
+//            currentUser.setDiceCount(diceCount);
+//            kidsUserRepository.save(currentUser);
+//        }
+//    }
 }

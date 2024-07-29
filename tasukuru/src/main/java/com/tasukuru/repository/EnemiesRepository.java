@@ -8,4 +8,6 @@ public interface EnemiesRepository extends JpaRepository<Enemie, Integer> {
 
     // ユーザーIDに基づいて敵キャラクターを取得するメソッド
 //    List<Enemie> findByUserId(Integer enemieId);
+	
+	
 }
