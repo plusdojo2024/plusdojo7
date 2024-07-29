@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from "axios";
 import './GameMypage.css';
 import Header from '../foundation/Header';
 import Footer from '../foundation/Footer';
@@ -20,7 +21,11 @@ export default class GameMypage extends React.Component{
             id:"",
             character_image:"",
             effect_image:"",
-            select_skin:"../images/character_yusha_01_red.png",
+
+            select_id: 0,
+            select_skin: "",
+
+            key: 0,
         }
 
     }
@@ -38,22 +43,42 @@ export default class GameMypage extends React.Component{
         });
     }
 
-modSkin=(characterImage)=>{
+    modSkin=(select_id, characterImage)=>{
+        
+            // fetch("/api/mypage/skin/mod")
+            console.log(characterImage);
+            this.setState({
+                select_id: select_id,
+                select_skin: characterImage
+            });
+        }
     
-        // fetch("/api/mypage/skin/mod")
-        console.log(characterImage);
-        this.setState({
-            select_skin: characterImage
-        });
-    }
-    
+    changeSkin=()=>{
+        const {select_id, key} = this.state;
 
+        const data = {
+            characterId: select_id
+        };
+
+        console.log(data);
+        
+        axios.post("/api/mypage/skin/mod",data)
+        .then(json =>{
+            console.log(json);
+            // this.componentDidMount();
+
+            this.setState({
+                key: key + 1
+            });
+        });
+        
+    }
 
     render(){
         const{characters,index,select_skin}= this.state;
         return(
         <wrapper>
-        <Header />
+        <Header key={this.state.key} />
             
             <div className ="background_image_renga">
         
@@ -68,12 +93,12 @@ modSkin=(characterImage)=>{
                 
                     {characters.map((character,index) =>(
                         <div id="characterskin">
-                        <img src={character.characterImage} id="skin"onClick={() => this.modSkin(character.characterImage)} style={{height:'70px',margin:'10px'}}></img>
-                        {character.id}
+                        <img src={character.characterImage} id="skin"onClick={() => this.modSkin(character.id, character.characterImage)} style={{height:'70px',margin:'10px'}}></img>
+                        
                         
                         </div>
                     ))} 
-                    <button  id="skinchange_button" style={{ gridColumn: 'span 2', alignSelf: 'center' }}>変更</button>
+                    <button  onClick={() =>this.changeSkin()} id="skinchange_button" style={{ gridColumn: 'span 2', alignSelf: 'center' }}>変更</button>
                 </TabPanel>
            
             <TabPanel>
@@ -83,7 +108,7 @@ modSkin=(characterImage)=>{
             <h2>20個タスク完了！</h2>
             </TabPanel>
             </Tabs>
-             <img src={select_skin} alt="アバター" class="changeskinphoto" style={{height:'70px',margin:'10px'}}></img>
+             <img hidden src={select_skin} alt="アバター" class="changeskinphoto" style={{height:'70px',margin:'10px'}}></img>
             </div>
             
             
