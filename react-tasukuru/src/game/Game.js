@@ -47,7 +47,7 @@ export default class Game extends Component {
 
         // 攻撃処理
         handleAttack = (enemyId, damage) => {
-            const { kidUserData } = this.state;
+            const { enemies,currentEnemyIndex } = this.state;
             fetch(`/api/enemies/${enemyId}/damage/${damage}`, {
                 method: 'POST',
                 headers: {
@@ -66,7 +66,8 @@ export default class Game extends Component {
                 console.log(json);
 
                 if(this.state.currentEnemyIndex != json.enemieId - 1 ){
-                    alert("敵を倒しました。");
+                    alert("敵を倒した!" + "\n"+ enemies[currentEnemyIndex].drop + "G 獲得した！");
+                    
                     
                 }
 
