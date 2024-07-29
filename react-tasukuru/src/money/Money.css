@@ -4,8 +4,9 @@ main {
    text-align: center;
    width: 100%;
    max-width: 1200px; /* 最大幅を設定 */
-   
-   
+   overflow-y: auto; /* 縦方向にスクロールを許可 */
+   box-sizing: border-box; /* パディングとボーダーを含めたサイズ計算 */
+   max-height: 70vh; /* 最大高さを画面の80%に設定（必要に応じて調整） */
 }
 
 /* サポートキャラのスタイル */
@@ -15,6 +16,7 @@ main {
     text-align: center; /* 中央揃え */
     margin-top: 30px; /* ヘッダーとの間にスペースを追加 */
 }
+
 
 .money_overlay{
     margin-top: 20px;
@@ -34,3 +36,24 @@ main {
     color: #d3d3d3;/* ボタンの文字色 */
     transition: color 0.3s; /* ホバー時の色変更にアニメーションを追加 */
 }
+
+
+.money-container {
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒背景 */
+    color: #ffffff; /* テキストの色を白にして背景と対比させる */
+    border: 2px solid #ffffff; /* 白色のボーダーを追加 */
+    padding: 5px; /* 内側の余白を追加 */
+    border-radius: 5px; /* 角を丸くする */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 影を追加して浮き出た感じにする */
+    width: 150px; /* 幅を200pxに設定（必要に応じて調整） */
+    margin: 0 auto; /* 水平方向に中央揃え */
+    position: absolute; /* 絶対位置指定 */
+    left: 50%; /* 横方向の中央揃え */
+    transform: translate(-50%, -50%); /* 自身の幅と高さを考慮して正確に中央に配置 */
+}
+#Money_List{
+    padding-top: 30px; /* 要素の上部に30ピクセルの余白を追加 */
+}
+.list-container{
+    background-color:#ffffff
+    } 
