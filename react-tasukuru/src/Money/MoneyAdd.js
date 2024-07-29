@@ -58,8 +58,8 @@ export default class MoneyAdd extends React.Component{
     render() {
         const {getMoney,showModal } = this.state;
         return (
-            <div className="money_overlay">
-                <div className="money-content">
+            <div className="">
+                
                     
                     <button onClick={this.toggleModal}>
                         追加
@@ -67,7 +67,8 @@ export default class MoneyAdd extends React.Component{
 
                     {/* モーダルウィンドウ */}
                     {showModal &&
-                    <div>
+                    <div money_overlay>
+                        <div className="money-content">
                     <button className="close" onClick={this.toggleModal}>
                         &times;
                     </button>
@@ -81,9 +82,10 @@ export default class MoneyAdd extends React.Component{
                         />
                         <br />
                         <button onClick={this.addMoney}> 登録</button>
+                        </div>
                     </div>
                     }
-                </div>
+                
             </div>
         );
     }

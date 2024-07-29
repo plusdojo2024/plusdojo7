@@ -17,7 +17,7 @@ main {
     margin-top: 30px; /* ヘッダーとの間にスペースを追加 */
 }
 
-.money-content button {
+.money-contents button {
     background-color: #CCE5FF; /* 水色の背景色 */
     margin-bottom: 20px; 
     color: #000000; /* ボタンのテキストの色（黒色） */
@@ -71,6 +71,7 @@ main {
     overflow-y: auto; /* コンテンツが要素の範囲を超える場合に垂直スクロールバーを表示 */
     margin: 0 auto; /* 上下のマージンは0、左右のマージンは自動で中央揃え */
     margin-bottom: 50px; /* フッターとの間に50pxの余白を追加 */
+    height:200px;
 }
 .month-switcher {
     display: flex;
@@ -81,3 +82,52 @@ main {
 .month-switcher button {
     background-color: #FFE499; /* オレンジ色の背景色 */
 }
+/* モーダルの背景 */
+.money_overlay{
+    font-family: "Mochiy Pop One", sans-serif;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.money-content {
+    background-color: #ffffff; /* モーダルの中身の背景色 */
+    border-radius: 8px; /* 角を丸くする */
+    padding: 20px; /* 内側の余白 */
+    width: 300px; /* モーダルの幅 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 影を追加 */
+    position: relative; /* 閉じるボタンの位置を相対的にする */
+}
+.close {
+    position: absolute; /* 閉じるボタンを相対位置に配置 */
+    top: 10px; /* 上から10pxの位置 */
+    right: 10px; /* 右から10pxの位置 */
+    background: none; /* 背景をなしにする */
+    border: none; /* ボーダーをなしにする */
+    font-size: 24px; /* フォントサイズを設定 */
+    cursor: pointer; /* マウスカーソルをポインターに変更 */
+    color: #333; /* ボタンの色 */
+}
+label {
+    display: block; /* ラベルをブロック表示にすることで、新しい行に表示させる */
+    margin-top: 10px; /* 上のマージンを設定 */
+    margin-bottom: 5px; /* 下のマージンを設定して、ラベルと入力フィールドの間隔を確保 */
+}
+/* 入力フィールドのスタイル */
+input {
+    width: 100%; /* 入力フィールドを親コンテナの幅に合わせる */
+    padding: 8px; /* 内側の余白 */
+    margin-bottom: 15px; /* 下のマージンを設定して、次の要素との間隔を確保 */
+    border: 1px solid #ccc; /* 薄いボーダー */
+    border-radius: 4px; /* 角を丸くする */
+}
+.money-container{
+    margin-top: 50px; /* ヘッダーとの間にスペースを追加 */
+}
+
+
