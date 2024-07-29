@@ -112,5 +112,33 @@ public class FamilyMyPageRestController {
         }
     }
 
+    // 家族アカウント削除
+    @PostMapping("/api/family/familydel/")
+    public ResponseEntity<String> delFamily(@RequestBody FamilyUser familyUser, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        // セッションからログインしているFamilyUser情報を取得
+        FamilyUser loginFamilyUser = (FamilyUser) session.getAttribute("FamilyUser");
+        
+        if (loginFamilyUser != null) {
+            // セッションからFamilyIdを取得
+            String familyId = loginFamilyUser.getFamilyId();
+            
+            // 名前とFamilyIdでKidsUserを検索
+            FamilyUser familyToDelete = familyrepository.findByFamilyId(familyId);
+            
+            if (familyToDelete != null) {
+                // 検索結果が存在する場合は削除
+                familyrepository.delete(familyToDelete);
+                return ResponseEntity.ok("削除成功");
+            } else {
+                // 検索結果が存在しない場合のレスポンス
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("指定された名前のユーザーが見つかりませんでした。");
+            }
+        } else {
+            // セッションにログイン情報がない場合のレスポンス
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ログイン情報がありません。");
+        }
+    }
+
 }
 
