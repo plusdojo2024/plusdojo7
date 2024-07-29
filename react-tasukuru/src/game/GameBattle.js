@@ -4,7 +4,7 @@ import './Game.css';
 export default class GameBattle extends React.Component {
     
     render() {
-        const { currentEnemy } = this.props;
+        const { currentEnemy, currentEnemyHp } = this.props;
         // const currentEnemy = enemy; // 仮で最初の敵キャラを表示
         
         return (    
@@ -12,7 +12,7 @@ export default class GameBattle extends React.Component {
                 {currentEnemy && (
                     <div className="game_enemies_icon">
                         <div class="enemy-hp"> 
-                            HP: <span id="enemy-hp">{currentEnemy.hp}</span>
+                            HP: <span id="enemy-hp">{currentEnemyHp}</span>
                            
                         </div>
                         <div class="enemy-health-bar">

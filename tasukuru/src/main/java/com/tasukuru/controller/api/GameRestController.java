@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,10 +30,19 @@ public class GameRestController {
 
     // ゲームの敵キャラクター一覧を取得するエンドポイント
     @GetMapping("/api/game/enemies")
-    public ReplayEnemiesAndCurrentEnemyId getEnemies() {
+    public ReplayEnemiesAndCurrentEnemyId getEnemies(HttpServletRequest request) {
+    	
+		HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
+		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		int loginUser_id = loginUser.getId();
+		
+    	
     	ReplayEnemiesAndCurrentEnemyId replay = new ReplayEnemiesAndCurrentEnemyId();
     	replay.enemies = enemiesRepository.findAll();
-    	replay.currentEnemyId = kidsUserRepository.findById(1).getEnemieId() - 1;
+    	KidsUser user = kidsUserRepository.findById(loginUser_id);
+    	replay.currentEnemyId = user.getEnemieId() - 1;
+    	replay.currentEnemyHp = user.getEnemieHp();
     	
         return replay;
     }
@@ -42,6 +52,7 @@ public class GameRestController {
     	public List<Enemie> enemies;
     	
     	public Integer currentEnemyId;
+    	public Integer currentEnemyHp;
     }
     
  
@@ -68,25 +79,63 @@ public class GameRestController {
 
     // 敵にダメージを与えるエンドポイント（@PostMapping を使用）
     @PostMapping("/api/enemies/{id}/damage/{damage}")
-    public ResponseEntity<Void> attackEnemy(@PathVariable Integer id, @PathVariable Integer damage) {
-        Enemie enemy = enemiesRepository.findById(id)
-                                        .orElseThrow(() -> new IllegalArgumentException("Enemy not found"));
+    public ResponseEntity<KidsUser> attackEnemy(@PathVariable Integer id, @PathVariable Integer damage,
+    		HttpServletRequest request) {
+//        Enemie enemy = enemiesRepository.findById(id)
+//                                        .orElseThrow(() -> new IllegalArgumentException("Enemy not found"));
+//
+//        int currentHp = enemy.getHp();
+//        int updatedHp = currentHp - damage;
+//        if (updatedHp < 0) {
+//            updatedHp = 0; // HPが0未満にならないようにする
+//        }
+//        enemy.setHp(updatedHp);
+//
+//        // 更新したエネミーを保存
+//        enemiesRepository.save(enemy);
+//
+        
 
-        // ダメージを適用し、HPを更新
-        int currentHp = enemy.getHp();
-        int updatedHp = currentHp - damage;
-        if (updatedHp < 0) {
-            updatedHp = 0; // HPが0未満にならないようにする
-        }
-        enemy.setHp(updatedHp);
-
-        // 更新したエネミーを保存
-        enemiesRepository.save(enemy);
-
-        System.out.println("Enemy HP updated: ID = " + id + ", New HP = " + updatedHp);
-        return ResponseEntity.ok().build();
+		HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
+		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		int loginUser_id = loginUser.getId();
+		
+        // ダメージを適用し、「kids_users」テーブルの持つHPを更新する。
+    	//	enemyテーブルは、共通のテーブルなので変更しない
+		KidsUser kidsUser = kidsUserRepository.findById(loginUser_id);
+		//画面から渡されたdamegeを敵のhpから引く
+		int hp = kidsUser.getEnemieHp() - damage;
+		
+		if (hp <= 0) {
+			//0又は0より小さい場合は、enemeyを倒したことになる。
+			//次のenemy_id、enemy_hpを保存する
+			int enemy_id = id + 1;	//次の敵
+			if(enemy_id > 5) {
+				enemy_id = 0;		//enemy_idが5より大きくなると、1に戻る。
+			}
+			
+			kidsUser.setEnemieId(enemy_id);
+	        Enemie enemy = enemiesRepository.findById(enemy_id)
+	        			.orElseThrow(() -> new IllegalArgumentException("Enemy not found"));
+			
+			kidsUser.setEnemieHp(enemy.getHp());
+			
+		} else {
+			//敵を倒していない
+			//enempy_idは更新しない、hpは更新する
+			kidsUser.setEnemieHp(hp);
+			
+		}
+		kidsUserRepository.save(kidsUser);
+		
+		
+        //System.out.println("Enemy HP updated: ID = " + id + ", New HP = " + updatedHp);
+        
+        return new ResponseEntity<>(kidsUser, HttpStatus.OK);
     }
 
+    
     // ログインしているユーザーの情報を取得するエンドポイント
     @GetMapping("/api/kids/currentUser")
     public KidsUser getCurrentUser(HttpServletRequest request) {
