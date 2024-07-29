@@ -15,7 +15,6 @@ export default class Game extends Component {
     }
 
     componentDidMount() {
-        // kids_usersテーブルからenemy_idを
 
         // ゲームデータの取得
         fetch("/api/game/enemies")
@@ -30,25 +29,66 @@ export default class Game extends Component {
             .catch(error => console.error("Error fetching enemies:", error));
     }
 
-    // 攻撃処理
-    handleAttack = (enemyId, damage) => {
-        const { enemies } = this.state;
-        const index = enemies.findIndex(enemy => enemy.id === enemyId);
-        if (index !== -1) {
-            const updatedEnemies = [...enemies];
-            const updatedEnemy = { ...updatedEnemies[index] };
-            updatedEnemy.hp -= damage;
-            if (updatedEnemy.hp <= 0) {
-                // HPがゼロ以下になった場合は次の敵キャラを表示する
-                alert("敵を倒しました。");
-                updatedEnemies.splice(index, 1);  // 現在の敵キャラを削除
-                this.setState({ enemies: updatedEnemies });
-            } else {
-                updatedEnemies[index] = updatedEnemy;  // 更新した敵キャラを保存
-                this.setState({ enemies: updatedEnemies });
-            }
+   
+
+        // 攻撃処理
+        // handleAttack = (enemyId, damage) => {
+        //     const { enemies } = this.state;
+        //     const index = enemies.findIndex(enemy => enemy.id === enemyId);
+        //     if (index !== -1) {
+        //         const updatedEnemies = [...enemies];
+        //         const updatedEnemy = { ...updatedEnemies[index] };
+        //         updatedEnemy.hp -= damage;
+        //         if (updatedEnemy.hp <= 0) {
+        //             // HPがゼロ以下になった場合は次の敵キャラを表示する
+        //             alert("敵を倒しました。");
+        //             updatedEnemies.splice(index, 1);  // 現在の敵キャラを削除
+        //             this.setState({ enemies: updatedEnemies });
+        //         } else {
+        //             updatedEnemies[index] = updatedEnemy;  // 更新した敵キャラを保存
+        //             this.setState({ enemies: updatedEnemies });
+        //         }
+        //     }
+        // }
+
+        // Attack processing
+        handleAttack = (enemyId, damage) => {
+            console.log("Attack: Enemy ID = " + enemyId + ", Damage = " + damage); // Debug output
+
+            fetch(`/api/enemies/${enemyId}/damage/${damage}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => {
+                if (!res.ok) {
+                    
+                    throw new Error('Network response was not ok');
+                }
+                return res.json(); // Parse the JSON response from the backend
+            })
+            .then(updatedEnemy => {
+                
+                console.log("Updated Enemy: ", updatedEnemy); // Debug output
+                // After updating in the backend, update the frontend state
+                const { enemies } = this.state;
+                const index = enemies.findIndex(enemy => enemy.id === enemyId);
+                if (index !== -1) {
+                    const updatedEnemies = [...enemies];
+                    updatedEnemies[index] = updatedEnemy;  // Use the updated enemy from the backend
+
+                    if (updatedEnemy.hp <= 0) {
+                        alert("敵を倒しました。");
+                        updatedEnemies.splice(index, 1);
+                    
+                    } 
+                    this.setState({ enemies: updatedEnemies });
+                    
+                }
+            })
+            .catch(error => console.error("Error updating enemy HP:", error));
         }
-    }
 
     render() {
         const { enemies, currentEnemyIndex } = this.state;
@@ -58,7 +98,7 @@ export default class Game extends Component {
                 <Header />
                 <main>
                     {/* GameBattleコンポーネントに敵キャラデータを渡す */}
-                    <GameBattle enemy={enemies[currentEnemyIndex]} />
+                    <GameBattle currentEnemy={enemies[currentEnemyIndex]} />
                     {/* GameDiceコンポーネントに敵キャラデータと攻撃処理を渡す */}
                     {enemies.length > 0 && (
                         <GameDice

@@ -70,6 +70,7 @@ export default class GameDice extends React.Component {
                 newDiceCount: newDiceCount
             })
         })
+        
         .then(response => response.json())
         .then(data => {
             console.log('Dice count updated successfully:', data);

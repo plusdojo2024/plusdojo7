@@ -24,7 +24,7 @@ export default class MoneyParent extends React.Component  {
         return (
             <div>
                 <Header />
-                
+                <main>
                 {/* 所持金 */}
                 <div id="Money_CurrentMoney">
                    <MoneyCurrentMoney key={this.state.key} />
@@ -40,7 +40,7 @@ export default class MoneyParent extends React.Component  {
                    <MoneyUseList />
                 </div>
                 
-
+                </main>
                 <Footer />
             </div>
         );
