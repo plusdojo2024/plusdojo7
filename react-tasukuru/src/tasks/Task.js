@@ -41,6 +41,7 @@ function Tasks() {
       });
   }, []);
 
+
   const toggleAddModal = () => setShowAddModal(prev => !prev);
   const toggleTaskModal = () => setShowTaskModal(prev => !prev);
   const toggleReRegModal = () => setShowReRegModal(prev => !prev);
@@ -126,19 +127,61 @@ function Tasks() {
       });
   };
 
-
+  const handleReRegTaskSubmit = (event) => {
+    event.preventDefault();
+    const taskToReg = {
+      ...selectedTask,
+      taskLimit: new Date(newTask.taskLimit).toISOString(),
+      regTime: new Date().toISOString(),
+      taskCheck: false,  // これらのフィールドをリセット
+      noComplete: false,
+      complete: false,
+      miss: false,
+      reviewOne: false,
+      reviewTwo: false,
+      reviewThree: false,
+    };
+    axios.post('/api/task/rereg/', taskToReg)
+      .then(response => {
+        console.log('ReReged Task', response.data);
+        setTasks(prevTasks => prevTasks.map(task =>
+          task.id === response.data.id ? response.data : task
+        ));
+        toggleAddModal();
+        setNewTask({
+          name: "",
+          categoriesName: "",
+          taskLimit: "",
+          content: "",
+          comment: "",
+          taskCheck: false,
+          noComplete: false,
+          complete: false,
+          miss: false,
+          reviewOne: false,
+          reviewTwo: false,
+          reviewThree: false,
+          taskImage: null,
+          submitTime: null,
+          regTime: new Date().toISOString(),
+        });
+      })
+      .catch(error => {
+        console.error('タスクの再登録に失敗しました', error);
+      });
+  };
 
   return (
     <div>
       <Header />
       <main>
         <div className="background_image_renga">
-          <div className="color_buttons">
+          {/* <div className="color_buttons">
             <button className="color_button" style={{ backgroundColor: '#F8CECC' }}></button>
             <button className="color_button" style={{ backgroundColor: '#FFF2CC' }}></button>
             <button className="color_button" style={{ backgroundColor: '#DAE8FC' }}></button>
             <button className="color_button" style={{ backgroundColor: '#D5E8D4' }}></button>
-          </div>
+          </div> */}
           <div className="background">
             <Tabs>
               <TabList className="TabList">
@@ -223,12 +266,12 @@ function Tasks() {
               <h2>タスク追加</h2>
               <form onSubmit={handleAddTaskSubmit}>
                 <label>
-                  タスク名
+                  タスク
                   <input type="text" name="name" value={newTask.name} onChange={handleAddTaskChange} placeholder="タスク名" required />
                 </label>
                 <label>
                   カテゴリー
-                  <select name="categoriesName" value={newTask.categoriesName} onChange={handleAddTaskChange} defaultValue="" required>
+                  <select name="categoriesName" value={newTask.categoriesName} onChange={handleAddTaskChange} required>
                     <option value="" disabled>選択してください</option>
                     <option value="勉強">勉強</option>
                     <option value="家事">家事</option>
@@ -257,14 +300,14 @@ function Tasks() {
             <div className="modal_content">
               <button className="close_button" onClick={toggleReRegModal}>×</button>
               <h2>タスク再登録</h2>
-              <form>
+              <form onSubmit={handleReRegTaskSubmit}>
                 <label>
                   タスク
-                  <input type="text" value={selectedTask.name} readOnly />
+                  <input type="text" name="name" value={selectedTask.name} onChange={handleAddTaskChange} readOnly />
                 </label>
                 <label>
                   カテゴリー
-                  <select defaultValue={selectedTask.categoriesName} required>
+                  <select name="categoriesName" defaultValue={selectedTask.categoriesName} onChange={handleAddTaskChange} required>
                     <option value="" disabled>選択してください</option>
                     <option value="勉強">勉強</option>
                     <option value="家事">家事</option>
@@ -275,13 +318,13 @@ function Tasks() {
                 </label>
                 <label>
                   きげん
-                  <input type="date" required />
+                  <input type="date" name="taskLimit" onChange={handleAddTaskChange} required />
                 </label>
                 <label>
                   くわしく
-                  <textarea placeholder={selectedTask.content}></textarea>
+                  <textarea placeholder={selectedTask.content} onChange={handleAddTaskChange}></textarea>
                 </label>
-                <button type="submit" className="add_button">再登録</button>
+                <button type="submit" name="content" className="add_button">再登録</button>
               </form>
             </div>
           </div>

@@ -176,6 +176,12 @@ export default class Diaries extends React.Component {
                         <TabPanel>
                             <div className="Diarie_box">
                                 <table>
+                                <thead>
+                                    <tr class="diaryRow">
+                                        <td>ひづけ</td>
+                                        <td>タイトル</td>
+                                    </tr>
+                                </thead>
                                     <tbody>
                                         {allDiaries.map((diary, index) => {
                                             if (!diary || !diary.date) {
@@ -186,7 +192,7 @@ export default class Diaries extends React.Component {
                                                 <tr className="" key={index}>
                                                     <td className="dateOnly">{dateOnly}</td>
                                                     <td className="title">{diary.title}</td>
-                                                    <td className="content">{diary.content}</td>
+                                                    {/* <td className="content">{diary.content}</td> */}
                                                     <td className="action">
                                                         <button className="Diaries_submit_button" onClick={() => this.SubmitDiarie(index)}>ていしゅつ</button>
                                                     </td>
@@ -202,6 +208,12 @@ export default class Diaries extends React.Component {
                         <TabPanel>
                         <div className="Diarie_box">
                             <table>
+                            <thead>
+                                <tr class="diaryRow">
+                                    <td>ひづけ</td>
+                                    <td>タイトル</td>
+                                </tr>
+                            </thead>
                                 <tbody>
                                     {parentCheckDiaries.map((diary, index) => {
                                         if (!diary || !diary.date) {
@@ -212,7 +224,7 @@ export default class Diaries extends React.Component {
                                             <tr className="" key={index}>
                                                 <td className="dateOnly">{dateOnly}</td>
                                                 <td className="title">{diary.title}</td>
-                                                <td className="content">{diary.content}</td>
+                                                {/* <td className="content">{diary.content}</td> */}
                                                 <td className="action">
                                                     <button className="Diaries_submit_button" onClick={() => this.UnreadDiarie(index)}>かくにん</button>
                                                 </td>
@@ -231,6 +243,12 @@ export default class Diaries extends React.Component {
                         <TabPanel>
                             <div className="Diarie_box">
                                 <table>
+                                <thead>
+                                    <tr class="diaryRow">
+                                        <td>ひづけ</td>
+                                        <td>タイトル</td>
+                                    </tr>
+                                </thead>
                                     <tbody>
                                         {diaries.map((diary, index) => {
                                             if (!diary || !diary.date) {
@@ -241,9 +259,9 @@ export default class Diaries extends React.Component {
                                                 <tr className="" key={index}>
                                                     <td className="dateOnly">{dateOnly}</td>
                                                     <td className="title">{diary.title}</td>
-                                                    <td className="content">{diary.content}</td>
+                                                    {/* <td className="content">{diary.content}</td> */}
                                                     <td className="action">
-                                                        <button className="Diaries_submit_button" onClick={() => this.LookedDiarie(index)}>かくにん</button>
+                                                        <button className="Diaries_submit_button" onClick={() => this.LookedDiarie(index)}>みる</button>
                                                     </td>
                                                 </tr>
                                             );
@@ -254,7 +272,7 @@ export default class Diaries extends React.Component {
                         </TabPanel>
 
                         <div className="button_container">
-                            <button className="Diaries_regist_button" onClick={() => this.addDiary()}>日記登録</button>
+                            <button className="Diaries_regist_button" onClick={() => this.addDiary()}>にっきとうろく</button>
                         </div>
                     </Tabs>
                 </div>
@@ -264,10 +282,10 @@ export default class Diaries extends React.Component {
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
                             <h1>日記</h1>
-                            <p>ひづけ<br /> {selectedDiary.date ? new Date(selectedDiary.date).toISOString().split('T')[0] : ''}</p>
-                            <p>タイトル<br /> {selectedDiary.title}</p>
-                            <p>ないよう<br /> {selectedDiary.content}</p>
-                            <p>へんしん<br /> {selectedDiary.reply}</p>
+                            <p><br /> {selectedDiary.date ? new Date(selectedDiary.date).toISOString().split('T')[0] : ''}</p>
+                            <p><br /> {selectedDiary.title}</p>
+                            <p><br /> {selectedDiary.content}</p>
+                            <p><br /> {selectedDiary.reply}</p>
                             <button onClick={this.toggleDiceModal}>サイコロをもらう</button>
                         </div>
                     </div>
@@ -317,9 +335,9 @@ export default class Diaries extends React.Component {
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
                             <h1>にっき</h1>
-                            <p>ひづけ<br /> {selectedDiary.date ? new Date(selectedDiary.date).toISOString().split('T')[0] : ''}</p>
-                            <p>タイトル<br /> {selectedDiary.title}</p>
-                            <p>ないよう<br /> {selectedDiary.content}</p>
+                            <p><br /> {selectedDiary.date ? new Date(selectedDiary.date).toISOString().split('T')[0] : ''}</p>
+                            <p><br /> {selectedDiary.title}</p>
+                            <p><br /> {selectedDiary.content}</p>
                             <button onClick={this.toggleSubmitModal}>ていしゅつ</button>
                         </div>
                     </div>
@@ -328,11 +346,11 @@ export default class Diaries extends React.Component {
                 {diaryRegitModal && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
-                            <h1>日記</h1>
+                            <h1>にっき</h1>
                             <input type="text" name="title" onChange={this.onInput} value={title} placeholder="タイトル"></input><br /><br />
-                            <input type="text" name="content" onChange={this.onInput} value={content} placeholder="内容"></input><br /><br />
-                            <button onClick={this.saveDiary}>登録</button>
-                            <button onClick={this.toggleDiaryAddModal}>閉じる</button><br />
+                            <input type="text" className="Diaries_input" name="content" onChange={this.onInput} value={content} placeholder="ないよう"></input><br /><br />
+                            <button onClick={this.saveDiary}>とうろく</button>　　　
+                            <button onClick={this.toggleDiaryAddModal}>とじる</button><br />
                         </div>
                     </div>
                 )}

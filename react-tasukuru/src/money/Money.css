@@ -1,0 +1,83 @@
+
+/* メインコンテナ */
+main {
+   text-align: center;
+   width: 100%;
+   max-width: 1200px; /* 最大幅を設定 */
+   overflow-y: auto; /* 縦方向にスクロールを許可 */
+   box-sizing: border-box; /* パディングとボーダーを含めたサイズ計算 */
+   max-height: 70vh; /* 最大高さを画面の80%に設定（必要に応じて調整） */
+}
+
+/* サポートキャラのスタイル */
+#Money_Support {
+    width: 100%;
+    max-width: 1000px; /* 最大幅を設定 */
+    text-align: center; /* 中央揃え */
+    margin-top: 30px; /* ヘッダーとの間にスペースを追加 */
+}
+
+.money-content button {
+    background-color: #CCE5FF; /* 水色の背景色 */
+    margin-bottom: 20px; 
+    color: #000000; /* ボタンのテキストの色（黒色） */
+    border: none; /* ボーダーをなしにする（必要に応じて変更） */
+    padding: 10px 20px; /* 内側の余白を追加（縦10px、横20px） */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインタにする */
+    font-size: 16px; /* フォントサイズを設定 */
+    transition: background-color 0.3s ease; /* 背景色の変更にトランジション効果を追加 */
+    
+}
+
+.money_overlay{
+    margin-top: 20px;
+  
+  
+  font-family: "Mochiy Pop One", sans-serif;
+}
+
+.close{
+    position: absolute; /* 親要素に対して絶対配置 */
+    
+    right: 10px; /* 右からの距離 */
+    background: none;
+    border: none;
+    font-size: 24px; /* ボタンのフォントサイズ */
+    cursor: pointer; /* ポインタを手に変更 */
+    color: #d3d3d3;/* ボタンの文字色 */
+    transition: color 0.3s; /* ホバー時の色変更にアニメーションを追加 */
+}
+
+
+.money-container {
+    background-color: #C5E6C1;
+    color: #000000; /* テキストの色を白にして背景と対比させる */
+    border: 2px solid #ffffff; /* 白色のボーダーを追加 */
+    padding: 5px; /* 内側の余白を追加 */
+    border-radius: 5px; /* 角を丸くする */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 影を追加して浮き出た感じにする */
+    width: 150px; /* 幅を200pxに設定（必要に応じて調整） */
+    margin: 0 auto; /* 水平方向に中央揃え */
+    margin-bottom: 20px; 
+    
+    
+}
+#Money_List{
+    margin-top: 30px; /* リストとの間に50pxの余白を追加 */
+    padding-top: 30px; /* 要素の上部に30ピクセルの余白を追加 */
+    background-color: #FFF2CC; /* 薄いクリーム色の背景 */
+    width: 300px; /* 幅を300pxに設定（必要に応じて調整） */
+    overflow-y: auto; /* コンテンツが要素の範囲を超える場合に垂直スクロールバーを表示 */
+    margin: 0 auto; /* 上下のマージンは0、左右のマージンは自動で中央揃え */
+    margin-bottom: 50px; /* フッターとの間に50pxの余白を追加 */
+}
+.month-switcher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* ボタンとスパンの間に20pxのスペースを追加 */ 
+}
+.month-switcher button {
+    background-color: #FFE499; /* オレンジ色の背景色 */
+}

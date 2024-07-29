@@ -21,8 +21,9 @@ export default class MoneyChild extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="background_image_renga">
                 <Header />
+            <main>
                 {/* サポートキャラ */}
                 <div id="Money_Support">
                    <MoneySupport  key={this.state.key}/>
@@ -36,15 +37,16 @@ export default class MoneyChild extends React.Component {
                 <br />
 
                  {/* 所持金 */}
-                <div id="Money_CurrentMoney">
+                <div id="Money_CurrentMoney" class="money-container">
                    <MoneyCurrentMoney key={this.state.key}/>
                 </div>
                 
                  {/* お小遣い一覧 */}
-                <div id="Money_List">
-                   <MoneyUseListChild key={this.state.key}/>
+                <div id="Money_List"  class="list-container">
+                   <MoneyUseListChild key={this.state.key} onReloadComponent={this.reloadComponet}/>
                 </div>
-                {/*<Footer />*/}
+                </main>
+                <Footer />
             </div>
         );
     }

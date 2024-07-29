@@ -139,9 +139,9 @@ export default class GuardianDiares extends React.Component {
                                     <table>
                                         <thead>
                                             <tr class="diaryRow">
+                                                {/* <td>KidsID</td> */}
                                                 <td>日時</td>
                                                 <td>タイトル</td>
-                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -149,6 +149,7 @@ export default class GuardianDiares extends React.Component {
                                                 const dateOnly = new Date(diary.date).toISOString().split('T')[0];
                                                 return (
                                                         <tr className="diaryRow" key={index}>
+                                                            {/* <td className="kidsId">{diary.kidsId}</td> */}
                                                             <td className="dateOnly">{dateOnly}</td>
                                                             <td className="title">{diary.title}</td>
                                                             {/* <td className="content">{diary.content}</td>
@@ -184,7 +185,7 @@ export default class GuardianDiares extends React.Component {
                                                             {/* <td className="content">{diary.content}</td>
                                                             <td className="reply">{diary.reply}</td> */}
                                                             <td className="action">
-                                                                <button onClick={() => {this.ackDiary(index)}}>評価</button>
+                                                                <button onClick={() => {this.ackDiary(index)}}>返信</button>
                                                             </td>
                                                         </tr>
                                                     ) : null

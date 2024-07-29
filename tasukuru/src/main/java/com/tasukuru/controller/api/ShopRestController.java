@@ -35,7 +35,7 @@ public class ShopRestController {
     @Autowired
     private KidsUserRepository kidsUserRepository;
     
-    //ログイン処理
+    //
 	@GetMapping("/api/shopchild/")
 	private Optional<KidsUser> get(HttpServletRequest request){
 		HttpSession session = request.getSession();
@@ -106,29 +106,47 @@ public class ShopRestController {
         requestsRepository.deleteById(id);
     }
     
-    // 商品の購入
-    @PostMapping("/api/shop/{shopId}/buy/{kidId}")
-    public Shop buyItem(@PathVariable int shopId, @PathVariable int kidId) {
-        Optional<Shop> optionalShop = shopsRepository.findById(shopId);
-        KidsUser kidsUser = kidsUserRepository.findById(kidId);
 
-        if (optionalShop.isPresent() && kidsUser != null) {
-            Shop shop = optionalShop.get();
+	 // 商品の購入
+	 @PostMapping("/api/shop/{shopId}/buy/{kidId}")
+	 public Shop buyItem(@PathVariable int shopId, @PathVariable int kidId) {
+	     Optional<Shop> optionalShop = shopsRepository.findById(shopId);
+	     KidsUser kidsUser = kidsUserRepository.findById(kidId);
+	
+	     if (optionalShop.isPresent() && kidsUser != null) {
+	         Shop shop = optionalShop.get();
+	
+	         // 子どもの通貨が足りるか確認
+	         if (kidsUser.getMoney() >= shop.getPrice()) {
+	             // 通貨を引く
+	             kidsUser.setMoney(kidsUser.getMoney() - shop.getPrice());
+	             // 商品の状態を更新 (購入済み)
+	             shop.setCondition(false); // conditionをfalseに設定
+	             // 更新を保存
+	             kidsUserRepository.save(kidsUser);
+	             return shopsRepository.save(shop);
+	         } else {
+	             throw new RuntimeException("残高が不足しています");
+	         }
+	     } else {
+	         throw new RuntimeException("商品またはユーザーが見つかりません");
+	     }
+	 }
+    
+	// 購入済み商品の取得
+	 @GetMapping("/api/shopchild/purchased-items")
+	 public List<Shop> getPurchasedItems(HttpServletRequest request) {
+	     HttpSession session = request.getSession();
+	     KidsUser loginUser = (KidsUser) session.getAttribute("KidsUser");
 
-            // 子どもの通貨が足りるか確認
-            if (kidsUser.getMoney() >= shop.getPrice()) {
-                // 通貨を引く
-                kidsUser.setMoney(kidsUser.getMoney() - shop.getPrice());
-                // 商品の状態を更新（販売済みにするなど）
-                shop.setCondition(false);
-                // 更新を保存
-                kidsUserRepository.save(kidsUser);
-                return shopsRepository.save(shop);
-            } else {
-                throw new RuntimeException("残高が不足しています");
-            }
-        } else {
-            throw new RuntimeException("商品またはユーザーが見つかりません");
-        }
-    }
+	     if (loginUser != null) {
+	         int userId = loginUser.getId();
+	         return shopsRepository.findByConditionAndKidId(false, userId);
+	     } else {
+	         throw new RuntimeException("ログインユーザーが見つかりません");
+	     }
+	 }
+
+
+    
 }

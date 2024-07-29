@@ -12,8 +12,8 @@ export default class ShopParent extends React.Component {
         this.state = {
             shops: [],
             requests: [],
-            kidId: 0,
-            money: 0,
+            kidId: "",
+            money: "",
             name: "",
             price: "",
             condition: "",
@@ -121,6 +121,7 @@ export default class ShopParent extends React.Component {
         }));
     }
 
+
     render() {
         const { shops, requests, newItemName, newItemPrice, ItemAddModal, ItemModModal, itemToMod, money } = this.state;
         return (
@@ -168,10 +169,13 @@ export default class ShopParent extends React.Component {
                                     
                                     <TabPanel>
                                         <div className="sold-list">
-                                            <h2>・ポッキー</h2>
-                                            <button onClick={() => this.deleteItem()}>削除</button>
-                                            <h2>・サッカーボール</h2>
-                                            <button onClick={() => this.deleteItem()}>削除</button>
+                                            {shops.filter(shop => !shop.condition).map(shop => (
+                                                <div key={shop.id}> 
+                                                    <h2>・{shop.name} {shop.price}G</h2>
+                                                    <button onClick={() => this.deleteItem(shop.id)}>削除</button>
+                                                </div>
+                                            ))}
+                                            {shops.filter(shop => !shop.condition).length === 0 && <h2>購入済みの商品はありません。</h2>}
                                         </div>
                                     </TabPanel>
                                 </Tabs>

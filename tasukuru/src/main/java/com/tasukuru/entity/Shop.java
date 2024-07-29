@@ -22,6 +22,6 @@ public class Shop {
 	private Integer kidId;
 	private String name;
 	private Integer price;
-	private Boolean condition;
-	
+	private Boolean condition; //trueは出品中、falseは購入済み
+	private Integer userId;
 }
