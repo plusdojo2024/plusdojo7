@@ -37,7 +37,7 @@ export default class MoneyParent extends React.Component  {
 
                {/* お小遣い一覧 */}
                <div id="Money_List">
-                   <MoneyUseList />
+                   <MoneyUseList onReloadComponent={this.reloadComponet}/>
                 </div>
                 
                 </main>
