@@ -25,9 +25,9 @@ export default class MoneyParent extends React.Component  {
             <div className="background_image_renga">
                 <Header />
                 <main>
-               
+                <div className="container">
                 {/* 所持金 */}
-                <div id="Money_CurrentMoney" class="money-container">
+                <div id="Money_CurrentMoney" class="money-containers">
                    <MoneyCurrentMoney key={this.state.key} />
                 </div>
 
@@ -35,9 +35,9 @@ export default class MoneyParent extends React.Component  {
                 <div id="Money_Add">
                    <MoneyAdd onReloadComponent={this.reloadComponet} />
                 </div>
-               
+               </div>
                {/* お小遣い一覧 */}
-               <div id="Money_List">
+               <div id="Money_List"  class="list-container">
                    <MoneyUseList onReloadComponent={this.reloadComponet}/>
                 </div>
                 
@@ -47,4 +47,5 @@ export default class MoneyParent extends React.Component  {
         );
     }
 }
+
 

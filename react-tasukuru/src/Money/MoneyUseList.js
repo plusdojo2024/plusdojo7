@@ -208,7 +208,8 @@ class MoneyUseList　extends React.Component {
 
                 {/* モーダルウィンドウ */}
                 {showModal &&
-                    <div>
+                    <div  className="money_overlay">
+                        <div  className="money-content">
                     <button className="close" onClick={this.toggleModal}>
                         &times;
                     </button>
@@ -239,6 +240,7 @@ class MoneyUseList　extends React.Component {
                         />
                         <br />
                         <button onClick={this.updateMoney}> 更新</button> <button onClick={this.deleteMoney}> 削除</button>
+                        </div>
                     </div>
                 }
  
