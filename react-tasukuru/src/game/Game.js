@@ -96,7 +96,7 @@ export default class Game extends Component {
         return (
             <div id="body">
                 <Header />
-                <main>
+                <div>
                     {/* GameBattleコンポーネントに敵キャラデータを渡す */}
                     <GameBattle currentEnemy={enemies[currentEnemyIndex]} />
                     {/* GameDiceコンポーネントに敵キャラデータと攻撃処理を渡す */}
@@ -106,7 +106,7 @@ export default class Game extends Component {
                             handleAttack={this.handleAttack}
                         />
                     )}
-                </main>
+                </div>
                 <Footer />
             </div>
         );
