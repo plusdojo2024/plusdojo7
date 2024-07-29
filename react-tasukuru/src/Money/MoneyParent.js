@@ -26,7 +26,7 @@ export default class MoneyParent extends React.Component  {
                 <Header />
                 <main>
                 {/* 所持金 */}
-                <div id="Money_CurrentMoney">
+                <div id="Money_CurrentMoney" class="money-container">
                    <MoneyCurrentMoney key={this.state.key} />
                 </div>
 

@@ -72,4 +72,12 @@ main {
     margin: 0 auto; /* 上下のマージンは0、左右のマージンは自動で中央揃え */
     margin-bottom: 50px; /* フッターとの間に50pxの余白を追加 */
 }
-
+.month-switcher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* ボタンとスパンの間に20pxのスペースを追加 */ 
+}
+.month-switcher button {
+    background-color: #FFE499; /* オレンジ色の背景色 */
+}

@@ -85,9 +85,9 @@ class MoneyUseList　extends React.Component {
     renderMonthSwitcher = () => {
         return (
             <div className="month-switcher">
-                <button onClick={this.goToPreviousMonth}>前の月</button>
+                <button onClick={this.goToPreviousMonth}>&lt;</button>
                 <span>{this.formatMonth(this.state.selectedMonth)}</span>
-                <button onClick={this.goToNextMonth}>次の月</button>
+                <button onClick={this.goToNextMonth}>&gt;</button>
             </div>
         );
     }
