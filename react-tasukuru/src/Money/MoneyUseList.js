@@ -22,7 +22,7 @@ class MoneyUseList　extends React.Component {
      //データ取得
     componentDidMount(){
         //学習用にaxiosでなく、標準のfetchを利用している。
-        fetch("/api/money/list")
+        fetch("/api/money/listParent")
         //取得したレスポンスを JSON 形式に変換
         .then(res => res.json())
         //JSON データを取得した後、コンソールにログ出力
