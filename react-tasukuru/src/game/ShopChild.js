@@ -78,6 +78,7 @@ export default class ShopChild extends React.Component {
         });
     }
 
+    //リクエスト処理　※エラーメッセージの表示までテスト済み
     submitRequest = () => {
         const { requestName } = this.state;
         if (requestName) {
@@ -168,8 +169,8 @@ confirmBuy = () => {
                                     {shops.length > 0 ? (
                                         shops.map(shop => (
                                             <div key={shop.id}> 
-                                                <h2>{shop.name} {shop.price}G</h2>
-                                                <button id="buy_button" onClick={() => this.Buy(shop)}>購入する</button>
+                                                <h2 className="ShopChild-sale">{shop.name} {shop.price}G</h2>
+                                                <button id="buy-button" onClick={() => this.Buy(shop)}>購入する</button>
                                             </div>
                                         ))
                                     ) : null}
@@ -181,7 +182,7 @@ confirmBuy = () => {
                                     {shopsItem.length > 0 ? (
                                         shopsItem.map(shop => (
                                             <div key={shop.id}> 
-                                                <h2>{shop.name} {shop.price}G</h2>
+                                                <h2 className="ShopChild-sale">{shop.name} {shop.price}G</h2>
                                             </div>
                                         ))
                                     ) : null}
@@ -198,8 +199,8 @@ confirmBuy = () => {
                                     <div id="ShopChildcontent">
                                         商品名<br />
                                         <input type="text" value={requestName} onChange={this.RequestChange} /><br />
-                                        <button onClick={this.submitRequest}>送信</button><br />
-                                        <button onClick={() => this.toggleRequestModal()}>閉じる</button>
+                                        <button className="ShopChildsubmit-button" onClick={this.submitRequest}>送信</button><br />
+                                        <button className="ShopChildclose-button" onClick={() => this.toggleRequestModal()}>閉じる</button>
                                     </div>
                                 </div>
                             )}
@@ -207,8 +208,8 @@ confirmBuy = () => {
                             {BuyModal && selectedItem && (
                                 <div id="ShopChildoverlay">
                                     <div id="ShopChildcontent">
-                                        <h1 className="gold">{money}G</h1>
-                                        <p>{selectedItem.name} {selectedItem.price}G</p><br />
+                                        <h1 className="ShopChildgold">{money}G</h1>
+                                        <p>{selectedItem.name}  {selectedItem.price}G</p><br />
                                         <button onClick={this.confirmBuy}>購入確定</button><br />
                                         <br />
                                         <button onClick={() => this.toggleBuyModal()}>閉じる</button>

@@ -1,7 +1,6 @@
 .gold{
 
-    height:60px;
-    width:200px;
+    width:160px;
     margin: auto;
     text-align:center;
     margin-top:30px;
@@ -28,8 +27,6 @@
     width:50%;
     padding: 1em;
     background:#fff;
-    text-align: left;
-    padding-left: 5em;
     text-align:center;
 }
 
@@ -50,6 +47,7 @@
 
 #request_button{
     background-color: aqua;
+    margin-top:10px;
 }
 
 
@@ -68,4 +66,16 @@
 .react-tabs__tab--selected {
     background-color: lightgreen;
     color: #fff;
+}
+
+.ShopChildsubmit-button, .ShopChildclose-button{
+    margin-top:10px;
+}
+
+.ShopChildgold {
+    margin-bottom:1rem;
+}
+
+.ShopChild-sale, #buy-button{
+    margin-top:5px;
 }
