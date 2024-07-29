@@ -17,6 +17,18 @@ main {
     margin-top: 30px; /* ヘッダーとの間にスペースを追加 */
 }
 
+.money-content button {
+    background-color: #CCE5FF; /* 水色の背景色 */
+    margin-bottom: 20px; 
+    color: #000000; /* ボタンのテキストの色（黒色） */
+    border: none; /* ボーダーをなしにする（必要に応じて変更） */
+    padding: 10px 20px; /* 内側の余白を追加（縦10px、横20px） */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインタにする */
+    font-size: 16px; /* フォントサイズを設定 */
+    transition: background-color 0.3s ease; /* 背景色の変更にトランジション効果を追加 */
+    
+}
 
 .money_overlay{
     margin-top: 20px;
@@ -39,21 +51,25 @@ main {
 
 
 .money-container {
-    background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒背景 */
-    color: #ffffff; /* テキストの色を白にして背景と対比させる */
+    background-color: #C5E6C1;
+    color: #000000; /* テキストの色を白にして背景と対比させる */
     border: 2px solid #ffffff; /* 白色のボーダーを追加 */
     padding: 5px; /* 内側の余白を追加 */
     border-radius: 5px; /* 角を丸くする */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 影を追加して浮き出た感じにする */
     width: 150px; /* 幅を200pxに設定（必要に応じて調整） */
     margin: 0 auto; /* 水平方向に中央揃え */
-    position: absolute; /* 絶対位置指定 */
-    left: 50%; /* 横方向の中央揃え */
-    transform: translate(-50%, -50%); /* 自身の幅と高さを考慮して正確に中央に配置 */
+    margin-bottom: 20px; 
+    
+    
 }
 #Money_List{
+    margin-top: 30px; /* リストとの間に50pxの余白を追加 */
     padding-top: 30px; /* 要素の上部に30ピクセルの余白を追加 */
+    background-color: #FFF2CC; /* 薄いクリーム色の背景 */
+    width: 300px; /* 幅を300pxに設定（必要に応じて調整） */
+    overflow-y: auto; /* コンテンツが要素の範囲を超える場合に垂直スクロールバーを表示 */
+    margin: 0 auto; /* 上下のマージンは0、左右のマージンは自動で中央揃え */
+    margin-bottom: 50px; /* フッターとの間に50pxの余白を追加 */
 }
-.list-container{
-    background-color:#ffffff
-    } 
+
