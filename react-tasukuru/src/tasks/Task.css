@@ -22,8 +22,9 @@ main {
 }
 
 .color_button {
-  width: 20px;
-  height: 20px;
+  font-family: "Mochiy Pop One", sans-serif;
+  width: 45px;
+  height: 25px;
   margin-bottom: 10px;
 }
 
