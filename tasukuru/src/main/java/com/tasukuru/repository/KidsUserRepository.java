@@ -16,7 +16,7 @@ public interface KidsUserRepository extends JpaRepository<KidsUser, Integer> {
 	
 	void save(Optional<KidsUser> kidsUser);
 	
-    // 家族IDとパスワードを基にユーザーを検索するメソッド
+    // 家族IDとなまえを基にユーザーを検索するメソッド
 	KidsUser findByFamilyIdAndName(String familyID, String kidsName);
 
 }
