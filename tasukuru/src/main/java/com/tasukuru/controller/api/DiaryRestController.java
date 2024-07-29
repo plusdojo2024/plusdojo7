@@ -24,21 +24,22 @@ public class DiaryRestController {
 	private Iterable<Diary> get() {
 			return repository.findAll();
 	}
-//	@GetMapping("/api/diary/")
-//	private Iterable<Diary> get(HttpServletRequest request) {
-//		HttpSession session = request.getSession();
-//		//セッションからログインしているKidsUser情報を取得
-//		Diary loginUser = (KidsUser)session.getAttribute("KidsUser");
-//		
-//		if(loginUser != null) {		//ここから絞り込むコード
-//			//ログインしているユーザーのIDを取得
-//			int userId = loginUser.getId();
-//			//ユーザーIDに一致するタスクを取得して返す
-//			return repository.findByKidsId(userId);
-//		}else {
-//			return List.of();
-//		}
-//	}
+	/*
+	@GetMapping("/api/diary/")	private Iterable<Diary> get(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
+		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		
+		if(loginUser != null) {		//ここから絞り込むコード
+			//ログインしているユーザーのIDを取得
+			int userId = loginUser.getId();
+			//ユーザーIDに一致する日記を取得して返す
+			return repository.findByKidsId(userId);
+		}else {
+			return List.of();
+		}
+	}
+	*/
 	
 	@PostMapping("/api/diary/diaryAdd/")
 	private Diary addDiary(@RequestBody Diary diary) {
