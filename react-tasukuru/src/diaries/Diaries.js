@@ -7,18 +7,20 @@ import axios from "axios";
 import Header from "../foundation/Header";
 import Footer from "../foundation/Footer";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import GuardianDiaries from "./GuardianDiaries"; 
 
 export default class Diaries extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             diaries: [],
-            selectedDiary: null, // 日記の選択を保存するやつ
+            selectedDiary: null,
             UnreadDiarieModal: false,
             LookedDiarieModal: false,
             GetDiceModal: false,
             GuardianUnreadDiarieModal: false,
             SubmitModal: false,
+            diaryRegitModal: false,
         };
 
         this.UnreadDiarie = this.UnreadDiarie.bind(this);
@@ -26,169 +28,142 @@ export default class Diaries extends React.Component {
         this.GetDice = this.GetDice.bind(this);
         this.GuardianUnreadDiarie = this.GuardianUnreadDiarie.bind(this);
         this.SubmitDiarie = this.SubmitDiarie.bind(this);
-
         this.toggleUnreadModal = this.toggleUnreadModal.bind(this);
         this.toggleLookedModal = this.toggleLookedModal.bind(this);
         this.toggleDiceModal = this.toggleDiceModal.bind(this);
         this.toggleGuardianUnreadDiarieModal = this.toggleGuardianUnreadDiarieModal.bind(this);
         this.toggleSubmitModal = this.toggleSubmitModal.bind(this);
+        this.toggleDiaryAddModal = this.toggleDiaryAddModal.bind(this);
+        this.onInput = this.onInput.bind(this);
+        this.saveDiary = this.saveDiary.bind(this);
     }
 
     componentDidMount() {
         fetch("/api/diary/")
         .then(res => res.json())
         .then(json => {
-            console.log(json);
-            //日記をstatusフィールドに追加 → 初期化
-            const updateDiaries = json.map(diary => ({ ...diary, status: "all"}));//allが初期状態 "...はスプレッド構文。メモにリンクあり"
-            this.setState({
-                diaries: updateDiaries//setStateをupdatedDiariesで更新する
-            });
+            const updateDiaries = json.map(diary => ({ ...diary, status: "all" }));
+            this.setState({ diaries: updateDiaries });
         });
     }
 
-    //未読日記処理
     UnreadDiarie(index) {
         const { diaries } = this.state;
         const selectedDiary = diaries[index];
         selectedDiary.childCheck = true;
-        axios.post("/api/diary/diaryMod/",selectedDiary)
+        axios.post("/api/diary/diaryMod/", selectedDiary)
             .then(response => {
-                console.log("既読にしました",response.data);
+                console.log("APIレスポンス:", response.data);
                 this.componentDidMount();
             })
             .catch(error => {
                 console.error("既読のエラーが発生しました:", error);
             });
-        this.toggleUnreadModal({ selectedDiary }, this.toggleUnreadModal);
+        this.setState({ selectedDiary }, this.toggleUnreadModal);
     }
-    //既読日記処理
+
     LookedDiarie(index) {
         const { diaries } = this.state;
         const selectedDiary = diaries[index];
         this.toggleLookedModal({ selectedDiary }, this.toggleLookedModal);
     }
-    //サイコロ入手処理
+
     GetDice(index) {
         const { diaries } = this.state;
         const selectedDiary = diaries[index];
-        axios.post("/api/diary/diaryMod/",selectedDiary)
+        selectedDiary.childCheck = true;
+        axios.post("/api/diary/diaryMod/", selectedDiary)
             .then(response => {
                 axios.put(`/api/kidsUser/incrementDiceCount/${selectedDiary.kidsId}`)
-                    .then(response =>{
-                    console.log("サイコロ１増え",response.data);
-                    this.toggleDiceModal();
-                    this.componentDidMount();
-                })
+                    .then(response => {
+                        this.setState({ GetDiceModal: true, selectedDiary: selectedDiary  })
+                        this.componentDidMount();
+                    })
             })
             .catch(error => {
                 console.error("サイコロ増えず", error);
             });
-        
     }
-    //保護者用未読日記処理
+
     GuardianUnreadDiarie(index) {
         const { diaries } = this.state;
         const selectedDiary = diaries[index];
         this.setState({ selectedDiary }, this.toggleGuardianUnreadDiarieModal);
     }
-    //日記提出処理
+
     SubmitDiarie(index) {
         const { diaries } = this.state;
         const selectedDiary = diaries[index];
         let updatedDiaries = [...diaries];
-        updatedDiaries[index].doSubmit = true; // doSubmit を true に設定
+        updatedDiaries[index].doSubmit = true;
         this.setState({ diaries: updatedDiaries, selectedDiary }, this.toggleSubmitModal);
-        console.log("Submitting diary:", updatedDiaries[index]); // デバッグ用のログ出力
         axios.post("/api/diary/diaryMod/", updatedDiaries[index])
             .then(response => {
-                console.log("日記提出", response.data);
-                this.componentDidMount(); // サーバから最新のデータを再取得
+                this.componentDidMount();
             })
             .catch(error => {
                 console.error("日記提出中にエラーが発生しました:", error);
             });
     }
-    //画面で何か入力された時に、その値をstateとして保持する。
-    onInput = (e) => {
+
+    onInput(e) {
         const name = e.target.name;
-        this.setState({
-            [name]: e.target.value
-        });
-    }
-    //日記登録
-    addDiary = () => {
-        this.toggleDiaryAddModal();
-    }
-    //日記をデータベースへ保存する処理
-    saveDiary = () => {
-        const {diaries,title,content} = this.state;
-        const data = {title : title, content : content};
-        axios.post("/api/diary/diaryAdd/",data)
-        .then(json =>{
-            this.toggleDiaryAddModal();
-            this.componentDidMount();
-        })
+        this.setState({ [name]: e.target.value });
     }
 
-    //未読モーダルウィンドウ表示切り替え
+    addDiary() {
+        this.toggleDiaryAddModal();
+    }
+
+    saveDiary() {
+        const { title, content } = this.state;
+        const data = { title, content };
+        axios.post("/api/diary/diaryAdd/", data)
+            .then(json => {
+                this.toggleDiaryAddModal();
+                this.componentDidMount();
+            });
+    }
+
     toggleUnreadModal() {
         const { UnreadDiarieModal } = this.state;
-        this.setState({
-            UnreadDiarieModal: !UnreadDiarieModal,
-        });
+        this.setState({ UnreadDiarieModal: !UnreadDiarieModal });
     }
-    //既読モーダルウィンドウ表示切り替え
+
     toggleLookedModal() {
         const { LookedDiarieModal } = this.state;
-        this.setState({
-            LookedDiarieModal: !LookedDiarieModal,
-        });
+        this.setState({ LookedDiarieModal: !LookedDiarieModal });
     }
-    //サイコロ入手表示切り替え
+
     toggleDiceModal() {
         const { GetDiceModal } = this.state;
-        this.setState({
-            GetDiceModal: !GetDiceModal,
-        }, () => {
-            if (!GetDiceModal){
-                this.setState({ LookedDiarieModal: false, UnreadDiarieModal: false});
-            }
-        });
+        this.setState({ GetDiceModal: !GetDiceModal });
     }
-    //保護者用日記表示切り替え
+
     toggleGuardianUnreadDiarieModal() {
         const { GuardianUnreadDiarieModal } = this.state;
-        this.setState({
-            GuardianUnreadDiarieModal: !GuardianUnreadDiarieModal,
-        });
+        this.setState({ GuardianUnreadDiarieModal: !GuardianUnreadDiarieModal });
     }
-    //提出日記表示切り替え
+
     toggleSubmitModal() {
         const { SubmitModal } = this.state;
-        this.setState({
-            SubmitModal: !SubmitModal,
-        });
+        this.setState({ SubmitModal: !SubmitModal });
     }
-    //日記登録モデルボックスの表示切り替え
-    toggleDiaryAddModal = () => {
-        const{diaryRegitModal} = this.state;
-        this.setState({
-            diaryRegitModal: !diaryRegitModal
-        });
+
+    toggleDiaryAddModal() {
+        const { diaryRegitModal } = this.state;
+        this.setState({ diaryRegitModal: !diaryRegitModal });
     }
 
     render() {
-        const {diaries, title, content, selectedDiary, UnreadDiarieModal, LookedDiarieModal, GetDiceModal, GuardianUnreadDiarieModal, SubmitModal, diaryRegitModal } = this.state;
-        const allDiaries = diaries.filter(diary => diary.status === 'all');
-        const parentCheckDiaries = diaries.filter(diary => diary.doSubmit === true && diary.parentCheck === true);
+        const { diaries, title, content, selectedDiary, UnreadDiarieModal, LookedDiarieModal, GetDiceModal, GuardianUnreadDiarieModal, SubmitModal, diaryRegitModal } = this.state;
+        const allDiaries = diaries.filter(diary => diary.doSubmit === false);
+        const parentCheckDiaries = diaries.filter(diary => diary.parentCheck === true && diary.childCheck === false) ;
 
-        
         return (
             <div className="background_image_renga_diaries">
                 <div className="Diaries_background"></div>
                 <Header />
-                {/*日記リストの表示*/}
                 <div id="Diaries_body">
                     <Tabs>
                         <TabList className="Tab_diarie_list">
@@ -196,61 +171,85 @@ export default class Diaries extends React.Component {
                             <Tab>みどく</Tab>
                             <Tab>きどく</Tab>
                         </TabList>
-                        
+
                         {/* 日記一覧リスト・・・提出するためのタブ */}
                         <TabPanel>
                             <div className="Diarie_box">
-                            {allDiaries.map((diary, index) => {
-                                const dateOnly = new Date(diary.date).toISOString().split('T')[0];
-                                return (
-                                    <tr className="" key={index}>
-                                        <td className="dateOnly">{dateOnly}</td>
-                                        <td className="title">{diary.title}</td>
-                                        <td className="content">{diary.content}</td>
-                                        <td className="action">
-                                        <button className="Diaries_submit_button" onClick={() => this.SubmitDiarie(index)}>ていしゅつ</button>
-                                        </td>
-                                    </tr>
-                                );
-                            })} 
+                                <table>
+                                    <tbody>
+                                        {allDiaries.map((diary, index) => {
+                                            if (!diary || !diary.date) {
+                                                return null;
+                                            }
+                                            const dateOnly = new Date(diary.date).toISOString().split('T')[0];
+                                            return (
+                                                <tr className="" key={index}>
+                                                    <td className="dateOnly">{dateOnly}</td>
+                                                    <td className="title">{diary.title}</td>
+                                                    <td className="content">{diary.content}</td>
+                                                    <td className="action">
+                                                        <button className="Diaries_submit_button" onClick={() => this.SubmitDiarie(index)}>ていしゅつ</button>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
                             </div>
                         </TabPanel>
 
                         {/* 未読日記リスト・・・サイコロをもらうためのタブ */}
                         <TabPanel>
-                            <div className="Diarie_box">
-                            {parentCheckDiaries.map((diary, index) => {
-                                const dateOnly = new Date(diary.date).toISOString().split('T')[0];
-                                return (
-                                    <tr className="" key={index}>
-                                        <td className="dateOnly">{dateOnly}</td>
-                                        <td className="title">{diary.title}</td>
-                                        <td className="content">{diary.content}</td>
-                                        <td className="action">
-                                        <button className="Diaries_submit_button" onClick={() => this.UnreadDiarie(index)}>かくにん</button>
-                                        </td>
-                                    </tr>
-                                );
-                            })} 
-                            </div>
-                        </TabPanel>
+                        <div className="Diarie_box">
+                            <table>
+                                <tbody>
+                                    {parentCheckDiaries.map((diary, index) => {
+                                        if (!diary || !diary.date) {
+                                            return null;
+                                        }
+                                        const dateOnly = new Date(diary.date).toISOString().split('T')[0];
+                                        return (
+                                            <tr className="" key={index}>
+                                                <td className="dateOnly">{dateOnly}</td>
+                                                <td className="title">{diary.title}</td>
+                                                <td className="content">{diary.content}</td>
+                                                <td className="action">
+                                                    <button className="Diaries_submit_button" onClick={() => this.UnreadDiarie(index)}>かくにん</button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    </TabPanel>
+
+
+
 
                         {/* 既読日記リスト・・・サイコロをもらった後のタブ */}
                         <TabPanel>
                             <div className="Diarie_box">
-                            {diaries.map((diary, index) => {
-                                const dateOnly = new Date(diary.date).toISOString().split('T')[0];
-                                return (
-                                    <tr className="" key={index}>
-                                        <td className="dateOnly">{dateOnly}</td>
-                                        <td className="title">{diary.title}</td>
-                                        <td className="content">{diary.content}</td>
-                                        <td className="action">
-                                        <button className="Diaries_submit_button" onClick={() => this.LookedDiarie(index)}>かくにん</button>
-                                        </td>
-                                    </tr>
-                                );
-                            })} 
+                                <table>
+                                    <tbody>
+                                        {diaries.map((diary, index) => {
+                                            if (!diary || !diary.date) {
+                                                return null;
+                                            }
+                                            const dateOnly = new Date(diary.date).toISOString().split('T')[0];
+                                            return (
+                                                <tr className="" key={index}>
+                                                    <td className="dateOnly">{dateOnly}</td>
+                                                    <td className="title">{diary.title}</td>
+                                                    <td className="content">{diary.content}</td>
+                                                    <td className="action">
+                                                        <button className="Diaries_submit_button" onClick={() => this.LookedDiarie(index)}>かくにん</button>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
                             </div>
                         </TabPanel>
 
@@ -260,27 +259,26 @@ export default class Diaries extends React.Component {
                     </Tabs>
                 </div>
 
-                {/*未読日記モーダル 。まだテストデータ入れてるだけ*/}
+                {/*未読日記モーダル */}
                 {UnreadDiarieModal && selectedDiary && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
                             <h1>日記</h1>
-                            <p>ひづけ<br /> {new Date(selectedDiary.date).toISOString().split('T')[0]}</p>
+                            <p>ひづけ<br /> {selectedDiary.date ? new Date(selectedDiary.date).toISOString().split('T')[0] : ''}</p>
                             <p>タイトル<br /> {selectedDiary.title}</p>
                             <p>ないよう<br /> {selectedDiary.content}</p>
                             <p>へんしん<br /> {selectedDiary.reply}</p>
                             <button onClick={this.toggleDiceModal}>サイコロをもらう</button>
                         </div>
-                        
                     </div>
                 )}
 
-                {/*既読日記モーダル。まだテストデータ入れてるだけ*/}
+                {/*既読日記モーダル */}
                 {LookedDiarieModal && selectedDiary && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
                             <h1>日記</h1>
-                            <p>日付<br /> {new Date(selectedDiary.date).toISOString().split('T')[0]}</p>
+                            <p>日付<br /> {selectedDiary.date ? new Date(selectedDiary.date).toISOString().split('T')[0] : ''}</p>
                             <p>タイトル<br /> {selectedDiary.title}</p>
                             <p>内容<br /> {selectedDiary.content}</p>
                             <p>へんしん<br /> {selectedDiary.reply}</p>
@@ -289,37 +287,37 @@ export default class Diaries extends React.Component {
                     </div>
                 )}
 
-                {/*サイコロ入手モーダル*/}
+                {/*サイコロ入手モーダル */}
                 {GetDiceModal && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
                             サイコロを手にいれたよ！<br />
-                            <button onClick={() => { this.toggleDiceModal(); }}>とじる</button><br />
+                            <button onClick={() => { this.toggleDiceModal(); this.toggleUnreadModal(); }}>とじる</button><br />
                         </div>
                     </div>
-                )} 
+                )}
 
-                {/* 保護者用日記モーダル*/}
-                {GuardianUnreadDiarieModal && (
+                {/* 保護者用日記モーダル */}
+                {GuardianUnreadDiarieModal && selectedDiary && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
                             <button onClick={this.toggleGuardianUnreadDiarieModal}>とじる</button><br />
                             <h1>日記</h1>
-                            <p>日付<br /> {new Date(selectedDiary.date).toISOString().split('T')[0]}</p>
+                            <p>日付<br /> {selectedDiary.date ? new Date(selectedDiary.date).toISOString().split('T')[0] : ''}</p>
                             <p>タイトル<br /> {selectedDiary.title}</p>
                             <p>内容<br /> {selectedDiary.content}</p>
                             <input type="text" className="Diaries_input" placeholder="返信内容"></input><br />
                             <button className="Diaries_read_button" onClick={this.toggleGuardianUnreadDiarieModal}>既読にする</button>
                         </div>
                     </div>
-                )} 
+                )}
 
                 {/* 日記の提出モーダル */}
                 {SubmitModal && selectedDiary && (
                     <div id="Diaries_overlay">
                         <div id="Diaries_content">
                             <h1>にっき</h1>
-                            <p>ひづけ<br /> {new Date(selectedDiary.date).toISOString().split('T')[0]}</p>
+                            <p>ひづけ<br /> {selectedDiary.date ? new Date(selectedDiary.date).toISOString().split('T')[0] : ''}</p>
                             <p>タイトル<br /> {selectedDiary.title}</p>
                             <p>ないよう<br /> {selectedDiary.content}</p>
                             <button onClick={this.toggleSubmitModal}>ていしゅつ</button>
@@ -333,22 +331,17 @@ export default class Diaries extends React.Component {
                             <h1>日記</h1>
                             <input type="text" name="title" onChange={this.onInput} value={title} placeholder="タイトル"></input><br /><br />
                             <input type="text" name="content" onChange={this.onInput} value={content} placeholder="内容"></input><br /><br />
-                            <button onClick={this.saveDiary} >登録</button>
-                            <button onClick={this.toggleDiaryAddModal} >閉じる</button><br />
+                            <button onClick={this.saveDiary}>登録</button>
+                            <button onClick={this.toggleDiaryAddModal}>閉じる</button><br />
                         </div>
                     </div>
                 )}
-            <Footer />
-            {/* モーダルウィンドウ確認ボタン */}
-            {/*
-            <button onClick={() => this.UnreadDiarie()}>未読日記</button> 
-            <button onClick={() => this.LookedDiarie()}>既読日記</button><br />
-            <button onClick={() => this.GuardianUnreadDiarie()}>保護者用未読日記</button><br />
-            */}
+                <Footer />
             </div>
         );
     }
 }
+
 //-------------------------------------------------------
 //memo
 //-------------------------------------------------------
@@ -358,7 +351,8 @@ export default class Diaries extends React.Component {
 子が提出→親未読＆子未読→返信→子供未読→サイコロもらう→子供既読
 流れがおかしくなっている→一応動くので優先度低め
 日記のデータがずれている→テストデータのせいでずれていたので解決
-
+7/28
+上記問題解決
 
 参考になりそうなページ
 スプレッド構文

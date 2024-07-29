@@ -1,15 +1,17 @@
 import React from 'react';
+import NavigationButton from '../tasks/NavigationButton';
 import './Footer.css';
-export default class Footer extends React.Component{
-    render(){
-        return(
+
+export default class Footer extends React.Component {
+    render() {
+        return (
             <div className="footer">
                 <div className="footer_allicons">
-                    <img className="footer_icon"src="../images/1415.png" alt="タスク"></img>
-                    <img className="footer_icon"src="../images/849.png" alt="おこづかい"></img>
-                    <img className="footer_icon"src="../images/ic060.png" alt="ゲーム"></img>
+                    <NavigationButton path="/task" label={<img className="footer_icon" src="../images/1415.png" alt="タスク" />} className="footer_button" />
+                    <NavigationButton path="/money/child" label={<img className="footer_icon" src="../images/849.png" alt="おこづかい" />} className="footer_button" />
+                    <NavigationButton path="/game" label={<img className="footer_icon" src="../images/ic060.png" alt="ゲーム" />} className="footer_button" />
                 </div>
             </div>
-        )
+        );
     }
 }

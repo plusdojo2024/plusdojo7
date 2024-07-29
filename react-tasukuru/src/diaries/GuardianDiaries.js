@@ -100,7 +100,8 @@ export default class GuardianDiares extends React.Component {
             title:showTitle, content:showContent,
             reply: showReply,
             date:showDate,
-            parentCheck:true
+            parentCheck:true,
+            doSubmit:true
         }
         axios.post("/api/diary/diaryMod/",data)
         .then(json => {
