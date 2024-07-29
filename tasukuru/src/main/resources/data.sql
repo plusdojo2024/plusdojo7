@@ -65,10 +65,10 @@ INSERT INTO requests (kid_id, name) VALUES (1, 'まんが');
 
 --敵情報
 INSERT INTO enemies (id, hp, drop, name, image) VALUES (1, 30, 200, 'スライム', '../images/character_monster_slime_purple.png');
-INSERT INTO enemies (id, hp, drop, name, image) VALUES (2, 100, 450, 'マミー', '../images/character_monster_mummy_red.png');
-INSERT INTO enemies (id, hp, drop, name, image) VALUES (3, 180, 750, '死神', '../images/character_monster_shinigami.png');
-INSERT INTO enemies (id, hp, drop, name, image) VALUES (4, 250, 1250, 'ドラゴン', '../images/character_monster_dragon_01_red.png');
-INSERT INTO enemies (id, hp, drop, name, image) VALUES (5, 500, 2500, '魔王', '../images/character_monster_mao_01.png');
+INSERT INTO enemies (id, hp, drop, name, image) VALUES (2, 100, 750, 'マミー', '../images/character_monster_mummy_red.png');
+INSERT INTO enemies (id, hp, drop, name, image) VALUES (3, 180, 1500, '死神', '../images/character_monster_shinigami.png');
+INSERT INTO enemies (id, hp, drop, name, image) VALUES (4, 250, 2000, 'ドラゴン', '../images/character_monster_dragon_01_red.png');
+INSERT INTO enemies (id, hp, drop, name, image) VALUES (5, 500, 5000, '魔王', '../images/character_monster_mao_01.png');
 
 --キャラクター情報
 INSERT INTO characters (id, character_image, effect_image) VALUES (1, '../images/character_yusha_01_red.png', 'kogeki_cut_02.png');

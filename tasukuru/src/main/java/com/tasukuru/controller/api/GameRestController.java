@@ -121,6 +121,12 @@ public class GameRestController {
 			
 			kidsUser.setEnemieHp(enemy.getHp());
 			
+			Enemie dropEnemy = enemiesRepository.findById(enemy_id-1)
+        			.orElseThrow(() -> new IllegalArgumentException("Enemy not found"));
+			int currentMoney = kidsUser.getMoney();
+			int plusMoney = currentMoney + dropEnemy.getDrop();
+			kidsUser.setMoney(plusMoney);
+			
 		} else {
 			//敵を倒していない
 			//enempy_idは更新しない、hpは更新する
