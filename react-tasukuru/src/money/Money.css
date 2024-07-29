@@ -31,6 +31,6 @@ main {
     border: none;
     font-size: 24px; /* ボタンのフォントサイズ */
     cursor: pointer; /* ポインタを手に変更 */
-    color: #333; /* ボタンの文字色 */
+    color: #d3d3d3;/* ボタンの文字色 */
     transition: color 0.3s; /* ホバー時の色変更にアニメーションを追加 */
 }

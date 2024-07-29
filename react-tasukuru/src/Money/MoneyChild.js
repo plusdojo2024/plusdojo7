@@ -44,7 +44,7 @@ export default class MoneyChild extends React.Component {
                 <div id="Money_List">
                    <MoneyUseListChild key={this.state.key}/>
                 </div>
-                {/*<Footer />*/}
+                <Footer />
             </div>
         );
     }
