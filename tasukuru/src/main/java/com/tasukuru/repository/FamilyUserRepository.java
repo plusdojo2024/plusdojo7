@@ -10,4 +10,8 @@ public interface FamilyUserRepository extends JpaRepository<FamilyUser, String> 
 
     // 家族IDとパスワードを基にユーザーを検索するメソッド
 	FamilyUser findByFamilyIdAndPass(String familyID, String password);
+	
+    // 家族IDとなまえを基にユーザーを検索するメソッド
+	FamilyUser findByFamilyId(String familyID);
+	
 }

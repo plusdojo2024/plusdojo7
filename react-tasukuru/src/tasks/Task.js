@@ -13,6 +13,7 @@ function Tasks() {
   const [showReRegModal, setShowReRegModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [activeTab, setActiveTab] = useState('noComplete');
+  const [activeCategory, setActiveCategory] = useState('ALL');
   const [newTask, setNewTask] = useState({
     name: "",
     categoriesName: "",
@@ -172,17 +173,22 @@ function Tasks() {
       });
   };
 
+  const filteredTasks = tasks.filter(task =>
+    activeCategory === 'ALL' || task.categoriesName === activeCategory
+  );
+
   return (
     <div>
       <Header />
       <main>
         <div className="background_image_renga">
-          {/* <div className="color_buttons">
-            <button className="color_button" style={{ backgroundColor: '#F8CECC' }}></button>
-            <button className="color_button" style={{ backgroundColor: '#FFF2CC' }}></button>
-            <button className="color_button" style={{ backgroundColor: '#DAE8FC' }}></button>
-            <button className="color_button" style={{ backgroundColor: '#D5E8D4' }}></button>
-          </div> */}
+          <div className="color_buttons">
+            <button className="color_button" style={{ backgroundColor: 'gray' }} onClick={() => setActiveCategory('ALL')}>全て</button>
+            <button className="color_button" style={{ backgroundColor: '#F8CECC' }} onClick={() => setActiveCategory('勉強')}>勉強</button>
+            <button className="color_button" style={{ backgroundColor: '#FFF2CC' }} onClick={() => setActiveCategory('家事')}>家事</button>
+            <button className="color_button" style={{ backgroundColor: '#DAE8FC' }} onClick={() => setActiveCategory('趣味')}>趣味</button>
+            <button className="color_button" style={{ backgroundColor: '#D5E8D4' }} onClick={() => setActiveCategory('運動')}>運動</button>
+          </div>
           <div className="background">
             <Tabs>
               <TabList className="TabList">
@@ -193,7 +199,7 @@ function Tasks() {
 
               <TabPanel>
                 <div className="box">
-                  {tasks.filter(task => !task.taskCheck && !task.noComplete && !task.complete && !task.miss).map(task => (
+                  {filteredTasks.filter(task => !task.taskCheck && !task.noComplete && !task.complete && !task.miss).map(task => (
                     <button key={task.id} className="task_button" style={{ backgroundColor: getButtonColor(task.categoriesName) }} onClick={() => handleTaskClick(task)}>{task.name}</button>
                   ))}
                 </div>
@@ -205,7 +211,7 @@ function Tasks() {
 
               <TabPanel>
                 <div className="box">
-                  {tasks.filter(task => task.taskCheck && task.noComplete && task.complete && !task.miss).map(task => (
+                  {filteredTasks.filter(task => task.taskCheck && task.noComplete && task.complete && !task.miss).map(task => (
                     <button key={task.id} className="task_button" style={{ backgroundColor: getButtonColor(task.categoriesName) }} onClick={() => handleTaskClick(task)}>{task.name}</button>
                   ))}
                 </div>
@@ -217,7 +223,7 @@ function Tasks() {
 
               <TabPanel>
                 <div className="box">
-                  {tasks.filter(task => task.miss).map(task => (
+                  {filteredTasks.filter(task => task.miss).map(task => (
                     <button key={task.id} className="task_button" style={{ backgroundColor: getButtonColor(task.categoriesName) }} onClick={() => handleTaskClick(task)}>{task.name}</button>
                   ))}
                 </div>

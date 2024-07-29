@@ -3,6 +3,7 @@
   justify-content: center; /* 横方向（X軸）に中央揃え */
   align-items: center; /* 縦方向（Y軸）に中央揃え */
   height: 100vh; /* 画面全体の高さを占める */
+  background-color: aliceblue;
 }
 
 .start {

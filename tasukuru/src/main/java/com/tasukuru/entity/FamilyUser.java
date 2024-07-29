@@ -24,5 +24,5 @@ public class FamilyUser {
 	private String familyId;
 	private String mail;
 	private String pass;
-
+	private Integer selectedKidId;
 }

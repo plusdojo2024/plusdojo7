@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tasukuru.entity.Character;
 import com.tasukuru.entity.KidsUser;
-import com.tasukuru.entity.Task;
 import com.tasukuru.repository.CharactersRepository;
-import com.tasukuru.repository.TaskRepository;
+import com.tasukuru.repository.KidsUserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -25,7 +24,7 @@ public class CharacterRestController {
 	private CharactersRepository charactersrepository;
 	
 	@Autowired
-	private TaskRepository taskrepository;
+	private KidsUserRepository kidsuserrepository;
 	
 	@GetMapping("/api/mypage/")
 	private Optional<Character> get(HttpServletRequest request){
@@ -34,9 +33,13 @@ public class CharacterRestController {
 		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
 		
 		if(loginUser != null) {		//ここから絞り込むコード
-			//ログインしているユーザーのIDを取得
-			int characterId = loginUser.getCharacterId();
-			//ユーザーIDに一致するタスクを取得して返す
+			int loginUser_id = loginUser.getId();	//ログインしているIDがとれた
+			
+			//KidsUserRepositoryを使って、今のデータベースの情報を取込しなおす。
+			KidsUser nowKidsUser = kidsuserrepository.findById(loginUser_id); 
+			//sessonから取り出したインスタンスではんく、KidsUserRepositoryで取得した値に書き換える
+			int characterId = nowKidsUser.getCharacterId();
+			
 			return charactersrepository.findById(characterId);
 		} else {
 			//ログインしていない場合、空のリストを返す
@@ -55,15 +58,28 @@ public class CharacterRestController {
 	
 	//スキン変更
 	@PostMapping("/api/mypage/skin/mod")
-	private Character modCharacter(@RequestBody Character character) {
-		charactersrepository.save(character);
-		return character;	
-	}
-	//実績一覧表示
-	@GetMapping("/api/mypage/task")
-	private List<Task> getAll(){
-		return taskrepository.findAll();
+	private KidsUser modKidsUser(@RequestBody KidsUser kidsuser, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
+		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
 		
+		//kidsuserのidを指定して、データベースから情報を取得する。
+		int id = loginUser.getId();
+		KidsUser orginal = kidsuserrepository.findById(id); 
+		
+		//画面からおくられたcharcter_idを上書きする。
+		orginal.setCharacterId(kidsuser.getCharacterId());
+		
+		//kids_usersテーブルを更新する。
+		kidsuserrepository.save(orginal);
+		return kidsuser;	
 	}
+	
+	//実績一覧表示
+//	@GetMapping("/api/mypage/task")
+//	private List<Task> getAll(){
+//		return taskrepository.findAll();
+//		
+//	}
 	
 }

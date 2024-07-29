@@ -1,7 +1,6 @@
 package com.tasukuru.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,10 +12,9 @@ public interface KidsUserRepository extends JpaRepository<KidsUser, Integer> {
 	public KidsUser findById(int Id);
 	
 	public List<KidsUser> findByFamilyId(String familyId);
-	
-	void save(Optional<KidsUser> kidsUser);
-	
+		
     // 家族IDとなまえを基にユーザーを検索するメソッド
 	KidsUser findByFamilyIdAndName(String familyID, String kidsName);
+
 
 }

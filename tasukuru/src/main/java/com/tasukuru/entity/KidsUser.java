@@ -1,6 +1,7 @@
 package com.tasukuru.entity;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +27,7 @@ public class KidsUser {
 	private Integer enemieId;
 	private Integer enemieHp;
 	private Integer supportId;
+	@Column(unique = true)
 	private String name;
 	private Integer diceCount;
 	private Integer money;
