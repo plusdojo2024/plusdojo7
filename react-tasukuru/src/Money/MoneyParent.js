@@ -22,7 +22,7 @@ export default class MoneyParent extends React.Component  {
     
     render() {
         return (
-            <div>
+            <div className="background_image_renga">
                 <Header />
                 <main>
                 {/* 所持金 */}

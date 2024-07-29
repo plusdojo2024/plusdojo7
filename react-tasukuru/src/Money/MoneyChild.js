@@ -21,7 +21,7 @@ export default class MoneyChild extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="background_image_renga">
                 <Header />
                 {/* サポートキャラ */}
                 <div id="Money_Support">
