@@ -140,6 +140,7 @@ function Tasks() {
       reviewOne: false,
       reviewTwo: false,
       reviewThree: false,
+      submitTime: null,
     };
     axios.post('/api/task/rereg/', taskToReg)
       .then(response => {
