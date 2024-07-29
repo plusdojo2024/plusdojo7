@@ -45,15 +45,15 @@ export default class GameDice extends React.Component {
 
     // モーダル内の攻撃ボタンがクリックされた時の処理
     handleModalAttack = () => {
-        const { handleAttack, currentEnemy } = this.props;
-        const { selectedDiceCount,kidUserData } = this.state;
+    const { handleAttack, currentEnemy } = this.props;
+    const { selectedDiceCount, kidUserData } = this.state;
 
-        // 選択されたサイコロの数に応じたダメージ計算
-        const damage = this.rollDice(parseInt(selectedDiceCount, 10));
-        handleAttack(currentEnemy.id, damage); // 親コンポーネントの攻撃処理を呼び出す
+    // 選択されたサイコロの数に応じたダメージ計算
+    const damage = this.rollDice(parseInt(selectedDiceCount, 10));
+    handleAttack(currentEnemy.id, damage); // 親コンポーネントの攻撃処理を呼び出す
 
-        // サイコロ数を減らす
-        const newDiceCount = kidUserData.diceCount - selectedDiceCount;
+    // サイコロ数を減らす
+    const newDiceCount = kidUserData.diceCount - selectedDiceCount;
     this.setState(prevState => ({
         kidUserData: {
             ...prevState.kidUserData,
@@ -70,7 +70,7 @@ export default class GameDice extends React.Component {
                 newDiceCount: newDiceCount
             })
         })
-        
+
         .then(response => response.json())
         .then(data => {
             console.log('Dice count updated successfully:', data);
@@ -79,11 +79,9 @@ export default class GameDice extends React.Component {
             console.error('Error updating dice count:', error);
         });
     });
-        
-      
 
-        this.toggleAttackModal(); // モーダルを閉じる
-    }
+    this.toggleAttackModal(); // モーダルを閉じる
+}
 
      
     // サイコロを振る（ランダムな数値を返す）
