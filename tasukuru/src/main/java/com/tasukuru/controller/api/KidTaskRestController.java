@@ -1,5 +1,6 @@
 package com.tasukuru.controller.api;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,7 @@ public class KidTaskRestController {
 		Task existingTask = repository.findById(task.getId()).orElse(null);
 		if(existingTask != null) {
             existingTask.setNoComplete(true);
+            existingTask.setSubmitTime(LocalDateTime.now()); // 現在の日時を設定
             repository.save(existingTask);
             return existingTask;
 		} else {
