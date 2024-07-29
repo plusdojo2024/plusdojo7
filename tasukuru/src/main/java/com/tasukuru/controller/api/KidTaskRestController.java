@@ -53,17 +53,44 @@ public class KidTaskRestController {
 	
 	//タスク追加
 	@PostMapping("/api/task/add/")
-	private Task addTask(@RequestBody Task task){
-		repository.save(task);
+	private Task addTask(@RequestBody Task task, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
+		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		
+		if(loginUser != null) {
+			int userId = loginUser.getId();
+//			System.out.println("ログインユーザーID：" + userId);
+			task.setKidsId(userId);
+		} else {
+//			System.out.println("ログインユーザーが見つかりません");
+		}
+		
+		Task savedTask = repository.save(task);
+		System.out.println("保存されたタスク" + savedTask);
 		return task;
 	}
 	
-	//タスク更新
-	@PostMapping("/api/task/mod/")
-	private Task modTask(@RequestBody Task task) {
-		repository.save(task);
+	//タスク再登録
+	@PostMapping("/api/task/rereg/")
+	private Task reregTask(@RequestBody Task task, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
+		KidsUser loginUser = (KidsUser)session.getAttribute("KidsUser");
+		
+		if(loginUser != null) {
+			int userId = loginUser.getId();
+//			System.out.println("ログインユーザーID：" + userId);
+			task.setKidsId(userId);
+		} else {
+//			System.out.println("ログインユーザーが見つかりません");
+		}
+		
+		Task savedTask = repository.save(task);
+		System.out.println("再登録されたタスク" + savedTask);
 		return task;
 	}
+	
 	
 	//タスク削除
 	@PostMapping("/api/task/del/")
