@@ -4,12 +4,15 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tasukuru.entity.FamilyUser;
+import com.tasukuru.entity.KidsUser;
 import com.tasukuru.repository.FamilyUserRepository;
+import com.tasukuru.repository.KidsUserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -19,6 +22,8 @@ public class FamilyLoginRestController {
 
     @Autowired
     private FamilyUserRepository userRepository;
+    @Autowired
+    private KidsUserRepository repository;
 
     @PostMapping("/api/FamilyLogin/loginDate/")
     public ResponseEntity<String> login(@RequestBody Map<String, String> loginRequest,HttpServletRequest request) {
@@ -39,4 +44,16 @@ public class FamilyLoginRestController {
             return ResponseEntity.ok("ログインに失敗しました。");
         }
     }
+    
+    //ヘッダーの名前表示
+    @GetMapping("/api/name")
+	private KidsUser name(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		//セッションからログインしているKidsUser情報を取得
+		FamilyUser loginUser = (FamilyUser)session.getAttribute("FamilyUser");
+				
+		int userId = loginUser.getSelectedKidId();
+		
+		return repository.findById(userId);
+	}
 }

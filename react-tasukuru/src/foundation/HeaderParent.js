@@ -14,7 +14,7 @@ export default class Header extends React.Component{
     componentDidMount() {
             
         //子供の名前を取得
-        fetch("/api/familymypage/")
+        fetch("/api/name")
         .then(res => res.json())
         .then(json => {
             console.log(json); 
