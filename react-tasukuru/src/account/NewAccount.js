@@ -12,7 +12,7 @@ export default function NewAccount() {
     const navigate = useNavigate();
 
     const ReturnClick = () => {
-        navigate('/login');
+        navigate('/loginFamily');
     };
 
     const accountDate = () => {
