@@ -81,6 +81,10 @@
     overflow-y: auto;
 }
 
-.ShopParent-modModal, .ShopParent-sale-button, .ShopParent-request, .ShopParent-sold{
+.ShopParent-modModal,.ShopParent-modModal-button, .ShopParent-sale-button, .ShopParent-request, .ShopParent-sold,.ShopParent-addModal-button{
     margin-top:5px;
+
+}
+.ShopParent-modModal, .ShopParent-addModal{
+    width:160px;
 }

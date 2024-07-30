@@ -80,12 +80,14 @@ export default class ShopParent extends React.Component {
     modItem = () => {
         const { itemToMod, newItemName, newItemPrice } = this.state;
         const data = { name: newItemName, price: newItemPrice };
+        
         axios.put(`/api/shop/${itemToMod.id}`, data)
             .then(() => {
                 this.fetchShops();
                 this.toggleModModal();
             });
     }
+    
     //ショップ商品の削除
     deleteItem = (id) => {
         axios.delete(`/api/shop/${id}`)
@@ -188,10 +190,10 @@ export default class ShopParent extends React.Component {
                         <div id="ShopParentoverlay">
                             <div id="ShopParentcontent">
                                 出品内容<br />
-                                <input type="text" placeholder="商品名" name="newItemName" value={newItemName} onChange={this.onInput}></input><br />
-                                <input type="text" placeholder="価格" name="newItemPrice" value={newItemPrice} onChange={this.onInput}></input><br />
-                                <button onClick={() => this.addItem()}>出品</button>
-                                <button onClick={() => this.toggleItemAddModal()}>閉じる</button>
+                                <input className="ShopParent-addModal" type="text" placeholder="商品名" name="newItemName" value={newItemName} onChange={this.onInput}></input><br />
+                                <input className="ShopParent-addModal" type="text" placeholder="価格" name="newItemPrice" value={newItemPrice} onChange={this.onInput}></input><br />
+                                <button className="ShopParent-addModal-button" onClick={() => this.addItem()}>出品</button><br />
+                                <button className="ShopParent-addModal-button" onClick={() => this.toggleItemAddModal()}>閉じる</button>
                             </div>
                         </div>
                     }
@@ -200,10 +202,10 @@ export default class ShopParent extends React.Component {
                         <div id="ShopParentoverlay">
                             <div id="ShopParentcontent">
                                 編集内容<br />
-                                <input className="ShopParent-modModal" type="text" placeholder="商品名" name="newItemName" value={newItemName} onChange={this.onInput}></input><br />
-                                <input className="ShopParent-modModal" type="text" placeholder="価格" name="newItemPrice" value={newItemPrice} onChange={this.onInput}></input><br />
-                                <button className="ShopParent-modModal" onClick={() => this.modItem()}>保存</button><br />
-                                <button className="ShopParent-modModal" onClick={() => this.toggleModModal()}>閉じる</button>
+                                <input className="ShopParent-modModal" type="text" placeholder="商品名" name="newItemName" value={this.state.newItemName} onChange={this.onInput}></input><br />
+                                <input className="ShopParent-modModal" type="text" placeholder="価格" name="newItemPrice" value={this.state.newItemPrice} onChange={this.onInput}></input><br />
+                                <button className="ShopParent-modModal-button" onClick={() => this.modItem()}>保存</button><br />
+                                <button className="ShopParent-modModal-button" onClick={() => this.toggleModModal()}>閉じる</button>
                             </div>
                         </div>
                     }
