@@ -62,8 +62,8 @@ export default class MoneyRegist extends React.Component {
                item:"",
                amount:""
             });
+            this.props.onReloadComponent();
         });
-        this.props.onReloadComponent();
         this.toggleModal();
     }
 
