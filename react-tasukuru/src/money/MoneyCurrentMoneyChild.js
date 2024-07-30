@@ -10,7 +10,7 @@ export default class MoneyCurrentMoney extends React.Component{
     //データ取得
     componentDidMount(){
         //学習用にaxiosでなく、標準のfetchを利用している。
-        fetch("/api/money/currentParent")
+        fetch("/api/money/current")
         //取得したレスポンスを JSON 形式に変換
         .then(res => res.json())
         //JSON データを取得した後、コンソールにログ出力

@@ -42,7 +42,7 @@ export default class MoneyChild extends React.Component {
                 </div>
                 
                  {/* お小遣い一覧 */}
-                <div id="Money_List"  class="list-container">
+                <div id="Money_List"  class="lists-container">
                    <MoneyUseListChild key={this.state.key} onReloadComponent={this.reloadComponet}/>
                 </div>
                 </main>
