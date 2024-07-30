@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../foundation/Header";
 import Footer from "../foundation/Footer";
 import MoneyRegist from "./MoneyRegist";  // Import MoneyRegist component
-import MoneyCurrentMoney from "./MoneyCurrentMoney"; 
+import MoneyCurrentMoney from "./MoneyCurrentMoneyChild"; 
 import MoneyUseListChild from "./MoneyUseListChild"; 
 import MoneySupport from "./MoneySupport";
 import './Money.css';
