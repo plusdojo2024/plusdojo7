@@ -27,6 +27,7 @@ main {
     cursor: pointer; /* カーソルをポインタにする */
     font-size: 16px; /* フォントサイズを設定 */
     transition: background-color 0.3s ease; /* 背景色の変更にトランジション効果を追加 */
+    font-family: "Mochiy Pop One", sans-serif;
     
 }
 
@@ -215,6 +216,7 @@ input {
     cursor: pointer; /* マウスカーソルをポインターに変更 */
     font-size: 14px; /* フォントサイズを設定 */
     transition: background-color 0.3s ease; /* 背景色の変更にトランジション効果を追加 */
+    font-family: "Mochiy Pop One", sans-serif;
 }
 .input-content{
     margin-top: 100px;   
