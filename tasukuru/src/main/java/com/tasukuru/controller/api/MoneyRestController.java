@@ -227,10 +227,20 @@ public class MoneyRestController {
 		@PostMapping("/api/money/del")
 		private Allowance del(@RequestBody Allowance allowance, HttpServletRequest request) {
 			HttpSession session = request.getSession();
-			//セッションからログインしているKidsUser情報を取得
+			int userId = 0;
+			
+			//セッションからログインしているFamilyUser情報を取得
 			FamilyUser loginUser = (FamilyUser)session.getAttribute("FamilyUser");
-					
-			int userId = loginUser.getSelectedKidId();
+			if (loginUser != null) {
+				userId = loginUser.getSelectedKidId();				
+			}
+			
+			//セッションからログインしているKidsUser情報を取得
+			KidsUser user = (KidsUser)session.getAttribute("KidsUser");
+			if (user != null) {
+				userId = user.getId();				
+			}
+			
 			
 			allowance.setKidsId(userId);
 			
