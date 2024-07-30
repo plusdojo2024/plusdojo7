@@ -199,7 +199,7 @@ confirmBuy = () => {
                                     <div id="ShopChildcontent">
                                         商品名<br />
                                         <input className="ShopChildtext-area" type="text" value={requestName} onChange={this.RequestChange} /><br />
-                                        <button className="ShopChildsubmit-button" onClick={this.submitRequest}>送信</button><br />
+                                        <button className="ShopChildsubmit-button-blue" onClick={this.submitRequest}>送信</button><br />
                                         <button className="ShopChildclose-button" onClick={() => this.toggleRequestModal()}>閉じる</button>
                                     </div>
                                 </div>
@@ -210,7 +210,7 @@ confirmBuy = () => {
                                     <div id="ShopChildcontent">
                                         <h1 className="ShopChildgold">{money}G</h1>
                                         <p>{selectedItem.name}  {selectedItem.price}G</p><br />
-                                        <button onClick={this.confirmBuy}>購入確定</button><br />
+                                        <button className="ShopChildbuy-button-blue" onClick={this.confirmBuy}>購入確定</button><br />
                                         <br />
                                         <button onClick={() => this.toggleBuyModal()}>閉じる</button>
                                     </div>

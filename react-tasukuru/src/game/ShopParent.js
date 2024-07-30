@@ -192,7 +192,7 @@ export default class ShopParent extends React.Component {
                                 出品内容<br />
                                 <input className="ShopParent-addModal" type="text" placeholder="商品名" name="newItemName" value={newItemName} onChange={this.onInput}></input><br />
                                 <input className="ShopParent-addModal" type="text" placeholder="価格" name="newItemPrice" value={newItemPrice} onChange={this.onInput}></input><br />
-                                <button className="ShopParent-addModal-button" onClick={() => this.addItem()}>出品</button><br />
+                                <button className="ShopParent-addModal-button-blue" onClick={() => this.addItem()}>出品</button><br />
                                 <button className="ShopParent-addModal-button" onClick={() => this.toggleItemAddModal()}>閉じる</button>
                             </div>
                         </div>
@@ -204,7 +204,7 @@ export default class ShopParent extends React.Component {
                                 編集内容<br />
                                 <input className="ShopParent-modModal" type="text" placeholder="商品名" name="newItemName" value={this.state.newItemName} onChange={this.onInput}></input><br />
                                 <input className="ShopParent-modModal" type="text" placeholder="価格" name="newItemPrice" value={this.state.newItemPrice} onChange={this.onInput}></input><br />
-                                <button className="ShopParent-modModal-button" onClick={() => this.modItem()}>保存</button><br />
+                                <button className="ShopParent-modModal-button-blue" onClick={() => this.modItem()}>保存</button><br />
                                 <button className="ShopParent-modModal-button" onClick={() => this.toggleModModal()}>閉じる</button>
                             </div>
                         </div>

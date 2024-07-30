@@ -83,3 +83,7 @@
 .ShopChildtext-area {
     width:8rem;
 }
+
+.ShopChildbuy-button-blue, .ShopChildsubmit-button-blue{
+    background-color: aqua;
+}

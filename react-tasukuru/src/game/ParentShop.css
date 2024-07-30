@@ -81,10 +81,16 @@
     overflow-y: auto;
 }
 
-.ShopParent-modModal,.ShopParent-modModal-button, .ShopParent-sale-button, .ShopParent-request, .ShopParent-sold,.ShopParent-addModal-button{
+.ShopParent-modModal, .ShopParent-sale-button, .ShopParent-request, .ShopParent-sold {
     margin-top:5px;
 
 }
 .ShopParent-modModal, .ShopParent-addModal{
     width:160px;
+}
+
+.ShopParent-addModal-button-blue, .ShopParent-modModal-button-blue {
+    background-color: aqua;
+    margin-top:5px;
+    margin-bottom:5px;
 }
