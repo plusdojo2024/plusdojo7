@@ -11,7 +11,8 @@ export default class Game extends Component {
         this.state = {
             enemies: [],  // 敵キャラクターのデータ
             currentEnemyIndex: 0,  // 現在の敵キャラクターのインデックス
-            currentEnemyHp:0
+            currentEnemyHp:0,
+            kidUserData:""
         };
     }
 
@@ -32,6 +33,13 @@ export default class Game extends Component {
                     currentEnemyHp: json.currentEnemyHp
                 });
             })
+
+            fetch("/api/kids/currentUser/")
+            .then(res => res.json())
+            .then(kidUserData => {
+            console.log(kidUserData); // 子供ユーザーデータをコンソールに出力（確認用）
+            this.setState({ kidUserData });
+        })
             .catch(error => console.error("Error fetching enemies:", error));
     }
 
@@ -39,7 +47,7 @@ export default class Game extends Component {
 
         // 攻撃処理
         handleAttack = (enemyId, damage) => {
-            const { enemies } = this.state;
+            const { enemies,currentEnemyIndex } = this.state;
             fetch(`/api/enemies/${enemyId}/damage/${damage}`, {
                 method: 'POST',
                 headers: {
@@ -58,7 +66,9 @@ export default class Game extends Component {
                 console.log(json);
 
                 if(this.state.currentEnemyIndex != json.enemieId - 1 ){
-                    alert("敵を倒しました。");
+                    alert("敵を倒した!" + "\n" +enemies[currentEnemyIndex].drop + "G 獲得した！");
+                    
+                    
                 }
 
                 this.setState({ 

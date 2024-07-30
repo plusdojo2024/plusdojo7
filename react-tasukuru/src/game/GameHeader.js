@@ -30,7 +30,7 @@ export default class Header extends React.Component{
                 {/* ショップ遷移ボタン */}
                 <NavigationButton path="/game/shopChild" label={<img src="images\ie_front_01_blue.png" alt="ショップ"></img>} className="game_header_shop" />
                 {/* 個人名 */}
-                <div className="game_header_name">しんのすけ</div>
+                <div className="game_header_name">ひろし</div>
                 {/* アイコン */}
                 <div className="game_header_icon">
                 {CharacterSkin&&(

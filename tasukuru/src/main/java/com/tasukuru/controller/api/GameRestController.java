@@ -123,6 +123,7 @@ public class GameRestController {
 			
 			Enemie dropEnemy = enemiesRepository.findById(enemy_id-1)
         			.orElseThrow(() -> new IllegalArgumentException("Enemy not found"));
+			
 			int currentMoney = kidsUser.getMoney();
 			int plusMoney = currentMoney + dropEnemy.getDrop();
 			kidsUser.setMoney(plusMoney);

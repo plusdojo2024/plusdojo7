@@ -5,10 +5,10 @@ export default class GameDice extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            AttackModal: false,  // 攻撃モーダルの表示状態
-            selectedDiceCount: "1",  // 選択されたサイコロの数の初期値
+            selectedDiceCount: 1,  // 選択されたサイコロの数の初期値
             kidUserData : null,
             diceCount : "",
+            damage : 0,
         };
     }
 
@@ -26,63 +26,53 @@ export default class GameDice extends React.Component {
 
     }
 
-    // 攻撃モーダルの表示切替
-    toggleAttackModal = () => {
-        this.setState(prevState => ({
-            AttackModal: !prevState.AttackModal
-        }));
-    }
+    
 
     // 攻撃ボタンがクリックされた時の処理
     handleAttack = () => {
         const { kidUserData, selectedDiceCount } = this.state;
         if (kidUserData.diceCount >= selectedDiceCount) {
-            this.toggleAttackModal(); // モーダルを表示する
+            const { handleAttack, currentEnemy } = this.props;
+            const { selectedDiceCount, kidUserData } = this.state;
+
+            // 選択されたサイコロの数に応じたダメージ計算
+            const damage = this.rollDice(selectedDiceCount);
+
+            handleAttack(currentEnemy.id, damage);
+            // サイコロ数を減らす
+                const newDiceCount = kidUserData.diceCount - selectedDiceCount;
+                this.setState(prevState => ({
+                    kidUserData: {
+                        ...prevState.kidUserData,
+                        diceCount: newDiceCount
+                    }
+
+                }), () => {
+                    // //攻撃した後、残るサイコロ数をデータベースに保存する
+                    fetch('/api/kids/currentUser/updateDiceCount', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            newDiceCount: newDiceCount
+                        })
+                    })
+
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Dice count updated successfully:', data);
+                    })
+                    .catch((error) => {
+                        console.error('Error updating dice count:', error);
+                    });
+                });
+                alert("サイコロ数："+selectedDiceCount + "\n" + "ダメージ："+damage)
+                        
         } else {
             alert("サイコロが足りません！");
         }
     }
-
-    // モーダル内の攻撃ボタンがクリックされた時の処理
-    handleModalAttack = () => {
-    const { handleAttack, currentEnemy } = this.props;
-    const { selectedDiceCount, kidUserData } = this.state;
-
-    // 選択されたサイコロの数に応じたダメージ計算
-    const damage = this.rollDice(parseInt(selectedDiceCount, 10));
-    handleAttack(currentEnemy.id, damage); // 親コンポーネントの攻撃処理を呼び出す
-
-    // サイコロ数を減らす
-    const newDiceCount = kidUserData.diceCount - selectedDiceCount;
-    this.setState(prevState => ({
-        kidUserData: {
-            ...prevState.kidUserData,
-            diceCount: newDiceCount
-        }
-    }), () => {
-        // //攻撃した後、残るサイコロ数をデータベースに保存する
-        fetch('/api/kids/currentUser/updateDiceCount', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                newDiceCount: newDiceCount
-            })
-        })
-
-        .then(response => response.json())
-        .then(data => {
-            console.log('Dice count updated successfully:', data);
-        })
-        .catch((error) => {
-            console.error('Error updating dice count:', error);
-        });
-    });
-
-    this.toggleAttackModal(); // モーダルを閉じる
-}
-
      
     // サイコロを振る（ランダムな数値を返す）
     rollDice = (count) => {
@@ -103,7 +93,7 @@ export default class GameDice extends React.Component {
     }
 
     render() {
-        const { AttackModal,kidUserData } = this.state;
+        const { kidUserData } = this.state;
 
         return (
             <div className="game_content">
@@ -135,31 +125,12 @@ export default class GameDice extends React.Component {
                         {/* 攻撃ボタン */}
                         <div className="game_attack">
                             <button id="attack" onClick={this.handleAttack}>
-                                <span>攻撃！</span>
+                                <div>攻撃！</div>
                                 <div className="game_pig">
                                     <img src="images/buta.png" alt="豚" />
                                 </div>
                             </button>
-                            {/* 攻撃モーダル */}
-                            {/* {AttackModal &&
-                                <div id="Attackoverlay">
-                                    <div id="Attackcontent">
-                                        <br />
-                                        <button onClick={this.handleModalAttack}>攻撃</button>
-                                    </div>
-                                </div>
-                            } */}
-
-                            {AttackModal && (
-                            <div className="game_attack_modal">
-                                <div className="game_modal_content">
-                                    <p>サイコロの数: {this.state.selectedDiceCount}</p>
-                                    <p>ダメージ: {this.rollDice(parseInt(this.state.selectedDiceCount, 10))}</p>
-                                    <button onClick={this.handleModalAttack}>攻撃する</button>
-                                   
-                                </div>
-                            </div>
-                        )}
+                            
                         </div>
                     </div>
                 </div>
