@@ -2,9 +2,9 @@ import React from "react";
 import Header from '../foundation/ParentHeader';
 import Footer from '../foundation/ParentFooter';
 import './Approval.css';
-
+import NavigationButton from "../tasks/NavigationButton";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // useNavigate をインポートする
+
 
 
 
@@ -219,10 +219,6 @@ export default class ApprovalList extends React.Component{
         })
       }
 
-         toDiary = () => {
-          // ボタンがクリックされたら /diary に遷移する
-          useNavigate('/diaries');
-      };
 
     render(){
       const { tasks, showAddModal, showTaskModal, showApprovalModal, name, content, categoriesName, taskLimit, handleTaskClick, selectedTask, comment} = this.state;
@@ -251,7 +247,7 @@ export default class ApprovalList extends React.Component{
                   </div>
                   
                   <div className="button_container">
-                  <button onClick={this.toDiary} label="日記" className="diary_button" />
+                  <NavigationButton path="/guardianDiaries" label="日記" className="diary_button" />
                     <button className="task_add_button" onClick={this.toggleAddModal}>追加</button>
                   </div>
                 </TabPanel>
@@ -266,7 +262,7 @@ export default class ApprovalList extends React.Component{
                   </div>
 
                   <div className="button_container">
-                    <button className="diary_button">日記</button>
+                  <NavigationButton path="/guardianDiaries" label="日記" className="diary_button" />
                     <button className="task_add_button" onClick={this.toggleAddModal}>追加</button>
                   </div>
                 </TabPanel>
@@ -281,7 +277,7 @@ export default class ApprovalList extends React.Component{
                   </div>
 
                   <div className="button_container">
-                    <button className="diary_button">日記</button>
+                  <NavigationButton path="/guardianDiaries" label="日記" className="diary_button" />
                     <button className="task_add_button" onClick={this.toggleAddModal}>追加</button>
                   </div>
                 </TabPanel>
@@ -296,7 +292,7 @@ export default class ApprovalList extends React.Component{
                   </div>
 
                   <div className="button_container">
-                    <button className="diary_button">日記</button>
+                  <NavigationButton path="/guardianDiaries" label="日記" className="diary_button" />
                     <button className="task_add_button" onClick={this.toggleAddModal}>追加</button>
                   </div>
                 </TabPanel>
@@ -365,21 +361,21 @@ export default class ApprovalList extends React.Component{
                   <label>
 
                   <div class="cont">
-                  <div class="approval-stars">
-<form action="">
-  <input class="star star-3" id="star-3-2" type="radio" name="star" onChange={this.onInput_Three}/>
-  <label class="star star-3" for="star-3-2"></label>
-  <input class="star star-2" id="star-2-2" type="radio" name="star" onChange={this.onInput_Two}/>
-  <label class="star star-2" for="star-2-2"></label>
-  <input class="star star-1" id="star-1-2" type="radio" name="star" onChange={this.onInput_One} />
-  <label class="star star-1" for="star-1-2"></label>
-  <div class="rev-box">
-    <textarea class="review" col="30" name="review" placeholder="レビュー" onChange={this.onInput} value={comment}></textarea>
-    <label class="review" for="review">Breif Review</label>
-  </div>
-  </form>
-</div>
-</div>
+                    <div class="approval-stars">
+                      <form action="">
+                        <input class="star star-3" id="star-3-2" type="radio" name="star" onChange={this.onInput_Three}/>
+                        <label class="star star-3" for="star-3-2"></label>
+                        <input class="star star-2" id="star-2-2" type="radio" name="star" onChange={this.onInput_Two}/>
+                        <label class="star star-2" for="star-2-2"></label>
+                        <input class="star star-1" id="star-1-2" type="radio" name="star" onChange={this.onInput_One} />
+                        <label class="star star-1" for="star-1-2"></label>
+                        <div class="rev-box">
+                          <textarea class="review" col="30" name="review" placeholder="レビュー" onChange={this.onInput} value={comment}></textarea>
+                          <label class="review" for="review">Breif Review</label>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                   </label>
                   <button type="submit" onClick={() => this.CheckNG()} className="checkNG"> ×</button>
                   <button type="submit"  onClick={() => this.CheckOK()} className="checkOK">○</button>
