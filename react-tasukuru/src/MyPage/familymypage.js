@@ -158,9 +158,9 @@ const FamilyMyPage = () => {
         <div className="background_image_renga">
           <div className="familymypage-background">
             <button className="familymypage_button" onClick={toggleKidsSelectionModal}>子供アカウント選択</button><br />
-            <button className="familymypage_button" onClick={toggleKidsAddModal}>子供アカウント追加</button><br />
+            <button className="familymypage_button" onClick={toggleKidsAddModal}>子供アカウント登録</button><br />
             <button className="familymypage_button" onClick={toggleKidsDelModal}>子供アカウント削除</button><br />
-            <button className="familymypage_button" onClick={toggleFamilyDelModal}>家族アカウント削除</button><br />
+            <button className="familymypage_button" onClick={toggleFamilyDelModal}>保護者アカウント削除</button><br />
           </div>
         </div>
 
@@ -192,12 +192,12 @@ const FamilyMyPage = () => {
           </div>
         )}
 
-        {/* 子供アカウント追加モーダル */}
+        {/* 子供アカウント登録モーダル */}
         {kidsAddModal && (
           <div className="familymypage-modal">
             <div className="familymypage-modal_content">
               <button className="familymypage-close_button" onClick={toggleKidsAddModal}>×</button>
-              <h2>子供アカウント追加</h2>
+              <h2>子供アカウント登録</h2>
               <form onSubmit={(event) => {
                 event.preventDefault();
                 newNameSave();
@@ -205,7 +205,7 @@ const FamilyMyPage = () => {
                 <label>
                   <input type="text" placeholder="なまえ" className="familymypage-textbox" value={newname} onChange={handleNewNameChange}/><br />
                 </label>
-                <button type="submit" className="familymypage-add_button">追加する</button>
+                <button type="submit" className="familymypage-add_button">登録する</button>
               </form>
             </div>
           </div>
@@ -244,7 +244,7 @@ const FamilyMyPage = () => {
           <div className="familymypage-modal">
             <div className="familymypage-modal_content">
               <button className="familymypage-close_button" onClick={toggleFamilyDelModal}>×</button>
-              <h2>家族アカウント削除しますか？</h2>
+              <h2>保護者アカウント削除しますか？</h2>
               <form onSubmit={(event) => {
                 event.preventDefault();
                 deleteFamily();
