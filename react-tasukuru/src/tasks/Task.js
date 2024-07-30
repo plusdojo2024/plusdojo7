@@ -149,7 +149,7 @@ function Tasks() {
         setTasks(prevTasks => prevTasks.map(task =>
           task.id === response.data.id ? response.data : task
         ));
-        toggleAddModal();
+        toggleReRegModal();
         setNewTask({
           name: "",
           categoriesName: "",
