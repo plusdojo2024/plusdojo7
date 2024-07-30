@@ -22,7 +22,7 @@ class MoneyUseList　extends React.Component {
      //データ取得
     componentDidMount(){
         //学習用にaxiosでなく、標準のfetchを利用している。
-        fetch("/api/money/list")
+        fetch("/api/money/listParent")
         //取得したレスポンスを JSON 形式に変換
         .then(res => res.json())
         //JSON データを取得した後、コンソールにログ出力
@@ -143,7 +143,7 @@ class MoneyUseList　extends React.Component {
 
         //const data = {};
         //axiosだとpostが記述しやすい
-        axios.post("/api/money/mod", data)
+        axios.post("/api/money/modParent", data)
         .then(json => {
             console.log(json);
             this.setState({
@@ -173,7 +173,7 @@ class MoneyUseList　extends React.Component {
 
         //const data = {};
         //axiosだとpostが記述しやすい
-        axios.post("/api/money/del", data)
+        axios.post("/api/money/delParent", data)
         .then(json => {
             console.log(json);
             this.setState({
@@ -208,7 +208,8 @@ class MoneyUseList　extends React.Component {
 
                 {/* モーダルウィンドウ */}
                 {showModal &&
-                    <div>
+                    <div  className="money_overlay">
+                        <div  className="money-content">
                     <button className="close" onClick={this.toggleModal}>
                         &times;
                     </button>
@@ -239,6 +240,7 @@ class MoneyUseList　extends React.Component {
                         />
                         <br />
                         <button onClick={this.updateMoney}> 更新</button> <button onClick={this.deleteMoney}> 削除</button>
+                        </div>
                     </div>
                 }
  

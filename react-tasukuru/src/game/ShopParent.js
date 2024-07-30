@@ -67,14 +67,14 @@ export default class ShopParent extends React.Component {
 
     addItem = () => {
         const { newItemName, newItemPrice } = this.state;
+
         const data = { name: newItemName, price: newItemPrice };
         axios.post("/api/shop/add", data)
             .then(() => {
                 this.setState({ newItemName: "", newItemPrice: "" });
                 this.fetchShops();
                 this.toggleItemAddModal();
-            });
-            
+            });   
     }
 
     modItem = () => {
@@ -102,7 +102,7 @@ export default class ShopParent extends React.Component {
                 this.fetchRequests();
             })
             .catch(error => {
-                console.error("Error deleting request:", error.response ? error.response.data : error.message);
+                console.error("リクエストの削除に失敗しました。。。", error.response ? error.response.data : error.message);
             });
     }
 
@@ -143,9 +143,9 @@ export default class ShopParent extends React.Component {
                                         <div className="shopParent-list">
                                             {shops.map(shop => (
                                                 <div key={shop.id}>
-                                                    <h2>・{shop.name} {shop.price}G</h2>
-                                                    <button onClick={() => this.toggleModModal(shop)}>編集</button><br/>
-                                                    <button onClick={() => this.deleteItem(shop.id)}>削除</button>
+                                                    <h2 className="ShopParent-sale-button">・{shop.name} {shop.price}G</h2>
+                                                    <button className="ShopParent-sale-button" onClick={() => this.toggleModModal(shop)}>編集</button><br/>
+                                                    <button className="ShopParent-sale-button" onClick={() => this.deleteItem(shop.id)}>削除</button>
                                                 </div>                                            
                                             ))}
                                         </div>
@@ -157,8 +157,8 @@ export default class ShopParent extends React.Component {
                                         <div className="request-list">
                                             {requests.map(request => (
                                                 <div key={request.id}>
-                                                    <h2>・{request.name}</h2>
-                                                    <button onClick={() => this.deleteRequest(request.id)}>削除</button>
+                                                    <h2 className="ShopParent-request">・{request.name}</h2>
+                                                    <button className="ShopParent-request" onClick={() => this.deleteRequest(request.id)}>削除</button>
                                                 </div>
                                             ))}
                                         </div>
@@ -171,8 +171,8 @@ export default class ShopParent extends React.Component {
                                         <div className="sold-list">
                                             {shops.filter(shop => !shop.condition).map(shop => (
                                                 <div key={shop.id}> 
-                                                    <h2>・{shop.name} {shop.price}G</h2>
-                                                    <button onClick={() => this.deleteItem(shop.id)}>削除</button>
+                                                    <h2 className="ShopParent-sold">・{shop.name} {shop.price}G</h2>
+                                                    <button className="ShopParent-sold" onClick={() => this.deleteItem(shop.id)}>削除</button>
                                                 </div>
                                             ))}
                                             {shops.filter(shop => !shop.condition).length === 0 && <h2>購入済みの商品はありません。</h2>}
@@ -200,10 +200,10 @@ export default class ShopParent extends React.Component {
                         <div id="ShopParentoverlay">
                             <div id="ShopParentcontent">
                                 編集内容<br />
-                                <input type="text" placeholder="商品名" name="newItemName" value={newItemName} onChange={this.onInput}></input><br />
-                                <input type="text" placeholder="価格" name="newItemPrice" value={newItemPrice} onChange={this.onInput}></input><br />
-                                <button onClick={() => this.modItem()}>保存</button>
-                                <button onClick={() => this.toggleModModal()}>閉じる</button>
+                                <input className="ShopParent-modModal" type="text" placeholder="商品名" name="newItemName" value={newItemName} onChange={this.onInput}></input><br />
+                                <input className="ShopParent-modModal" type="text" placeholder="価格" name="newItemPrice" value={newItemPrice} onChange={this.onInput}></input><br />
+                                <button className="ShopParent-modModal" onClick={() => this.modItem()}>保存</button><br />
+                                <button className="ShopParent-modModal" onClick={() => this.toggleModModal()}>閉じる</button>
                             </div>
                         </div>
                     }

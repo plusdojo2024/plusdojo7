@@ -2,7 +2,6 @@
 *{
   margin: 0;
   padding: 0;
-  font-family: roboto;
 }
 
 body{
@@ -37,7 +36,7 @@ h1 span{
   color: #Fd4;
 }
 
-div.stars{
+div.approval-stars{
   width: 270px;
   display: inline-block;
 }

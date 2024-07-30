@@ -60,19 +60,19 @@ export default class MoneyAdd extends React.Component{
         return (
             <div className="">
                 
-                    
+                <div className="add-contents">
                     <button onClick={this.toggleModal}>
                         追加
                     </button>
 
                     {/* モーダルウィンドウ */}
                     {showModal &&
-                    <div money_overlay>
-                        <div className="money-content">
-                    <button className="close" onClick={this.toggleModal}>
+                    <div className="Add_overlay">
+                        <div className="Add-content">
+                    <button className="Add_close" onClick={this.toggleModal}>
                         &times;
                     </button>
-                
+                        <div class="input-content">
                         <label>お小遣い金額:</label>
                         <input
                             type="number"
@@ -81,10 +81,12 @@ export default class MoneyAdd extends React.Component{
                             onChange={this.onInput}
                         />
                         <br />
+                        </div>
                         <button onClick={this.addMoney}> 登録</button>
                         </div>
                     </div>
                     }
+                </div>
                 
             </div>
         );

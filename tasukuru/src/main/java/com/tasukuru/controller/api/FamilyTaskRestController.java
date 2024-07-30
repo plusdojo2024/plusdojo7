@@ -46,9 +46,11 @@ public class FamilyTaskRestController {
 	}
 
 	@PostMapping("/api/familyTask/mod/")
-	private Task mod(@RequestBody Task task) {
-		repository.save(task);
-		return task;
+	private Task modApproval(@RequestBody Task task) {
+		System.out.print(task);
+			repository.save(task);
+			return task;
+
 	}
 	
 	@PostMapping("/api/familyTask/del/")

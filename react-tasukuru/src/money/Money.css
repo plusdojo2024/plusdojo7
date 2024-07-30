@@ -16,7 +16,7 @@ main {
     text-align: center; /* 中央揃え */
     margin-top: 30px; /* ヘッダーとの間にスペースを追加 */
 }
-
+/* 使ったお金を記録するボタン */
 .money-contents button {
     background-color: #CCE5FF; /* 水色の背景色 */
     margin-bottom: 20px; 
@@ -32,7 +32,7 @@ main {
 
 .money_overlay{
     margin-top: 20px;
-  
+    z-index: 1000; /* 他の要素よりも前面に表示 */
   
   font-family: "Mochiy Pop One", sans-serif;
 }
@@ -60,10 +60,10 @@ main {
     width: 150px; /* 幅を200pxに設定（必要に応じて調整） */
     margin: 0 auto; /* 水平方向に中央揃え */
     margin-bottom: 20px; 
-    
-    
+    position: relative; /* 相対位置指定 */
+    top: -60px; /* 上に10px移動（ここで調整） */
 }
-#Money_List{
+.lists-container{
     margin-top: 30px; /* リストとの間に50pxの余白を追加 */
     padding-top: 30px; /* 要素の上部に30ピクセルの余白を追加 */
     background-color: #FFF2CC; /* 薄いクリーム色の背景 */
@@ -72,6 +72,8 @@ main {
     margin: 0 auto; /* 上下のマージンは0、左右のマージンは自動で中央揃え */
     margin-bottom: 50px; /* フッターとの間に50pxの余白を追加 */
     height:200px;
+    position: relative; /* 相対位置指定 */
+    top: -50px; /* 上に10px移動（ここで調整） */
 }
 .month-switcher {
     display: flex;
@@ -81,8 +83,9 @@ main {
 }
 .month-switcher button {
     background-color: #FFE499; /* オレンジ色の背景色 */
+    border: 2px solid#FFAD5B;
 }
-/* モーダルの背景 */
+/* モーダル関係 */
 .money_overlay{
     font-family: "Mochiy Pop One", sans-serif;
     position:fixed;
@@ -129,5 +132,90 @@ input {
 .money-container{
     margin-top: 50px; /* ヘッダーとの間にスペースを追加 */
 }
+/* 親コンテナにフレックスボックスを適用 */
+.container {
+    display: flex; /* フレックスボックスを使用して横並びにする */
+    align-items: center; /* 垂直方向に中央揃え */
+    gap: 20px; /* 要素間の隙間（必要に応じて調整） */
+}
+.add-contents button {
+    margin-right: 30px; /* 右側に20pxのスペースを追加 */
+    margin-top: 50px; /* ヘッダーとの間にスペースを追加 */
+    background-color: #CCE5FF; /* 水色の背景色 */
+    margin-bottom: 20px; 
+    color: #000000; /* ボタンのテキストの色（黒色） */
+    border: none; /* ボーダーをなしにする（必要に応じて変更） */
+    padding: 10px 20px; /* 内側の余白を追加（縦10px、横20px） */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインタにする */
+    font-size: 16px; /* フォントサイズを設定 */
+    transition: background-color 0.3s ease; /* 背景色の変更にトランジション効果を追加 */
+    
+}
+.Add_overlay {
+    font-family: "Mochiy Pop One", sans-serif;
+    position: absolute; /* モーダルを絶対位置に設定 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.Add-content {
+    background-color: #ffffff; /* モーダルの中身の背景色 */
+    border-radius: 8px; /* 角を丸くする */
+    padding: 20px; /* 内側の余白 */
+    width: 300px; /* モーダルの幅 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 影を追加 */
+    position: relative; /* 閉じるボタンの位置を相対的にする */
+}
 
+.Add_close {
+    position: absolute; /* 閉じるボタンを絶対位置に配置 */
+    top: 10px; /* モーダルの上端からの位置を設定 */
+    right: 10px; /* モーダルの右端からの位置を設定 */
+    background: none; /* 背景をなしにする */
+    border: none; /* ボーダーをなしにする */
+    font-size: 24px; /* フォントサイズを設定 */
+    cursor: pointer; /* マウスカーソルをポインターに変更 */
+    color: #333; /* ボタンの色 */
+}
+.list-container{
+    margin-top: 30px; /* リストとの間に50pxの余白を追加 */
+    padding-top: 30px; /* 要素の上部に30ピクセルの余白を追加 */
+    background-color: #FFF2CC; /* 薄いクリーム色の背景 */
+    width: 300px; /* 幅を300pxに設定（必要に応じて調整） */
+    overflow-y: auto; /* コンテンツが要素の範囲を超える場合に垂直スクロールバーを表示 */
+    margin: 0 auto; /* 上下のマージンは0、左右のマージンは自動で中央揃え */
+    margin-bottom: 50px; /* フッターとの間に50pxの余白を追加 */
+    height:200px;
+
+}
+.money-containers {
+    background-color: #C5E6C1;
+    color: #000000; /* テキストの色を白にして背景と対比させる */
+    border: 2px solid #ffffff; /* 白色のボーダーを追加 */
+    padding: 5px; /* 内側の余白を追加 */
+    border-radius: 5px; /* 角を丸くする */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 影を追加して浮き出た感じにする */
+    width: 150px; /* 幅を200pxに設定（必要に応じて調整） */
+    margin: 0 auto; /* 水平方向に中央揃え */
+    margin-top: 30px; 
+    
+}
+.use button {
+    background-color: #FFE499; /* オレンジ色の背景 */
+    color: #000000; /* テキストの色を白に設定 */
+    border: 2px solid#FFAD5B; /* ボーダーをなしにする */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* マウスカーソルをポインターに変更 */
+    font-size: 14px; /* フォントサイズを設定 */
+    transition: background-color 0.3s ease; /* 背景色の変更にトランジション効果を追加 */
+}
+.input-content{
+    margin-top: 100px;   
+}
