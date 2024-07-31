@@ -9,7 +9,7 @@ INSERT INTO support(buff,condition,damage,id,image) VALUES (true, false, 8, 2, '
 INSERT INTO support(buff,condition,damage,id,image) VALUES (false, true, 0, 3, '../images/none.png' ); 
 
 --保護者情報
-INSERT INTO family_user (family_id, mail, pass) VALUES ('YAMADA','yamada@example.com','1234');
+INSERT INTO family_user (family_id, mail, pass, selected_Kid_id) VALUES ('YAMADA','yamada@example.com','1234', 1);
 INSERT INTO family_user (family_id, mail, pass) VALUES ('OOTA','oota@example.com','1234');
 INSERT INTO family_user (family_id, mail, pass) VALUES ('IKEDA','ikeda@example.com','1234');
 
