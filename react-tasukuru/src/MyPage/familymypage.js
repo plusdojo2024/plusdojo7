@@ -159,8 +159,8 @@ const FamilyMyPage = () => {
           <div className="familymypage-background">
             <button className="familymypage_button" onClick={toggleKidsSelectionModal}>子供アカウント選択</button><br />
             <button className="familymypage_button" onClick={toggleKidsAddModal}>子供アカウント登録</button><br />
-            <button className="familymypage_button" onClick={toggleKidsDelModal}>子供アカウント削除</button><br />
-            <button className="familymypage_button" onClick={toggleFamilyDelModal}>保護者アカウント削除</button><br />
+            <button className="familymypage_button" onClick={toggleKidsDelModal}>子供アカウント登録解除</button><br />
+            <button className="familymypage_button" onClick={toggleFamilyDelModal}>保護者アカウント登録解除</button><br />
           </div>
         </div>
 
@@ -216,7 +216,7 @@ const FamilyMyPage = () => {
           <div className="familymypage-modal">
             <div className="familymypage-modal_content">
               <button className="familymypage-close_button" onClick={toggleKidsDelModal}>×</button>
-              <h2>子供アカウント削除</h2>
+              <h2>子供アカウント登録解除</h2>
               <form onSubmit={(event) => {
                 event.preventDefault();
                 deleteName();
@@ -233,7 +233,7 @@ const FamilyMyPage = () => {
                     )}
                   </select>
                 </label>
-                <button type="submit" className="familymypage-add_button">削除する</button>
+                <button type="submit" className="familymypage-add_button">解除する</button>
               </form>
             </div>
           </div>
@@ -244,7 +244,7 @@ const FamilyMyPage = () => {
           <div className="familymypage-modal">
             <div className="familymypage-modal_content">
               <button className="familymypage-close_button" onClick={toggleFamilyDelModal}>×</button>
-              <h2>保護者アカウント削除しますか？</h2>
+              <h2>保護者アカウント登録解除しますか？</h2>
               <form onSubmit={(event) => {
                 event.preventDefault();
                 deleteFamily();
