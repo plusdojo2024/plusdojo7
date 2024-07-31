@@ -123,6 +123,7 @@ export default class ShopChild extends React.Component {
 confirmBuy = () => {
     const { selectedItem, kidId } = this.state;
     if (selectedItem && kidId) {
+        //SpringBootのURLと一緒。${selectedItem.id}でユーザーが選択した商品のID。${kidId}でログインしているユーザーの識別。
         axios.post(`/api/shop/${selectedItem.id}/buy/${kidId}`)
             .then(res => {
                 this.setState(prevState => ({

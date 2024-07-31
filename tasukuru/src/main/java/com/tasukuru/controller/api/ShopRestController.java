@@ -121,7 +121,7 @@ public class ShopRestController {
 	             // 通貨を引く
 	             kidsUser.setMoney(kidsUser.getMoney() - shop.getPrice());
 	             // 商品の状態を更新 (購入済み)
-	             shop.setCondition(false); // conditionをfalseに設定
+	             shop.setCondition(false);
 	             // 更新を保存
 	             kidsUserRepository.save(kidsUser);
 	             return shopsRepository.save(shop);
