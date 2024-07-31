@@ -74,6 +74,7 @@ export default class ShopParent extends React.Component {
                 this.setState({ newItemName: "", newItemPrice: "" });
                 this.fetchShops();
                 this.toggleItemAddModal();
+                alert('出品しました！');
             });   
     }
 
@@ -125,7 +126,7 @@ export default class ShopParent extends React.Component {
 
 
     render() {
-        const { shops, requests, newItemName, newItemPrice, ItemAddModal, ItemModModal, itemToMod, money } = this.state;
+        const { shops, requests, newItemName, newItemPrice, ItemAddModal, ItemModModal, money } = this.state;
         return (
             <div className="wrapper">
                 <Header />
