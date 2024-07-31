@@ -49,8 +49,9 @@ export default class MoneyAdd extends React.Component{
               getMoney:""
             });
         });
-        this.props.onReloadComponent();
+        
         this.toggleModal();
+        this.props.onReloadComponent();
         
     }
 
