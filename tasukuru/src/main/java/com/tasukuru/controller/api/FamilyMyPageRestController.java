@@ -65,6 +65,10 @@ public class FamilyMyPageRestController {
                 
                 // 更新内容を保存
                 familyrepository.save(userToUpdate);
+                
+                //セッションのFamilyUser情報を更新する
+                session.setAttribute("FamilyUser", userToUpdate);
+                
                 return ResponseEntity.ok("名前が選択されました");
             } else {
                 // ユーザーが見つからない場合のレスポンス
